@@ -1,28 +1,34 @@
 GameStateManager gameStateManager;
 
-void setup(){
+void setup() {
   fullScreen();
   gameStateManager = new GameStateManager();
   gameStateManager.setupManager();
 }
 
-void draw(){
+void draw() {
   background(255);
   gameStateManager.manage();
 }
 
-void mousePressed(){
-  
+void mousePressed() {
 }
 
-void mouseReleased(){
-  
+void mouseReleased() {
 }
 
-void keyPressed(){
-  if (key == ' ') 
+void mouseClicked() {
+  for (TextBox t : textBoxes) t.pressed(mouseX, mouseY);
 }
 
-void keyReleased(){
-  
+void keyPressed() {
+  if (key == ' ') gamestate++;
+
+  for (Player p : players) p.keyPress();
+
+  for (TextBox t : textBoxes) t.keyWasTyped(key, (int)keyCode);
+}
+
+void keyReleased() {
+  for (Player p : players) p.keyRelease();
 }
