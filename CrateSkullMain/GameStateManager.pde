@@ -21,9 +21,9 @@ class GameStateManager {
     p1 = new Player(new PVector(width/2-100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd', 100, 3);
     players.add(p1);
     p2 = new Player(new PVector(width/2+100, height/2), color(0, 0, 255), 38, 40, 37, 39, 100, 3);
-    players.add(p2);
+    //players.add(p2);
     pz = new Player(new PVector(width/2+100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd', 100, 6);
-    players.add(pz);
+    //players.add(pz);
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
