@@ -5,11 +5,11 @@ class Player {
   boolean up, down, left, right;
   float theta = 0;
   color col;
-  int currentHealth;
-  int maxHealth;
+  int currentHealth, maxHealth;
+  int visible;
 
   //player constructor
-  Player(PVector p, color c, int u, int d, int l, int r, int maxHealth) {
+  Player(PVector p, color c, int u, int d, int l, int r, int maxHealth, int v) {
     pos = p;
     col = c;
     upKey = u;
@@ -18,6 +18,7 @@ class Player {
     rightKey = r;
     this.maxHealth = maxHealth;
     currentHealth = this.maxHealth;
+    visible = v;
   }
 
   void keyPress() {
@@ -33,8 +34,8 @@ class Player {
     if (keyCode == leftKey || key == leftKey) left = false;
     if (keyCode == rightKey || key == rightKey) right = false;
   }
-  
-  void move(){
+
+  void move() {
     if (up) {
       dir = 0;
       if (right) dir = 1;
@@ -56,7 +57,7 @@ class Player {
       if (down) dir = 5;
     }
   }
-  
+
   void update() {
     move();
     theta = 2*dir*PI/8-PI/2;
@@ -65,8 +66,8 @@ class Player {
     pos.add(vel);
     vel.mult(0);
   }
-  
-  PVector getPos(){
+
+  PVector getPos() {
     return pos;
   }
 
@@ -74,13 +75,13 @@ class Player {
     pushMatrix();
     translate(pos.x, pos.y);
     stroke(0);
-    fill(255,0,0);
-    rect(-maxHealth/2,-70,maxHealth, 20);
-    
+    fill(255, 0, 0);
+    rect(-maxHealth/2, -70, maxHealth, 20);
+
     fill(col);        
-    
+
     rect(-maxHealth/2, -70, currentHealth, 20);
-    
+
     rotate(theta);
     //rect(-25, -25, 50, 50);
     circle(0, 0, 50);
@@ -90,7 +91,9 @@ class Player {
   }
 
   void run() {
-    update();
-    display();
+    if (visible == gamestate) {
+      update();
+      display();
+    }
   }
 }
