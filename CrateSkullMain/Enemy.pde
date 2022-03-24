@@ -13,7 +13,7 @@ class Enemy {
 
   void trackPlayer() {
     attackRate = sin(frameCount/60);
-    playerPos = player.getPos();
+    //playerPos = player.getPos();
 
     if (playerPos.x - pos.x > 1) {
       right = true;

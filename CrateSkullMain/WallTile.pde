@@ -2,6 +2,7 @@ class WallTile {
   PVector pos;
   int size;
   ArrayList<PVector> playerPos;
+  boolean loaded;
 
   WallTile(PVector p, int s) {
     pos = p;
@@ -65,6 +66,13 @@ class WallTile {
 
 
   void update() {
+    for (PVector p : playerPos) {
+      if (dist(p.x, p.y, pos.x, pos.y) < 150) {
+        loaded = true;
+      } else {
+        loaded = false;
+      }
+    }
   }
 
   void display() {

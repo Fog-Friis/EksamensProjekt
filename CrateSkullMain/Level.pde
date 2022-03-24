@@ -1,5 +1,6 @@
 class Level {
   ArrayList<WallTile> wallTiles;
+  ArrayList<WallTile> loadedTiles;
 
   int seed;
   int visible;
@@ -9,6 +10,7 @@ class Level {
     seed = s;
     visible = v;
     wallTiles = new ArrayList<WallTile>();
+    loadedTiles = new ArrayList<WallTile>();
     addTiles();
   }
 
@@ -39,22 +41,34 @@ class Level {
   }
 
   void update() {
-    for (WallTile w : wallTiles) {
-      for (Player p : players) {
-        if (w.collision(p.pos)) {
-          p.vel.mult(0);
-          if (w.isUp(p.pos)) {
-            p.pos.y = w.pos.y - 25;
-          } else if (w.isDown(p.pos)) {
-            p.pos.y = w.pos.y+40+25;
-          }
-          if (w.isLeft(p.pos)) {
-            p.pos.x = w.pos.x-25;
-          } else if (w.isRight(p.pos)) {
-            p.pos.x = w.pos.x+40+25;
-          }
+    if (frameCount%10==0){
+      loadedTiles.clear();
+      println(loadedTiles);
+      
+      for (WallTile w : wallTiles){
+        if (w.loaded){
+          loadedTiles.add(w);
         }
       }
+    }
+    println(loadedTiles);
+    
+    for (WallTile w : loadedTiles) {
+        for (Player p : players) {
+          if (w.collision(p.pos)) {
+            p.vel.mult(0);
+            if (w.isUp(p.pos)) {
+              p.pos.y = w.pos.y - 25;
+            } else if (w.isDown(p.pos)) {
+              p.pos.y = w.pos.y+40+25;
+            }
+            if (w.isLeft(p.pos)) {
+              p.pos.x = w.pos.x-25;
+            } else if (w.isRight(p.pos)) {
+              p.pos.x = w.pos.x+40+25;
+            }
+          }
+        }
     }
   }
 
