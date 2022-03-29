@@ -29,9 +29,9 @@ class GameStateManager {
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
 
-    lvl1 = new Level(0, 3);
+    lvl1 = new Level(0, 3, 40);
     levels.add(lvl1);
-    lvl2 = new Level(0, 6);
+    lvl2 = new Level(0, 6, 40);
     levels.add(lvl2);
   }
 
