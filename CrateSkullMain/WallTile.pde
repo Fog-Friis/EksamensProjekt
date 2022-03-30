@@ -5,7 +5,7 @@ class WallTile {
   boolean loaded;
 
   WallTile(int i, int j, int s) {
-    pos = new PVector(i*s, j*s);
+    pos = new PVector(i, j);
     size = s;
     playerPos = new ArrayList<PVector>();
 

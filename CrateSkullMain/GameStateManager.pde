@@ -2,8 +2,12 @@ int gamestate;
 ArrayList<Player> players;
 Player p1, p2, pz;
 
+ArrayList<EnemyManager> EnemyManagers;
+
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
+
+ArrayList<PVector> spawns;
 
 ArrayList<Level> levels;
 Level lvl1, lvl2;
@@ -12,8 +16,10 @@ class GameStateManager {
 
   GameStateManager() {
     gamestate = 0;
+    EnemyManagers = new ArrayList<EnemyManager>();
     players = new ArrayList<Player>();
-    textBoxes = new ArrayList<TextBox>();    
+    textBoxes = new ArrayList<TextBox>();   
+    spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
 
@@ -23,15 +29,17 @@ class GameStateManager {
     p2 = new Player(new PVector(width/2+100, height/2), color(0, 0, 255), 38, 40, 37, 39, 100, 3);
     //players.add(p2);
     pz = new Player(new PVector(width/2+100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd', 100, 6);
-    //players.add(pz);
+    players.add(pz);
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
+    
+    spawns.add(new PVector(width/2,height/2));
 
-    lvl1 = new Level(0, 3, 40);
+    lvl1 = new Level(170, 3, 40);
     levels.add(lvl1);
-    lvl2 = new Level(0, 6, 40);
+    lvl2 = new Level(2501, 6, 40);
     levels.add(lvl2);
   }
 
@@ -127,6 +135,8 @@ class GameStateManager {
   void survivalScreen() {
     fill(0);
     fill(255);
+    EnemyManagers.add(new EnemyManager(2, 1, 360, 360, spawns));
+    for (EnemyManager e : EnemyManagers) e.update();
   }
 
   void survivalGameOver() {

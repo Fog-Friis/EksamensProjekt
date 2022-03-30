@@ -2,6 +2,7 @@ class ShooterEnemy extends Enemy {
   ArrayList<Bullet> bullets;
   float time, nextAttackTime = 0.5;
   float phi;
+  int life;
   boolean stand = false;
 
   ShooterEnemy(PVector p) {
