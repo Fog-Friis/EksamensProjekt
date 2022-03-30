@@ -71,7 +71,8 @@ class WallTile {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(0);
+    noStroke();
+    fill(150);
     rect(0, 0, size, size);
     fill(255);
     popMatrix();

@@ -24,7 +24,7 @@ class ShooterEnemy extends Enemy {
       }
     }
 
-    if (millis() > time+nextAttackTime*1000) {
+    if (millis() > time+nextAttackTime*1000 && stand) {
       shoot();
       time = millis();
     }
@@ -46,10 +46,7 @@ class ShooterEnemy extends Enemy {
         move();
       }
     }
-
-    if (stand) {
       attack();
-    }
     vel.mult(0);
   }
 
@@ -60,6 +57,7 @@ class ShooterEnemy extends Enemy {
     circle(-25, -25, 50);
     translate(0, 0);
     popMatrix();
+    println(bullets.size());
   }
 
   void run() {
@@ -82,7 +80,6 @@ class Bullet {
     radius = r;
     col = c;
     vel = new PVector(cos(theta)*6, sin(theta)*6);
-    println("spawned bullet");
   }
 
   boolean isDead() {
