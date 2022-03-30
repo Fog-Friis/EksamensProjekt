@@ -1,6 +1,6 @@
 class ShooterEnemy extends Enemy {
   ArrayList<Bullet> bullets;
-  float time, nextAttackTime = 0.5;
+  float time, nextAttackTime = 5;
   float phi;
   int life;
   boolean stand = false;
@@ -41,9 +41,9 @@ class ShooterEnemy extends Enemy {
     attackRate = sin(frameCount/30+attackDisplacement);
 
     if (attackRate < 0.2) {
-      trackPlayer();      
+      //trackPlayer();      
       if (!stand) {
-        move();
+        //move();
       }
     }
       attack();

@@ -12,7 +12,7 @@ class Enemy {
     attackDisplacement = random(0, 5);
   }
 
-  void trackPlayer() {
+  /*void trackPlayer() {
     attackRate = sin(frameCount/60);
     //playerPos = player.getPos();
 
@@ -36,9 +36,9 @@ class Enemy {
       up = false;
       down = false;
     }
-  }
+  }*/
 
-  void move() {
+  /*void move() {
     if (up) {
       dir = 0;
       if (right) dir = 1;
@@ -62,14 +62,15 @@ class Enemy {
     theta = 2*dir*PI/8-PI/2;
     vel = new PVector(3*cos(theta), 3*sin(theta));    
     pos.add(vel);
-  }
+    vel.mult(0);
+  }*/
 
   void update() {    
     attackRate = sin(frameCount/30+attackDisplacement);
 
     if (attackRate < 0.2) {
-      trackPlayer();
-      move();
+      //trackPlayer();
+      //move();
     }
 
     vel.mult(0);

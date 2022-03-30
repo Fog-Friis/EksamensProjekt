@@ -22,6 +22,7 @@ class EnemyManager {
       Enemies.add(new Enemy(SpawnPoints.get(int(random(0, SpawnPoints.size())))));
       EnemySpawned += 1;
       nextEnemySpawn = millis() + EnemySpawnRate;
+      println(EnemyCount, EnemySpawned);
     }
 
     //ShooterEnemy spawn with inteval
