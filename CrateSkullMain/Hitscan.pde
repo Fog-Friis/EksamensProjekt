@@ -13,7 +13,7 @@ void shoot() {
      currentBullets -=1; 
     //  pos = Player.pos.x;
     // dir = Player.dir;
-  for (int i = 0; hit== i < maxdistance;  i+= minDistance) {
+  for (int i = minDistance; hit== i < maxdistance;  i+= minDistance) {
   
   
   
