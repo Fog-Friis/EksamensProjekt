@@ -2,6 +2,7 @@ class Enemy {
   PVector pos, vel = new PVector();
   boolean up, down, left, right;
   int dir;
+  int life;
   float theta;
   float attackRate, attackDisplacement;
   PVector playerPos = new PVector();
@@ -86,7 +87,6 @@ class Enemy {
 
   void run() {
     update();
-
     display();
   }
 }

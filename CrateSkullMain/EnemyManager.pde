@@ -3,9 +3,9 @@ class EnemyManager {
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
-  ArrayList<PVector> SpawnPoints;
-  ArrayList<Enemy> Enemies;
-  ArrayList<ShooterEnemy> ShooterEnemies;
+  ArrayList<PVector> SpawnPoints = new ArrayList<PVector>();
+  ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
+  ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
   EnemyManager(int e, int s, float eR, float sR, ArrayList<PVector> sp) {
     EnemyCount = e;
@@ -30,5 +30,8 @@ class EnemyManager {
       ShooterEnemySpawned += 1;
       nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
     }
+    for (Enemy e : Enemies) e.run();
+    for (ShooterEnemy e : ShooterEnemies) e.run();
+    
   }
 }
