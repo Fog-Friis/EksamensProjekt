@@ -11,7 +11,9 @@ class Enemy {
     pos = p;
     attackDisplacement = random(0, 5);
   }
-
+    //pathfinding algorithme med sample algorithm    
+    void trackPlayer(){
+    }
   /*void trackPlayer() {
     attackRate = sin(frameCount/60);
     //playerPos = player.getPos();
