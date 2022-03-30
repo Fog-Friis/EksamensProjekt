@@ -23,10 +23,29 @@ class Level {
 
   //skal bruge seed til at generere bane
   void addTiles() {
-    randomSeed(seed);
+    //randomSeed(seed);
     for (int j=0; j < rows; j++) {
       for (int i=0; i < columns; i++) {
-            int type = int(random(0,8));
+        //int type = int(random(0,8));
+        int type = 0;
+
+        if (j == 0) {
+          if (i == 0) type = 6;
+          if (i > 0) type = 2;
+          if (i == columns - 1) type = 7;
+        }
+
+        if (j == 1) {
+          if (i == 0) type = 1;
+          if (i > 0) type = 0;
+          if (i == columns - 1) type = 3;
+        }
+
+        if (j == 2) {
+          if (i == 0) type = 5;
+          if (i > 0) type = 4;
+          if (i == columns - 1) type = 8;
+        }
         levelTiles.add(new LevelTile(i*cellSize*8, j*cellSize*9, cellSize, type, true, false));
       }
     }
@@ -72,7 +91,7 @@ class LevelTile {
   }
 
   void addWallTiles() {
-    
+
     for (int i = 0; i < tileRows; i++) {
       for (int j = 0; j < tileColumns; j++) {
         switch(type) {           
