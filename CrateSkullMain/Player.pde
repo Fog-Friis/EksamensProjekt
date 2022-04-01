@@ -1,21 +1,22 @@
 class Player {
   PVector pos, vel = new PVector();
-  int upKey, downKey, leftKey, rightKey;
+  int upKey, downKey, leftKey, rightKey, shootKey;
   int dir;
-  boolean up, down, left, right;
+  boolean up, down, left, right, shoot;
   float theta = 0;
   color col;
   int currentHealth, maxHealth;
   int visible;
 
   //player constructor
-  Player(PVector p, color c, int u, int d, int l, int r, int maxHealth, int v) {
+  Player(PVector p, color c, int u, int d, int l, int r, int q, int maxHealth, int v) {
     pos = p;
     col = c;
     upKey = u;
     downKey = d;
     leftKey = l;
     rightKey = r;
+    shootKey = q;
     this.maxHealth = maxHealth;
     currentHealth = this.maxHealth;
     visible = v;
@@ -26,6 +27,7 @@ class Player {
     if (keyCode == downKey || key ==  downKey) down = true;
     if (keyCode == leftKey || key == leftKey) left = true;
     if (keyCode == rightKey || key == rightKey) right = true;
+    
   }
 
   void keyRelease() {
@@ -33,6 +35,7 @@ class Player {
     if (keyCode == downKey || key == downKey) down = false;
     if (keyCode == leftKey || key == leftKey) left = false;
     if (keyCode == rightKey || key == rightKey) right = false;
+    if (keyCode == shootKey || key == shootKey) pzpistol.shoot(); 
   }
 
   void move() {

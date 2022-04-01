@@ -1,19 +1,25 @@
+Pistol pzpistol, p1pistol, p2pistol;
 class Pistol { 
 int dir;
 PVector pos = new PVector();
 int posx, posy;
 int maxDistance=width;  
 boolean hit=false;
-int maxBullets, currentBullets;
+int maxBullets=20, currentBullets=20;
 int minDistance = 1, yDistance, xDistance;
 color c;
+float firerate;
+
+
 
 void shoot() {
+  
    if (currentBullets>0){
-     currentBullets -=1; 
-      // player.getPos();
-       //pos = Player.pos;
-      // dir = Player.dir;
+     //Ændre senere til playerene der skyder
+     currentBullets -=1;
+     pos = pz.pos;
+     dir = pz.dir;
+      
          switch(dir) {
       case 0:
       yDistance = minDistance;
@@ -51,17 +57,24 @@ void shoot() {
       for (int i = minDistance; hit== i < maxDistance;  i+= minDistance) {
       pos.y += yDistance;
       pos.x += xDistance;
-      c = get(pos.x, pos.y);
-      if ((c == (255, 0, 10)) || c == (155))  {
-        if (c == (255, 0, 10) {
+      int posx = (int) pos.x;
+      int posy = (int) pos.x;
+      
+      c = get(posx,posy);
+      println(c);
+      if ((c == -65526) //RGB(255,0,10)
+      || c == (6579301))   { //RGB(155)
+        if (c == (-65526)) { //RGB(255,0,10)
          hit  = true;
+         break;
       }
       }
           else break;
       }
   if (hit==true){
-    println("shot at distance ");
-    break;
+    println("pew pew");
+    println(pos);
+    //Attack hit and deals damage
   }
 else{
   println("no more ammo");
