@@ -35,6 +35,7 @@ class GameStateManager {
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
     
+    EnemyManagers.add(new EnemyManager(2, 1, 360, 360, spawns, 6));
     spawns.add(new PVector(width/2,height/2));
 
     lvl1 = new Level(170, 3, 40);
@@ -135,8 +136,7 @@ class GameStateManager {
   void survivalScreen() {
     fill(0);
     fill(255);
-    EnemyManagers.add(new EnemyManager(2, 1, 360, 360, spawns));
-    for (EnemyManager e : EnemyManagers) e.update();
+    for (EnemyManager e : EnemyManagers) e.run();
   }
 
   void survivalGameOver() {
