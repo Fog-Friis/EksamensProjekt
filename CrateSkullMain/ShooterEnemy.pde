@@ -100,7 +100,7 @@ class Bullet {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(col);
+    fill(255, 0, 10);
     circle(-radius, -radius, radius*2);
     translate(0, 0);
     popMatrix();

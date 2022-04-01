@@ -81,7 +81,7 @@ class Enemy {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 0, 0);
+    fill(255, 0, 10);
     rotate(theta);
     rect(-20, -20, 40, 40);
     translate(0, 0);
