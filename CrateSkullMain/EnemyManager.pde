@@ -1,19 +1,21 @@
 class EnemyManager {
   int EnemyCount, ShooterEnemyCount;
   int EnemySpawned, ShooterEnemySpawned;
+  int visible;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
   ArrayList<PVector> SpawnPoints = new ArrayList<PVector>();
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
-  EnemyManager(int e, int s, float eR, float sR, ArrayList<PVector> sp) {
+  EnemyManager(int e, int s, float eR, float sR, ArrayList<PVector> sp, int v) {
     EnemyCount = e;
     ShooterEnemyCount = s;
     EnemySpawnRate = eR;
     ShooterEnemySpawnRate = sR;
     //Escalation = esc;
     SpawnPoints = sp;
+    visible = v;
   }
 
   void update() {
@@ -33,6 +35,11 @@ class EnemyManager {
     }
     for (Enemy e : Enemies) e.run();
     for (ShooterEnemy e : ShooterEnemies) e.run();
-    
+  }
+  
+  void run(){
+   if(visible == gamestate){
+     update();
+   }
   }
 }
