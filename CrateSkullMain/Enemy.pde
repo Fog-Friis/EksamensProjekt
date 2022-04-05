@@ -13,6 +13,8 @@ class Enemy {
   ArrayList<Vertex> openSet, closedSet;
   Vertex start, end;
   ArrayList<Vertex> path;
+  
+  ArrayList<PVector> points;
 
   Enemy(PVector p) {
     pos = p;
@@ -42,7 +44,9 @@ class Enemy {
     openSet.add(start);
 
     path = new ArrayList<Vertex>();
+    points = new ArrayList<PVector>();
     trackPlayer();
+    addPoints();
   }
 
   //pathfinding algorithme med a* algorithm    
@@ -103,28 +107,38 @@ class Enemy {
     }
   }
 
-  void followPath() {
-    //path starter tættest på slut og går mod start
-    PVector tilePos = new PVector();
-    
-    if (path.size() > 0) tilePos = new PVector(path.get(path.size()-1).i, path.get(path.size()-1).j);    
-    
-    for (int i = path.size()-1; i > 0; i--) {
-      if ( dist(pos.x, pos.y, tilePos.x, tilePos.y)<5) {
-        path.remove(i);
-      }
+    void addPoints(){
+    for (int i = path.size()-1; i > 0; i--){
+      points.add(new PVector(path.get(i).i*40+20, path.get(i).j*40+20));
     }
   }
 
-  void move() {
-   }
+  void move(PVector startPoint, PVector endPoint) {
+    float theta = atan2(startPoint.y-endPoint.y, startPoint.x-endPoint.x)+PI;
+    vel = new PVector(cos(theta)*6, sin(theta)*6);
+  }
 
-  void update() {    
-    attackRate = sin(frameCount/30+attackDisplacement);
-    followPath();
-    move();
-
+  boolean moved(PVector endpoint) {
+    if (dist(pos.x, pos.y, endpoint.x, endpoint.y)<5) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+    void update(){
+      //addPoints();
+    if (points.size() > 1){
+    if (!moved(points.get(1))){
+    move(points.get(0), points.get(1));
+    } else {
+      points.remove(0);
+      path.remove(path.size()-1);
+    }
+    
+    pos.add(vel);
     vel.mult(0);
+    }
   }
 
   void display() {
@@ -165,10 +179,6 @@ class Vertex {
     h = 0;
     neighbors = new ArrayList<Vertex>();
     wall = false;
-
-    if (random(1) < 0.2) {
-      wall = true;
-    }
   }
 
   void addNeighbors(Vertex[][] g) {
