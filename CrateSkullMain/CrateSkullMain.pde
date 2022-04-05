@@ -4,6 +4,8 @@ void setup() {
   fullScreen();
   gameStateManager = new GameStateManager();
   gameStateManager.setupManager();
+  cols = width/40;
+  rows = height/40;
 }
 
 void draw() {

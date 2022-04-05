@@ -1,3 +1,5 @@
+int cols, rows;
+
 class Enemy {
   PVector pos, vel = new PVector();
   boolean up, down, left, right;
@@ -7,73 +9,120 @@ class Enemy {
   float attackRate, attackDisplacement;
   PVector playerPos = new PVector();
 
+  Vertex[][] grid;
+  ArrayList<Vertex> openSet, closedSet;
+  Vertex start, end;
+  ArrayList<Vertex> path;
+
   Enemy(PVector p) {
     pos = p;
     attackDisplacement = random(0, 5);
+
+    grid = new Vertex[cols][rows];    
+
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        grid[i][j] = new Vertex(i, j);
+      }
+    }
+
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        grid[i][j].addNeighbors(grid);
+      }
+    }
+
+    openSet = new ArrayList<Vertex>();
+    closedSet = new ArrayList<Vertex>();
+
+    start = grid[int(pos.x/40)][int(pos.y/40)];
+    //lige nu nederst til højre, skal være playerens position.
+    end = grid[cols-2][rows-2];
+
+    openSet.add(start);
+
+    path = new ArrayList<Vertex>();
+    trackPlayer();
   }
-    //pathfinding algorithme med sample algorithm    
-    void trackPlayer(){
-    }
-  /*void trackPlayer() {
-    attackRate = sin(frameCount/60);
-    //playerPos = player.getPos();
 
-    if (playerPos.x - pos.x > 1) {
-      right = true;
-      left = false;
-    } else if (playerPos.x - pos.x < -1) {
-      left = true;
-      right = false;
-    } else {
-      right = false;
-      left = false;
-    }
-    if (playerPos.y - pos.y > 1) {
-      down = true;
-      up = false;
-    } else if (playerPos.y - pos.y < -1) {      
-      up = true;
-      down = false;
-    } else {
-      up = false;
-      down = false;
-    }
-  }*/
+  //pathfinding algorithme med a* algorithm    
+  void trackPlayer() {
+    while (openSet.size() > 0) {
+      //keep going
+      int lowestIndex = 0;
 
-  /*void move() {
-    if (up) {
-      dir = 0;
-      if (right) dir = 1;
-      if (left) dir = 7;
+      for (int i = 0; i < openSet.size(); i++) {
+        if (openSet.get(i).f < openSet.get(lowestIndex).f) {
+          lowestIndex = i;
+        }
+      }
+      Vertex current = openSet.get(lowestIndex);
+
+      if (current == end) {
+        //find path
+        Vertex temp = current;
+        path.add(temp);
+        while (temp.cameFrom != null) {
+          path.add(temp.cameFrom);
+          temp = temp.cameFrom;
+        }
+
+        //println("done");
+        break;
+      }
+
+      openSet.remove(current);
+      closedSet.add(current);
+
+      ArrayList<Vertex> neighbors = current.neighbors;
+      for (int i = 0; i < neighbors.size(); i++) {
+        Vertex neighbor = neighbors.get(i);
+
+        if (!closedSet.contains(neighbor) && !neighbor.wall) {
+          float tempG = current.g+1;
+
+          boolean newPath = false;
+          if (openSet.contains(neighbor)) {
+            if (tempG < neighbor.g) {
+              neighbor.g = tempG;
+              newPath = true;
+            }
+          } else {
+            neighbor.g = tempG;
+            newPath = true;
+            openSet.add(neighbor);
+          }
+
+          if (newPath) {
+            neighbor.h = heuristic(neighbor, end);
+            neighbor.f = neighbor.g + neighbor.f;
+            neighbor.cameFrom = current;
+          }
+        }
+      }
     }
-    if (right) {
-      dir = 2;
-      if (up) dir = 1;
-      if (down) dir = 3;
+  }
+
+  void followPath() {
+    //path starter tættest på slut og går mod start
+    PVector tilePos = new PVector();
+    
+    if (path.size() > 0) tilePos = new PVector(path.get(path.size()-1).i, path.get(path.size()-1).j);    
+    
+    for (int i = path.size()-1; i > 0; i--) {
+      if ( dist(pos.x, pos.y, tilePos.x, tilePos.y)<5) {
+        path.remove(i);
+      }
     }
-    if (down) {
-      dir = 4;
-      if (right) dir = 3;
-      if (left) dir = 5;
-    }
-    if (left) {
-      dir = 6;
-      if (up) dir = 7;
-      if (down) dir = 5;
-    }
-    theta = 2*dir*PI/8-PI/2;
-    vel = new PVector(3*cos(theta), 3*sin(theta));    
-    pos.add(vel);
-    vel.mult(0);
-  }*/
+  }
+
+  void move() {
+   }
 
   void update() {    
     attackRate = sin(frameCount/30+attackDisplacement);
-
-    if (attackRate < 0.2) {
-      //trackPlayer();
-      //move();
-    }
+    followPath();
+    move();
 
     vel.mult(0);
   }
@@ -91,5 +140,47 @@ class Enemy {
   void run() {
     update();
     display();
+  }
+}
+
+float heuristic(Vertex a, Vertex b) {
+  float d = dist(a.i, a.j, b.i, b.j);
+  //float d = abs(a.i-b.i) + abs(a.j-b.j);  
+  return d;
+}
+
+class Vertex {
+  int i, j;
+  float f, g, h;
+  boolean wall;
+
+  ArrayList<Vertex> neighbors;
+  Vertex cameFrom;
+
+  Vertex(int i, int j) {
+    this.i = i;
+    this.j = j;
+    f = 0;
+    g = 0;
+    h = 0;
+    neighbors = new ArrayList<Vertex>();
+    wall = false;
+
+    if (random(1) < 0.2) {
+      wall = true;
+    }
+  }
+
+  void addNeighbors(Vertex[][] g) {
+    int i = this.i;
+    int j = this.j;
+    if (i < cols-1)               neighbors.add(g[i+1][j]);
+    if (i > 0)                    neighbors.add(g[i-1][j]);    
+    if (j < rows - 1)             neighbors.add(g[i][j+1]);   
+    if (j > 0)                    neighbors.add(g[i][j-1]);
+    if (i > 0 && j > 0)           neighbors.add(g[i-1][j-1]);
+    if (i < cols-1 && j > 0)      neighbors.add(g[i+1][j-1]);
+    if (i > 0 && j < rows-1)      neighbors.add(g[i-1][j+1]);
+    if (i < cols-1 && j < rows-1) neighbors.add(g[i+1][j+1]);
   }
 }
