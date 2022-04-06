@@ -13,8 +13,10 @@ class Enemy {
   ArrayList<Vertex> openSet, closedSet;
   Vertex start, end;
   ArrayList<Vertex> path;
-  
+
   ArrayList<PVector> points;
+
+  float nextFindTime = 5*60, pathFindRate = 5*60;
 
   Enemy(PVector p) {
     pos = p;
@@ -107,8 +109,20 @@ class Enemy {
     }
   }
 
-    void addPoints(){
-    for (int i = path.size()-1; i > 0; i--){
+  void findNewPath() {
+    closedSet.clear();
+    openSet.clear();
+    path.clear();
+    points.clear();
+    start = grid[int(pos.x/40)][int(pos.y/40)];
+    end = grid[int(pz.pos.x/40)][int(pz.pos.y/40)];
+    openSet.add(start);
+    //trackPlayer();
+    addPoints();
+  }
+
+  void addPoints() {
+    for (int i = path.size()-1; i > 0; i--) {
       points.add(new PVector(path.get(i).i*40+20, path.get(i).j*40+20));
     }
   }
@@ -126,18 +140,25 @@ class Enemy {
     }
   }
   
-    void update(){
-      //addPoints();
-    if (points.size() > 1){
-    if (!moved(points.get(1))){
-    move(points.get(0), points.get(1));
-    } else {
-      points.remove(0);
-      path.remove(path.size()-1);
+  //boolean bruh;
+  
+  void update() {
+    if (nextFindTime <= frameCount) {
+      /*bruh = !bruh;
+      println(bruh);*/
+      findNewPath();
+      nextFindTime = frameCount + pathFindRate;      
     }
-    
-    pos.add(vel);
-    vel.mult(0);
+    if (points.size() > 1) {
+      if (!moved(points.get(1))) {
+        move(points.get(0), points.get(1));
+      } else {
+        points.remove(0);
+        path.remove(path.size()-1);
+      }
+
+      pos.add(vel);
+      vel.mult(0);
     }
   }
 
