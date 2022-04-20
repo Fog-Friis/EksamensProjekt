@@ -9,121 +9,184 @@ class Enemy {
   float attackRate, attackDisplacement;
   PVector playerPos = new PVector();
 
-  Vertex[][] grid;
-  ArrayList<Vertex> openSet, closedSet;
-  Vertex start, end;
-  ArrayList<Vertex> path;
+  int[][] grid;
+  int start, end;
+
+  ArrayList openSet;
+  ArrayList closedSet;
+  ArrayList vertices;
+  ArrayList path;
 
   ArrayList<PVector> points;
 
-  float nextFindTime = 5*60, pathFindRate = 5*60;
+  float x1, x2, y1, y2;
+  float nextFindTime = 1000, findRate = 1000;
 
   Enemy(PVector p) {
     pos = p;
     attackDisplacement = random(0, 5);
 
-    grid = new Vertex[cols][rows];    
-
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        grid[i][j] = new Vertex(i, j);
-      }
-    }
-
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        grid[i][j].addNeighbors(grid);
-      }
-    }
-
-    openSet = new ArrayList<Vertex>();
-    closedSet = new ArrayList<Vertex>();
-
-    start = grid[int(pos.x/40)][int(pos.y/40)];
-    //lige nu nederst til højre, skal være playerens position.
-    end = grid[cols-2][rows-2];
-
-    openSet.add(start);
-
-    path = new ArrayList<Vertex>();
+    vel = new PVector();
     points = new ArrayList<PVector>();
-    trackPlayer();
-    addPoints();
+
+    openSet = new ArrayList();
+    closedSet = new ArrayList();
+    vertices = new ArrayList();
+    path = new ArrayList();
+
+    grid = new int[height/40][width/40];
+    generateMap();
+  }
+  void generateMap() {
+    int q;
+    Vertex v;
+    for ( int ix = 0; ix < width/40.0; ix+=1 ) {
+      for ( int iy = 0; iy < height/40.0; iy+=1) {
+        grid[iy][ix] = 1;
+        for (LevelTile l : lvl2.levelTiles) {
+          for (WallTile w : l.wallTiles) {
+            grid[int(w.pos.y/40)][int(w.pos.x/40)]=-1;
+          }
+        }
+        if (grid[iy][ix] != -1) {
+          vertices.add(new Vertex(ix*40, iy*40));
+          grid[iy][ix] = vertices.size()-1;
+          if (ix>0) {
+            if (grid[iy][ix-1]!=-1) {
+              v = (Vertex)vertices.get(vertices.size()-1);
+              float cost = random(0.25, 2);
+              v.addNeighbor((Vertex)vertices.get(grid[iy][ix-1]), cost);
+              ((Vertex)vertices.get(grid[iy][ix-1])).addNeighbor(v, cost);
+            }
+          }
+          if (iy>0) {
+            if (grid[iy-1][ix]!=-1) {
+              v = (Vertex)vertices.get(vertices.size()-1);
+              float cost = random(0.25, 2);
+              v.addNeighbor((Vertex)vertices.get(grid[iy-1][ix]), cost); 
+              ((Vertex)vertices.get(grid[iy-1][ix])).addNeighbor(v, cost);
+            }
+          }
+        }
+      }
+    }
   }
 
-  //pathfinding algorithme med a* algorithm    
-  void trackPlayer() {
-    while (openSet.size() > 0) {
-      //keep going
-      int lowestIndex = 0;
+  boolean astar(int iStart, int iEnd) {
+    float endX, endY;
+    endX = ((Vertex)vertices.get(iEnd)).x;
+    endY = ((Vertex)vertices.get(iEnd)).y;
 
+    openSet.clear();
+    closedSet.clear();
+    path.clear();
+
+    openSet.add((Vertex)vertices.get(iStart));
+    ((Vertex)openSet.get(0)).p = -1;
+    ((Vertex)openSet.get(0)).g = 0;
+    ((Vertex)openSet.get(0)).h = heuristic(((Vertex)openSet.get(0)).x, ((Vertex)openSet.get(0)).y, endX, endY);
+
+    Vertex current;
+    float tentG;
+    boolean tentIsPog;
+    float min = 999999999;
+    int lowestIndex = -1;
+
+    while (openSet.size() > 0) {
+      min = 999999999;
       for (int i = 0; i < openSet.size(); i++) {
-        if (openSet.get(i).f < openSet.get(lowestIndex).f) {
+        if (((Vertex)openSet.get(i)).g + ((Vertex)openSet.get(i)).h <= min) {
+          min = ((Vertex)openSet.get(i)).g + ((Vertex)openSet.get(i)).h;
           lowestIndex = i;
         }
       }
-      Vertex current = openSet.get(lowestIndex);
+      current = (Vertex)openSet.get(lowestIndex);
 
-      if (current == end) {
-        //find path
-        Vertex temp = current;
-        path.add(temp);
-        while (temp.cameFrom != null) {
-          path.add(temp.cameFrom);
-          temp = temp.cameFrom;
+      if (current.x == endX && current.y == endY) {
+        Vertex v = (Vertex)openSet.get(lowestIndex);
+        while (v.p != -1) {
+          path.add(v);
+          v = (Vertex)vertices.get(v.p);
+        }
+        return true;
+      }
+      closedSet.add( (Vertex)openSet.get(lowestIndex));
+      openSet.remove(lowestIndex);
+      for (int i = 0; i < current.neighbors.size(); i++) {
+        if (closedSet.contains( (Vertex)current.neighbors.get(i))) {
+          continue;
+        }
+        tentG = current.g + heuristic(current.x, current.y, ((Vertex)current.neighbors.get(i)).x, ((Vertex)current.neighbors.get(i)).y)*(Float)current.cost.get(i);
+        if (!openSet.contains((Vertex)current.neighbors.get(i))) {
+          openSet.add( (Vertex)current.neighbors.get(i));
+          tentIsPog = true;
+        } else if (tentG < ((Vertex)current.neighbors.get(i)).g) {
+          tentIsPog = true;
+        } else {
+          tentIsPog = false;
         }
 
-        //println("done");
-        break;
-      }
-
-      openSet.remove(current);
-      closedSet.add(current);
-
-      ArrayList<Vertex> neighbors = current.neighbors;
-      for (int i = 0; i < neighbors.size(); i++) {
-        Vertex neighbor = neighbors.get(i);
-
-        if (!closedSet.contains(neighbor) && !neighbor.wall) {
-          float tempG = current.g+1;
-
-          boolean newPath = false;
-          if (openSet.contains(neighbor)) {
-            if (tempG < neighbor.g) {
-              neighbor.g = tempG;
-              newPath = true;
-            }
-          } else {
-            neighbor.g = tempG;
-            newPath = true;
-            openSet.add(neighbor);
-          }
-
-          if (newPath) {
-            neighbor.h = heuristic(neighbor, end);
-            neighbor.f = neighbor.g + neighbor.f;
-            neighbor.cameFrom = current;
-          }
+        if (tentIsPog) {
+          ((Vertex)current.neighbors.get(i)).p = vertices.indexOf((Vertex)closedSet.get(closedSet.size()-1)); //!!!!
+          ((Vertex)current.neighbors.get(i)).g = tentG;
+          ((Vertex)current.neighbors.get(i)).h = heuristic( ((Vertex)current.neighbors.get(i)).x, ((Vertex)current.neighbors.get(i)).y, endX, endY);
         }
       }
     }
+    return false;
   }
 
   void findNewPath() {
-    closedSet.clear();
-    openSet.clear();
-    path.clear();
+    x1 = pos.x;
+    y1 = pos.y;
+    x2 = pz.pos.x;
+    y2 = pz.pos.y;
+
+    if (grid[int(floor(y1/40))][int(floor(x1/40))]!=-1) {
+      if (start==-1) {
+        start = grid[int(floor(y1/40))][int(floor(x1/40))];
+      } 
+      if (end==-1) {
+        end = grid[int(floor(y2/40))][int(floor(x2/40))];
+        if (end==start) {
+          end = -1;
+        }
+      } else {
+        start = -1;
+        end = -1;
+        path.clear();
+      }
+    }
+
     points.clear();
-    start = grid[int(pos.x/40)][int(pos.y/40)];
-    end = grid[int(pz.pos.x/40)][int(pz.pos.y/40)];
-    openSet.add(start);
-    //trackPlayer();
-    addPoints();
+    pos = new PVector(x1, y1);
+    points.add(new PVector(x1, y1));
+
+    if (start!=-1 && end!=-1) {
+      astar(start, end);
+    }
   }
+
+  void calcNewPath() {
+    /*if (nextFindTime <= millis()) {
+
+      findNewPath();
+      addPoints();
+      points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
+      nextFindTime = millis() + findRate;
+    }*/
+    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y)>30){
+    findNewPath();
+      addPoints();
+      points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
+      nextFindTime = millis() + findRate;
+    }
+  }  
 
   void addPoints() {
     for (int i = path.size()-1; i > 0; i--) {
-      points.add(new PVector(path.get(i).i*40+20, path.get(i).j*40+20));
+      Vertex v = (Vertex)path.get(i);
+      points.add(new PVector(v.x+20, v.y+20));
     }
   }
 
@@ -133,43 +196,64 @@ class Enemy {
   }
 
   boolean moved(PVector endpoint) {
-    if (dist(pos.x, pos.y, endpoint.x, endpoint.y)<5) {
+    if (dist(pos.x, pos.y, endpoint.x, endpoint.y)<8) {
       return true;
     } else {
       return false;
     }
   }
-  
-  //boolean bruh;
-  
-  void update() {
-    if (nextFindTime <= frameCount) {
-      /*bruh = !bruh;
-      println(bruh);*/
-      findNewPath();
-      nextFindTime = frameCount + pathFindRate;      
+
+  Vertex t1;
+  void drawGrid() {
+    for ( int i = 0; i < vertices.size(); i++ ) {
+      t1 = (Vertex)vertices.get(i);
+      if (i==start) {
+        fill(0, 255, 0);
+        //rect(t1.x, t1.y, 40, 40);
+      } else if (i==end) {
+        fill(255, 0, 0);
+        //rect(t1.x, t1.y, 40, 40);
+      } else {
+        if (path.contains(t1)) {
+          fill(255);
+          //rect(t1.x, t1.y, 40, 40);
+        } else {
+          fill(200, 200, 200);
+        }
+      }
+      noStroke();
+      rect(t1.x, t1.y, 40, 40);
     }
-    if (points.size() > 1) {
+  }
+
+  void update() {
+
+    if (points.size() > 1 && path.size() > 1) {
       if (!moved(points.get(1))) {
         move(points.get(0), points.get(1));
       } else {
         points.remove(0);
-        path.remove(path.size()-1);
+        //path.remove(path.size()-1);
       }
 
       pos.add(vel);
       vel.mult(0);
     }
+    calcNewPath();
   }
 
   void display() {
-    pushMatrix();
-    translate(pos.x, pos.y);
-    fill(255, 0, 10);
-    rotate(theta);
-    rect(-20, -20, 40, 40);
-    translate(0, 0);
-    popMatrix();
+    //drawGrid();
+    fill(255, 0, 0);
+    circle(pos.x, pos.y, 40);
+
+    /*for (int i = 0; i < points.size(); i++) {
+     fill(0, 0, 255);
+     circle(points.get(i).x, points.get(i).y, 4);
+     fill(0, 255, 0);
+     textSize(10);
+     text(i, points.get(i).x, points.get(i).y);
+     }*/
   }
 
   void run() {
@@ -178,40 +262,28 @@ class Enemy {
   }
 }
 
-float heuristic(Vertex a, Vertex b) {
-  float d = dist(a.i, a.j, b.i, b.j);
-  //float d = abs(a.i-b.i) + abs(a.j-b.j);  
-  return d;
-}
 
 class Vertex {
-  int i, j;
-  float f, g, h;
-  boolean wall;
-
-  ArrayList<Vertex> neighbors;
-  Vertex cameFrom;
-
-  Vertex(int i, int j) {
-    this.i = i;
-    this.j = j;
-    f = 0;
+  float x, y;
+  float g, h;
+  int p;
+  ArrayList neighbors; //array of node objects, not indecies
+  ArrayList cost; //cost multiplier for each corresponding
+  Vertex(float x, float y) {
+    this.x = x;
+    this.y = y;
     g = 0;
     h = 0;
-    neighbors = new ArrayList<Vertex>();
-    wall = false;
+    p = -1;
+    neighbors = new ArrayList();
+    cost = new ArrayList();
   }
+  void addNeighbor(Vertex v, float cm) {
+    neighbors.add(v);
+    cost.add(new Float(cm));
+  }
+}
 
-  void addNeighbors(Vertex[][] g) {
-    int i = this.i;
-    int j = this.j;
-    if (i < cols-1)               neighbors.add(g[i+1][j]);
-    if (i > 0)                    neighbors.add(g[i-1][j]);    
-    if (j < rows - 1)             neighbors.add(g[i][j+1]);   
-    if (j > 0)                    neighbors.add(g[i][j-1]);
-    if (i > 0 && j > 0)           neighbors.add(g[i-1][j-1]);
-    if (i < cols-1 && j > 0)      neighbors.add(g[i+1][j-1]);
-    if (i > 0 && j < rows-1)      neighbors.add(g[i-1][j+1]);
-    if (i < cols-1 && j < rows-1) neighbors.add(g[i+1][j+1]);
-  }
+float heuristic(float x1, float x2, float y1, float y2) {
+  return sqrt(abs(y2-y1)+abs(x2-x1));
 }

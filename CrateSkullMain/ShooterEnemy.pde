@@ -30,7 +30,7 @@ class ShooterEnemy extends Enemy {
     }
   }
 
-  void update() {    
+  void updateShooter() {    
 
     if (dist(playerPos.x, playerPos.y, pos.x, pos.y)<75) {
       stand = true;
@@ -62,6 +62,7 @@ class ShooterEnemy extends Enemy {
 
   void run() {
     update(); 
+    updateShooter();
     display();
   }
 }
