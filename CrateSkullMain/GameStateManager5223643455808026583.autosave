@@ -2,8 +2,6 @@ int gamestate;
 ArrayList<Player> players;
 Player p1, p2, pz;
 
-EnemyManager EM;
-
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
 
@@ -33,8 +31,7 @@ class GameStateManager {
     textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
-    EM = new EnemyManager();
-    pzpistol = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),0.1,10);
+    
     spawns.add(new PVector(width/2,height/2));
 
     lvl1 = new Level(170, 3, 40);
@@ -135,8 +132,7 @@ class GameStateManager {
   void survivalScreen() {
     fill(0);
     fill(255);
-    killCount = 0;
-    EM.run();
+   // EnemyManager.run();
   }
 
   void survivalGameOver() {

@@ -68,11 +68,6 @@ class Player {
     if (up || down || left || right)  vel = new PVector(5*cos(theta), 5*sin(theta));
     pos.add(vel);
     vel.mult(0);
-    
-     if (shoot == true) {
-      pzpistol.shoot();
-      shoot = false;
-    }
   }
 
   PVector getPos() {

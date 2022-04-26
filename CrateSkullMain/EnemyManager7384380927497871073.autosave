@@ -1,11 +1,13 @@
 class EnemyManager {
- int EnemyCount = 0, ShooterEnemyCount =0;
+
+  int EnemyCount = 0, ShooterEnemyCount =0;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
   ArrayList<PVector> SpawnPoints = new ArrayList<PVector>();
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
+  
 
   void update() {
     //Enemy spawn with inteval
@@ -27,6 +29,8 @@ class EnemyManager {
   }
   
   void run(){
+   if(gamestate == 6){
      update();
+   }
   }
 }
