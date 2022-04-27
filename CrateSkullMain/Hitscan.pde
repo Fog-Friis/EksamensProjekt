@@ -110,11 +110,6 @@ void shoot() {
       }
       
 }
-else if (time < (second())) {}
-else{
-  println("no more ammo");
-
-}
 }
 void switchWP() {
 

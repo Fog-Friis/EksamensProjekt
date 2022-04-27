@@ -124,7 +124,8 @@ class Player {
     rotate(theta);
     //rect(-25, -25, 50, 50);
     circle(0, 0, 50);
-    //rect(-25, 0, 50, 10);
+    fill(128, 128, 128);
+    rect(15, 5, 20, 5);
     
     popMatrix();
   }
