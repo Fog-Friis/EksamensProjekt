@@ -6,7 +6,7 @@ class Enemy {
   int dir;
   int life;
   float theta;
-  float attackRate, attackDisplacement;
+  float attackRate;
   PVector playerPos = new PVector();
 
   int[][] grid;
@@ -22,9 +22,10 @@ class Enemy {
   float x1, x2, y1, y2;
   float nextFindTime = 1000, findRate = 1000;
 
+  ArrayList<PVector> enemiesPos;
+
   Enemy(PVector p) {
     pos = p;
-    attackDisplacement = random(0, 5);
 
     vel = new PVector();
     points = new ArrayList<PVector>();
@@ -36,8 +37,11 @@ class Enemy {
 
     grid = new int[height/40][width/40];
     generateMap();
+
+    enemiesPos = new ArrayList<PVector>();
   }
   void generateMap() {
+
     int q;
     Vertex v;
     for ( int ix = 0; ix < width/40.0; ix+=1 ) {
@@ -168,15 +172,8 @@ class Enemy {
   }
 
   void calcNewPath() {
-    /*if (nextFindTime <= millis()) {
-
+    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y)>30) {
       findNewPath();
-      addPoints();
-      points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
-      nextFindTime = millis() + findRate;
-    }*/
-    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y)>30){
-    findNewPath();
       addPoints();
       points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
       nextFindTime = millis() + findRate;
@@ -233,13 +230,12 @@ class Enemy {
         move(points.get(0), points.get(1));
       } else {
         points.remove(0);
-        //path.remove(path.size()-1);
       }
-
-      pos.add(vel);
-      vel.mult(0);
     }
     calcNewPath();
+
+    pos.add(vel);
+    vel.mult(0);
   }
 
   void display() {

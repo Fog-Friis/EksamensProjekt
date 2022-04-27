@@ -183,7 +183,23 @@ class LevelTile {
           }
         }
       }
+      for (Enemy e : EM.Enemies){
+        if (w.collision(e.pos)){
+          e.vel.mult(0);
+          if (w.isUp(e.pos)) {
+            e.pos.y = w.pos.y - 20;
+          } else if (w.isDown(e.pos)) {
+            e.pos.y = w.pos.y+40+20;
+          }
+          if (w.isLeft(e.pos)) {
+            e.pos.x = w.pos.x-20;
+          } else if (w.isRight(e.pos)) {
+            e.pos.x = w.pos.x+40+20;
+          }
+        }
+      }
     }
+    
   }
   
   //tegner vægge
