@@ -55,7 +55,7 @@ class ShooterEnemy extends Enemy {
     circle(-25, -25, 50);
     translate(0, 0);
     popMatrix();
-    println(bullets.size());
+   // println(bullets.size());
   }
 
   void run() {

@@ -4,7 +4,7 @@ class Enemy {
   PVector pos, vel = new PVector();
   boolean up, down, left, right;
   int dir;
-  int life;
+  int life = 10;
   float theta;
   float attackRate;
   PVector playerPos = new PVector();
@@ -242,7 +242,6 @@ class Enemy {
     //drawGrid();
     fill(255, 0, 0);
     circle(pos.x, pos.y, 40);
-
     /*for (int i = 0; i < points.size(); i++) {
      fill(0, 0, 255);
      circle(points.get(i).x, points.get(i).y, 4);
@@ -253,11 +252,12 @@ class Enemy {
   }
 
   void run() {
+    if (life > 0){ 
     update();
     display();
   }
 }
-
+}
 
 class Vertex {
   float x, y;

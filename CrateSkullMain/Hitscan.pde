@@ -35,7 +35,7 @@ int WeaponID;
     this.WeaponID = WeaponID;
   }
 void shoot() {
-  println("q");
+  println(EM.Enemies.size());
    if (currentBullets>0 && time < (second())) {
      time = second()+fireRate;
      currentBullets -=1;
@@ -119,7 +119,7 @@ void hit(){
    switch(targettype){
      case 0:
       enemycount = EM.Enemies.size();
-      println(EM.Enemies.size());
+    //  println(EM.Enemies.size());
       if (enemycount == 0){
         println("shoot enemy but no enemy found");
         break;
@@ -129,7 +129,7 @@ void hit(){
           
          pos2 =  EM.Enemies.get(x).pos;
         float d = pos.dist(pos2);
-        if (d <= 50){
+        if (d >= 50){
             EM.Enemies.get(x).life -= damage;
       if (EM.Enemies.get(x).life <= 0) {
       EM.Enemies.remove(x); 
