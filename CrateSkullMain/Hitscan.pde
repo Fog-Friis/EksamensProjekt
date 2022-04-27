@@ -1,9 +1,11 @@
-Pistol pzpistol, p1pistol, p2pistol;
+
 int killCount=0;
 class Pistol { 
 int dir;
 PVector pos = new PVector();
-PVector pos2 = new PVector(1,1);
+PVector pos2 = new PVector();
+PVector posName = new PVector();
+PVector posName2 = new PVector();
 int posx, posy;
 int maxDistance=width;  
 int targettype;
@@ -13,8 +15,10 @@ color c;
 float fireRate;
 int enemycount;
 int damage;
-
-  Pistol(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, int yDistance, int xDistance,color c, float fireRate, int damage) {
+float time = 0;
+String name;
+int WeaponID;
+  Pistol(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, int yDistance, int xDistance,color c, float fireRate, int damage,float time,String name,int WeaponID) {
     this.pos = pos;
     this.dir = dir;
     this.posx = posx;
@@ -26,10 +30,14 @@ int damage;
     this.c = c;
     this.fireRate = fireRate;
     this.damage = damage;
+    this.time = time;
+    this.name = name;
+    this.WeaponID = WeaponID;
   }
 void shoot() {
   println("q");
-   if (currentBullets>0){
+   if (currentBullets>0 && time < (second())) {
+     time = second()+fireRate;
      currentBullets -=1;
     pos =  pz.pos.copy(); 
      dir = pz.dir;
@@ -78,7 +86,7 @@ void shoot() {
       int posy = (int) pos.y;
       
       c = get(posx,posy);
-      println(posx+"x"+posy+"y"+"farvekode:"+c);
+   //   println(posx+"x"+posy+"y"+"farvekode:"+c);
 
       if ((c == -65536) //Enemy
       || c == (-65526) || //Shooter Enemy
@@ -102,11 +110,16 @@ void shoot() {
       }
       
 }
+else if (time < (second())) {}
 else{
   println("no more ammo");
 
 }
 }
+void switchWP() {
+
+}
+
 void hit(){
    switch(targettype){
      case 0:
@@ -160,4 +173,5 @@ void hit(){
 } 
   
 }
+
 }
