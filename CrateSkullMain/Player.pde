@@ -87,10 +87,12 @@ class Player {
         switch(pzWeaponID) {
         case 1:
         pzWeaponID = 2;
+        pzWeaponName = "UZI";
         change = false;
         break;
         case 2:
         pzWeaponID = 1;
+        pzWeaponName = "Glock";
       change = false;
       break;
      }
@@ -107,19 +109,26 @@ class Player {
     translate(pos.x, pos.y);
     stroke(0);
     fill(255, 0, 0);
+    textSize(20);
+    switch (pzWeaponID){
+    case 1:
+    text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets,0,-80);
+    break;
+    case 2:
+    text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets,0,-80);
+    break;
+    }
     rect(-maxHealth/2, -70, maxHealth, 20);
-
     fill(col);        
-
     rect(-maxHealth/2, -70, currentHealth, 20);
-
     rotate(theta);
     //rect(-25, -25, 50, 50);
     circle(0, 0, 50);
     //rect(-25, 0, 50, 10);
-
+    
     popMatrix();
   }
+  
 
   void run() {
     if (visible == gamestate) {

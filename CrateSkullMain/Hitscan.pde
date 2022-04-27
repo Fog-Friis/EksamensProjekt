@@ -1,10 +1,11 @@
-int pzWeaponID=1;
+
 int killCount=0;
 class Pistol { 
 int dir;
 PVector pos = new PVector();
 PVector pos2 = new PVector();
 PVector posName = new PVector();
+PVector posName2 = new PVector();
 int posx, posy;
 int maxDistance=width;  
 int targettype;
@@ -172,7 +173,5 @@ void hit(){
 } 
   
 }
-void update(){
- 
-}
+
 }

@@ -1,15 +1,12 @@
-/*
+int pzWeaponID=1;
+String pzWeaponName = "Glock";
 
+  
 class WeaponManager{
 int WeaponID;
-ArrayList<Pistol> Weapons = new ArrayList<Pistol>();
-  WeaponManager(int WeaponID) {
-   this.WeaponID = WeaponID;
-  }
+
 void switchWeapon () {
   
   
-  
 }
 }
-*/
