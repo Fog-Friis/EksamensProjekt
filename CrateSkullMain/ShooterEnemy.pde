@@ -38,14 +38,12 @@ class ShooterEnemy extends Enemy {
       stand = false;
     }
 
-    attackRate = sin(frameCount/30+attackDisplacement);
-
-    if (attackRate < 0.2) {
+    /*if (attackRate < 0.2) {
       //trackPlayer();      
       if (!stand) {
         //move();
       }
-    }
+    }*/
       attack();
     vel.mult(0);
   }
