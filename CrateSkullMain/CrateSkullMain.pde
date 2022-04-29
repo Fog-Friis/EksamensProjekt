@@ -28,7 +28,6 @@ void keyPressed() {
   if (key == ' ') gamestate++;
 
   for (Player p : players) p.keyPress();
-
   for (TextBox t : textBoxes) t.keyWasTyped(key, (int)keyCode);
 }
 

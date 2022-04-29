@@ -43,7 +43,7 @@ void shoot() {
     pos =  pz.pos.copy(); 
      dir = pz.dir;
      updatePixels();
-      //  println(dir);
+        println(dir);
          switch(dir) {
       case 0:
       yDistance = minDistance;
@@ -91,7 +91,7 @@ void shoot() {
     //  c = pixels[posy*width+posx];
      c = get(posx,posy);
     
-     println(posx+"x"+posy+"y"+"farvekode:"+c);
+    //   println(posx+"x"+posy+"y"+"farvekode:"+c);
 
       if ((c == -65536) //Enemy
       || c == (-65526) || //Shooter Enemy

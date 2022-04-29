@@ -9,7 +9,7 @@ class Player {
   int visible;
   float time;
   //player constructor
-  Player(PVector p, color c, int u, int d, int l, int r, int q,int e, int maxHealth, int v) {
+  Player(PVector p, color c, int u, int d, int l, int r, int q,int e, int maxHealth, int v, int dir) {
     pos = p;
     col = c;
     upKey = u;
@@ -21,6 +21,7 @@ class Player {
     this.maxHealth = maxHealth;
     currentHealth = this.maxHealth;
     visible = v;
+    this.dir = dir;
   }
 
   void keyPress() {
@@ -43,23 +44,23 @@ class Player {
   void move() {
     if (up) {
       dir = 0;
-      if (right) dir = 1;
-      if (left) dir = 7;
+      if (right) dir = 1; 
+      if (left) dir = 7; 
     }
     if (right) {
-      dir = 2;
-      if (up) dir = 1;
-      if (down) dir = 3;
+      dir = 2; 
+      if (up) dir = 1; 
+      if (down) dir = 3; 
     }
     if (down) {
       dir = 4;
-      if (right) dir = 3;
-      if (left) dir = 5;
+      if (right) dir = 3; 
+      if (left) dir = 5; 
     }
     if (left) {
-      dir = 6;
-      if (up) dir = 7;
-      if (down) dir = 5;
+      dir = 6; 
+      if (up) dir = 7; 
+      if (down) dir = 5; 
     }
   }
 
@@ -103,13 +104,13 @@ class Player {
 
   PVector getPos() {
     return pos;
-  }
+  }  
 
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
     stroke(0);
-    fill(255, 0, 0);
+    fill(245, 0, 0);
     textSize(20);
     switch (pzWeaponID){
     case 1:
