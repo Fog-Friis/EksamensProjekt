@@ -1,5 +1,5 @@
 class EnemyManager {
-  int EnemyCount = 50, ShooterEnemyCount = 1;
+  int EnemyCount = 1, ShooterEnemyCount = 0;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
@@ -10,15 +10,18 @@ class EnemyManager {
   EnemyManager() {
     SpawnPoints.add(new PVector(width/2, height/2));
   }
-  
-  void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s){
+
+  void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s) {
     for (int i = 0; i < e.size(); i++) {
       for (int j = 0; j < e.size(); j++) {
         if (i != j) {
-          if (dist(e.get(i).pos.x, e.get(i).pos.y, e.get(j).pos.x, e.get(j).pos.y) <= 40) {
-            float theta = atan2(e.get(i).pos.y-e.get(j).pos.y, e.get(i).pos.x-e.get(j).pos.x)+PI;
-            e.get(i).pos = e.get(i).pos.add(new PVector(40*cos(theta),40*sin(theta)));
-            e.get(j).pos = e.get(j).pos.sub(new PVector(40*cos(theta),40*sin(theta)));
+          float distance = e.get(i).radius + e.get(j).radius;
+          float theta = atan2(e.get(i).pos.y-e.get(j).pos.y, e.get(i).pos.x-e.get(j).pos.x)+PI;
+
+          if (dist(e.get(i).pos.x, e.get(i).pos.y, e.get(j).pos.x, e.get(j).pos.y) < distance) {
+            float dist = distance - dist(e.get(i).pos.x, e.get(i).pos.y, e.get(j).pos.x, e.get(j).pos.y);
+            e.get(i).pos = e.get(i).pos.sub(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
+            e.get(j).pos = e.get(j).pos.add(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
           }
         }
       }
@@ -26,29 +29,49 @@ class EnemyManager {
     for (int i = 0; i < s.size(); i++) {
       for (int j = 0; j < s.size(); j++) {
         if (i != j) {
-          if (dist(s.get(i).pos.x, s.get(i).pos.y, s.get(j).pos.x, s.get(j).pos.y) <= 50) {
-            float theta = atan2(s.get(i).pos.y-s.get(j).pos.y, s.get(i).pos.x-s.get(j).pos.x)+PI;
-            s.get(i).pos = s.get(i).pos.add(new PVector(50*cos(theta),50*sin(theta)));
-            s.get(j).pos = s.get(j).pos.sub(new PVector(50*cos(theta),50*sin(theta)));
+          float distance = s.get(i).radius + s.get(j).radius;
+          float theta = atan2(s.get(i).pos.y-s.get(j).pos.y, s.get(i).pos.x-s.get(j).pos.x)+PI;
+
+          if (dist(s.get(i).pos.x, s.get(i).pos.y, s.get(j).pos.x, s.get(j).pos.y) < distance) {
+            float dist = distance - dist(s.get(i).pos.x, s.get(i).pos.y, s.get(j).pos.x, s.get(j).pos.y);
+            s.get(i).pos = s.get(i).pos.sub(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
+            s.get(j).pos = s.get(j).pos.add(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
           }
         }
       }
     }
-    for (int i = 0; i < s.size(); i++) {
-      for (int j = 0; j < e.size(); j++) {      
-          if (dist(s.get(i).pos.x, s.get(i).pos.y, e.get(j).pos.x, e.get(j).pos.y) <= 45) {
-            float theta = atan2(e.get(j).pos.y-s.get(i).pos.y, e.get(j).pos.x-s.get(i).pos.x)+PI;
-            s.get(i).pos = s.get(i).pos.add(new PVector(30*cos(theta),30*sin(theta)));
-            e.get(j).pos = e.get(j).pos.sub(new PVector(30*cos(theta),30*sin(theta)));
+    for (int i = 0; i < e.size(); i++) {
+      for (int j = 0; j < s.size(); j++) {
+        float distance = e.get(i).radius + s.get(j).radius;
+        float theta = atan2(e.get(i).pos.y-s.get(j).pos.y, e.get(i).pos.x-s.get(j).pos.x)+PI;
+
+        if (dist(e.get(i).pos.x, e.get(i).pos.y, s.get(j).pos.x, s.get(j).pos.y) < distance) {
+          float dist = distance - dist(e.get(i).pos.x, e.get(i).pos.y, s.get(j).pos.x, s.get(j).pos.y);
+          e.get(i).pos = e.get(i).pos.sub(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
+          s.get(j).pos = s.get(j).pos.add(new PVector(dist/2*cos(theta), dist/2*sin(theta)));
         }
       }
+    }
+
+    for (Enemy E : e) {
+      if (E.pos.y <= 0) E.pos.y = E.pos.y + 200;
+      if (E.pos.y >= height) E.pos.y = E.pos.y - 200;
+      if (E.pos.x <= 0) E.pos.x = E.pos.x + 200;
+      if (E.pos.x >= width) E.pos.x = E.pos.x - 200;
+    }
+
+    for (ShooterEnemy S : s) {
+      if (S.pos.y <= 0) S.pos.y = S.pos.y + 200;
+      if (S.pos.y >= height) S.pos.y = S.pos.y - 200;
+      if (S.pos.x <= 0) S.pos.x = S.pos.x + 200;
+      if (S.pos.x >= width) S.pos.x = S.pos.x - 200;
     }
   }
 
   void update() {
     //Enemy spawn with inteval
     if (millis()>nextEnemySpawn&&EnemyCount>EnemySpawned) {
-      Enemies.add(new Enemy(SpawnPoints.get(int(random(0, SpawnPoints.size())))));
+      Enemies.add(new Enemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30));
       EnemySpawned += 1;
       nextEnemySpawn = millis() + EnemySpawnRate;
       println(EnemyCount, EnemySpawned);
@@ -56,7 +79,7 @@ class EnemyManager {
 
     //ShooterEnemy spawn with inteval
     if (millis()>nextShooterEnemySpawn&&ShooterEnemyCount>ShooterEnemySpawned) {
-      ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size())))));
+      ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30));
       ShooterEnemySpawned += 1;
       nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
     }

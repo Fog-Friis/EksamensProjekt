@@ -8,6 +8,7 @@ class Enemy {
   float theta;
   float attackRate;
   PVector playerPos = new PVector();
+  float radius;
 
   int[][] grid;
   int start, end;
@@ -24,8 +25,9 @@ class Enemy {
 
   ArrayList<PVector> enemiesPos;
 
-  Enemy(PVector p) {
+  Enemy(PVector p, float r) {
     pos = p;
+    radius = r;
 
     vel = new PVector();
     points = new ArrayList<PVector>();
@@ -189,7 +191,7 @@ class Enemy {
 
   void move(PVector startPoint, PVector endPoint) {
     float theta = atan2(startPoint.y-endPoint.y, startPoint.x-endPoint.x)+PI;
-    vel = new PVector(cos(theta)*6, sin(theta)*6);
+    vel = new PVector(cos(theta)*3, sin(theta)*3);
   }
 
   boolean moved(PVector endpoint) {
@@ -235,20 +237,12 @@ class Enemy {
     calcNewPath();
 
     pos.add(vel);
-    vel.mult(0);
   }
+  
 
   void display() {
-    //drawGrid();
     fill(255, 0, 0);
-    circle(pos.x, pos.y, 40);
-    /*for (int i = 0; i < points.size(); i++) {
-     fill(0, 0, 255);
-     circle(points.get(i).x, points.get(i).y, 4);
-     fill(0, 255, 0);
-     textSize(10);
-     text(i, points.get(i).x, points.get(i).y);
-     }*/
+    circle(pos.x, pos.y, 2*radius);
   }
 
   void run() {

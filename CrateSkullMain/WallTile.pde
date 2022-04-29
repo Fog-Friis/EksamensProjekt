@@ -13,7 +13,7 @@ class WallTile {
   }
 
   boolean isUp(PVector p) {
-    if (p.x >= pos.x && p.x <= pos.x + size && p.y<=pos.y) {
+    if (p.x >= pos.x && p.x <= pos.x + size && p.y <= pos.y) {
       return true;
     } else {
       return false;
@@ -21,7 +21,7 @@ class WallTile {
   }
 
   boolean isDown(PVector p) {
-    if (p.x >= pos.x && p.x <= pos.x + size && p.y>=pos.y+size) {
+    if (p.x >= pos.x && p.x <= pos.x + size && p.y >=pos.y+size) {
       return true;
     } else {
       return false;
@@ -37,14 +37,15 @@ class WallTile {
   }
 
   boolean isRight(PVector p) {
-    if (p.y+10 >= pos.y && p.y - 10<= pos.y + size && p.x >= pos.x + size) {
+    if (p.y >= pos.y && p.y <= pos.y + size && p.x >= pos.x + size) {
       return true;
     } else {
       return false;
     }
   }
 
-  boolean collision(PVector p) {
+  boolean collision(PVector p, float s) {
+    
     float testX = p.x;
     float testY = p.y;
 
@@ -57,7 +58,7 @@ class WallTile {
     float distY = p.y-testY;
     float distance = sqrt(pow(distX, 2)+pow(distY, 2));
 
-    if (distance <= 25) {
+    if (distance <= s) {
       return true;
     } else {
       return false;
