@@ -36,8 +36,8 @@ class GameStateManager {
     textBoxes.add(tb2);
     EM = new EnemyManager();
     
-    pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),0.8,10,0,"Glock",1);
-    pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),0.1,10,0,"UZI",2);
+    pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),0.1,10,0,"Glock",1);
+    pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),0.8,10,0,"UZI",2);
 
     
     spawns.add(new PVector(width/2,height/2));
@@ -134,14 +134,14 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
+    killCount = 0;
     fill(255);
   }
 
   void survivalScreen() {
     fill(0);
     fill(255);
-    killCount = 0;
-    EM.run();
+    EM.run();  
   }
 
   void survivalGameOver() {

@@ -9,6 +9,7 @@ void setup() {
 }
 
 void draw() {
+  loadPixels();
   background(255);
   gameStateManager.manage();
 }

@@ -37,6 +37,7 @@ class Player {
     if (keyCode == downKey || key == downKey) down = false;
     if (keyCode == leftKey || key == leftKey) left = false;
     if (keyCode == rightKey || key == rightKey) right = false; 
+    if (keyCode == shootKey || key == shootKey) shoot = false;
   }
 
   void move() {
@@ -74,11 +75,11 @@ class Player {
         switch(pzWeaponID) {
         case 1:
         pzGlock.shoot();
-        shoot = false;
+       // shoot = false;
         break;
         case 2:
         pzUZI.shoot();
-      shoot = false;
+     // shoot = false;
       break;
      }
     }
