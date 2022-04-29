@@ -24,11 +24,11 @@ class GameStateManager {
   }
 
   void setupManager() {
-    p1 = new Player(new PVector(width/2-100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
+    p1 = new Player(1,new PVector(width/2-100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
     players.add(p1);
-    p2 = new Player(new PVector(width/2+100, height/2), color(0, 0, 255), 38, 40, 37, 39, 0, 0 , 100, 3,0);//Change shootkey and changekey
+    p2 = new Player(2,new PVector(width/2+100, height/2), color(0, 0, 255), 38, 40, 37, 39, 0, 0 , 100, 3,0);//Change shootkey and changekey
     //players.add(p2);
-    pz = new Player(new PVector(width/2+100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 6,0);
+    pz = new Player(3,new PVector(width/2+100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 6,0);
     players.add(pz);
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     textBoxes.add(tb1);
@@ -36,8 +36,8 @@ class GameStateManager {
     textBoxes.add(tb2);
     EM = new EnemyManager();
     
-    pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),0.1,10,0,"Glock",1);
-    pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),0.8,10,0,"UZI",2);
+    pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,"Glock",1,-65536,-65526,0);
+    pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,"UZI",2,-65536,-65526,0);
 
     
     spawns.add(new PVector(width/2,height/2));

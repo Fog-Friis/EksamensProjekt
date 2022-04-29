@@ -8,8 +8,10 @@ class Player {
   int currentHealth, maxHealth;
   int visible;
   float time;
+  int playerNR;
   //player constructor
-  Player(PVector p, color c, int u, int d, int l, int r, int q,int e, int maxHealth, int v, int dir) {
+  Player(int playerNR,PVector p, color c, int u, int d, int l, int r, int q,int e, int maxHealth, int v, int dir) {
+    this.playerNR = playerNR;
     pos = p;
     col = c;
     upKey = u;
@@ -73,6 +75,7 @@ class Player {
     vel.mult(0);
     
      if (shoot == true) {
+       
         switch(pzWeaponID) {
         case 1:
         pzGlock.shoot();

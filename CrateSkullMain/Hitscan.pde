@@ -19,7 +19,8 @@ float time = 0;
 String name;
 int WeaponID;
 int Life;
-  Pistol(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, int yDistance, int xDistance,color c, float fireRate, int damage,float time,String name,int WeaponID) {
+int colorTarget1, colorTarget2, colorTargetBonus;
+  Pistol(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, int yDistance, int xDistance,color c, float fireRate, int damage,float time,String name,int WeaponID, int colorTarget1, int colorTarget2, int colorTargetBonus ) {
     this.pos = pos;
     this.dir = dir;
     this.posx = posx;
@@ -34,11 +35,14 @@ int Life;
     this.time = time;
     this.name = name;
     this.WeaponID = WeaponID;
+    this.colorTarget1 = colorTarget1;
+    this.colorTarget2 = colorTarget2;
+    this.colorTargetBonus = colorTargetBonus;
   }
 void shoot() {
  // println(EM.Enemies.size());
-   if (currentBullets>0 && time < (second())) {
-     time = second()+fireRate;
+   if (currentBullets>0 && time < (millis())) {
+     time = millis()+fireRate;
      currentBullets -=1;
     pos =  pz.pos.copy(); 
      dir = pz.dir;
@@ -93,17 +97,17 @@ void shoot() {
     
     //   println(posx+"x"+posy+"y"+"farvekode:"+c);
 
-      if ((c == -65536) //Enemy
-      || c == (-65526) || //Shooter Enemy
+      if ((c == colorTarget1 -65536) //Enemy
+      || c == (colorTarget2-65526) || //Shooter Enemy
       c == (-6908266)){ //wall
       println("check");
-        if (c == (-65536))  { //RGB(255,0,0)
-        targettype = 0;
+        if (c == (colorTarget1))  { //RGB(255,0,0) -65536
+        targettype = 0+colorTargetBonus;
          hit();
          break; 
         }
-         else if (c == (-65526)) { //RGB(255,0,10)
-          targettype = 1;
+         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
+          targettype = 1+colorTargetBonus;
           hit();
       }
           else {
