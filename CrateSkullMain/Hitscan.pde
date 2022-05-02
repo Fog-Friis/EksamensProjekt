@@ -97,8 +97,8 @@ void shoot() {
     
     //   println(posx+"x"+posy+"y"+"farvekode:"+c);
 
-      if ((c == colorTarget1 -65536) //Enemy
-      || c == (colorTarget2-65526) || //Shooter Enemy
+      if ((c == colorTarget1 ) //Enemy
+      || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
       println("check");
         if (c == (colorTarget1))  { //RGB(255,0,0) -65536
