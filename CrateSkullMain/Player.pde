@@ -86,10 +86,6 @@ class Player {
 
       switch(pzWeaponID) {
       case 1:
-
-          if (shoot == true) {
-          switch(pzWeaponID) {
-          case 1:
               pzGlock.shoot();
             // shoot = false;
             break;
@@ -98,10 +94,7 @@ class Player {
               // shoot = false;
               break;
           }
-            shoot = false;
-          break;
         }
-      }
       if (change == true && time < (second())) {
         time = second()+0.5;
         switch(pzWeaponID) {
@@ -118,7 +111,7 @@ class Player {
         }
       }
     }
-  }
+  
 
     PVector getPos() {
       return pos;
