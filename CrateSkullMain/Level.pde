@@ -26,13 +26,13 @@ class Level {
   //skal bruge seed til at generere bane frem for at være predifineret
   void addTiles() {
     //randomSeed(seed);
-    
-    
+
+
     for (int j=0; j < rows; j++) {
       for (int i=0; i < columns; i++) {
 
         //int type = int(random(0,8));
-        
+
         //laver en bane med vægge yderst
         int type = 0;
         if (j == 0) {
@@ -53,7 +53,7 @@ class Level {
           if (i == columns - 1) type = 8;
         }
         //type = int(random(0,8));
-        
+
         levelTiles.add(new LevelTile(i*cellSize*8, j*cellSize*9, cellSize, type, true, false));
       }
     }
@@ -61,12 +61,12 @@ class Level {
 
   void update() {
   }
-  
+
   //tegner tiles
   void display() {
     for (LevelTile l : levelTiles) l.run();
   }
-  
+
   //opdaterer og tegner bane hvis den er synlig
   void run() {
     if (visible == gamestate) {
@@ -97,7 +97,7 @@ class LevelTile {
   //7 vægge til højre og øverst
   //8 vægge til højre og nederst
   int type;
-  
+
   //angiver om tilen skal spawne fjender og/eller have en våbenpakke
   boolean spawnTile, hasWeaponCrate;
 
@@ -114,7 +114,7 @@ class LevelTile {
     addWallTiles();
     println(int(pos.x), int(pos.y));
   }
-  
+
   //laver en tile med vægge efter type
   void addWallTiles() {
 
@@ -169,44 +169,43 @@ class LevelTile {
     //check kollision mellem relevante spillere og vægge
     for (WallTile w : wallTiles) {
       for (Player p : players) {
-        if (w.collision(p.pos)) {
-          p.vel.mult(0);
+        if (w.collision(p.pos, p.radius)) {
           if (w.isUp(p.pos)) {
-            p.pos.y = w.pos.y - 25;
+            p.pos.y = w.pos.y - p.radius;
           } else if (w.isDown(p.pos)) {
-            p.pos.y = w.pos.y+40+25;
+            p.pos.y = w.pos.y + w.size + p.radius;
           }
           if (w.isLeft(p.pos)) {
-            p.pos.x = w.pos.x-25;
+            p.pos.x = w.pos.x - p.radius;
           } else if (w.isRight(p.pos)) {
-            p.pos.x = w.pos.x+40+25;
+            p.pos.x = w.pos.x + w.size + p.radius;
           }
         }
       }
-      for (Enemy e : EM.Enemies){
-        if (w.collision(e.pos)){
-          e.vel.mult(0);
+      for (Enemy e : EM.Enemies) {
+        PVector displace = new PVector(e.vel.x, e.vel.y);
+        if (w.collision(e.pos, e.radius)) {
+          //e.vel.mult(0);
           if (w.isUp(e.pos)) {
-            e.pos.y = w.pos.y - 20;
+            e.pos.y = w.pos.y - e.radius - displace.y;
           } else if (w.isDown(e.pos)) {
-            e.pos.y = w.pos.y+40+20;
+            e.pos.y = w.pos.y + w.size + e.radius + displace.y;
           }
           if (w.isLeft(e.pos)) {
-            e.pos.x = w.pos.x-20;
+            e.pos.x = w.pos.x - e.radius - displace.x;
           } else if (w.isRight(e.pos)) {
-            e.pos.x = w.pos.x+40+20;
+            e.pos.x = w.pos.x + w.size + e.radius + displace.x;
           }
         }
       }
     }
-    
   }
-  
+
   //tegner vægge
   void display() {
     for (WallTile w : wallTiles) w.run();
   }
-  
+
   //opdatere og tegner tile
   void run() {
     update();

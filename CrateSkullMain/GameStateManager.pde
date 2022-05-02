@@ -24,11 +24,11 @@ class GameStateManager {
   }
 
   void setupManager() {
-    p1 = new Player(1,new PVector(width/2-100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
+    p1 = new Player(1,new PVector(width/2-100, height/2),25, color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
     players.add(p1);
-    p2 = new Player(2,new PVector(width/2+100, height/2), color(0, 0, 255), 38, 40, 37, 39, 0, 0 , 100, 3,0);//Change shootkey and changekey
+    p2 = new Player(2,new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0 , 100, 3,0);//Change shootkey and changekey
     //players.add(p2);
-    pz = new Player(3,new PVector(width/2+100, height/2), color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 6,0);
+    pz = new Player(3,new PVector(width/2+100, height/2), 25,color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 6,0);
     players.add(pz);
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     textBoxes.add(tb1);

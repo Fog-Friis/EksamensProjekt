@@ -7,7 +7,7 @@ PVector pos2 = new PVector();
 PVector posName = new PVector();
 PVector posName2 = new PVector();
 int posx, posy;
-int maxDistance=width;  
+int maxDistance=100;  
 int targettype;
 int maxBullets=20, currentBullets=20;
 int minDistance = 1, yDistance, xDistance;
@@ -95,12 +95,12 @@ void shoot() {
     //  c = pixels[posy*width+posx];
      c = get(posx,posy);
     
-    //   println(posx+"x"+posy+"y"+"farvekode:"+c);
+      println(posx+"x"+posy+"y"+"farvekode:"+c);
 
-      if ((c == colorTarget1 -65536) //Enemy
-      || c == (colorTarget2-65526) || //Shooter Enemy
+      if ((c == colorTarget1 ) //Enemy
+      || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
-      println("check");
+    //println("check");
         if (c == (colorTarget1))  { //RGB(255,0,0) -65536
         targettype = 0+colorTargetBonus;
          hit();

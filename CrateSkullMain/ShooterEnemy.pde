@@ -5,8 +5,8 @@ class ShooterEnemy extends Enemy {
   int life;
   boolean stand = false;
 
-  ShooterEnemy(PVector p) {
-    super(p);
+  ShooterEnemy(PVector p, float s) {
+    super(p, s);
     bullets = new ArrayList<Bullet>();
   }
 
@@ -52,7 +52,7 @@ class ShooterEnemy extends Enemy {
     pushMatrix();
     translate(pos.x, pos.y);
     fill(155, 0, 155);
-    circle(-25, -25, 50);
+    circle(0, 0, 2*radius);
     translate(0, 0);
     popMatrix();
    // println(bullets.size());
