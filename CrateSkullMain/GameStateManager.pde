@@ -4,7 +4,7 @@ Player p1, p2, pz;
 
 
 Pistol pzGlock, p1Glock, p2Glock, pzUZI, p1UZI, p2UZI;
-
+WeaponManager WPM;
 EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
@@ -35,7 +35,7 @@ class GameStateManager {
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
     EM = new EnemyManager();
-    
+    WPM = new WeaponManager();
     pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,"Glock",1,-65536,-65526,0);
     pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,"UZI",2,-65536,-65526,0);
 
