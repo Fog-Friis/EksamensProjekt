@@ -7,7 +7,7 @@ PVector pos2 = new PVector();
 PVector posName = new PVector();
 PVector posName2 = new PVector();
 int posx, posy;
-int maxDistance=100;  
+int maxDistance=width;  
 int targettype;
 int maxBullets=20, currentBullets=20;
 int minDistance = 1, yDistance, xDistance;
