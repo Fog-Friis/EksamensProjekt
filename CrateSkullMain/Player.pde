@@ -5,7 +5,7 @@ class Player {
   boolean up, down, left, right, shoot, change;
   float theta = 0;
   color col;
-  int currentHealth, maxHealth;
+  float currentHealth, maxHealth;
   int visible;
   float time;
   int playerNR;
@@ -13,7 +13,7 @@ class Player {
   float speed = 5;
 
   //player constructor
-  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, int maxHealth, int v, int dir) {
+  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, float maxHealth, int v, int dir) {
     this.playerNR = playerNR;
 
     pos = p;
@@ -72,7 +72,35 @@ class Player {
     }
   }
 
+  void heal(float healAmount) {
+    if (currentHealth < maxHealth) {
+      currentHealth += healAmount;
+    } else if (currentHealth > maxHealth) {
+      currentHealth = maxHealth;
+    }
+  }
+
+  void takeDamage(float damage) {
+    damagedTime = millis();
+    
+    currentHealth -= damage;
+
+    if (currentHealth <= 0) dead();
+  }
+
+  void dead() {
+    gamestate += 1;
+  }
+  
+  float damagedTime = 0;
+  float healTime = 7500;
   void update() {
+    
+    if (millis() >= damagedTime + healTime){
+      heal(0.5);
+      //damagedTime
+    }
+    
     move();
     theta = 2*dir*PI/8-PI/2;
 
@@ -82,72 +110,72 @@ class Player {
     pos.add(vel);
     vel.mult(0);
 
-      if (shoot == true) {
-
-      switch(pzWeaponID) {
-      case 1:
-              pzGlock.shoot();
-            // shoot = false;
-            break;
-          case 2:
-            pzUZI.shoot();
-              // shoot = false;
-              break;
-          }
-        }
-      if (change == true && time < (second())) {
-        time = second()+0.5;
-        switch(pzWeaponID) {
-        case 1:
-          pzWeaponID = 2;
-          pzWeaponName = "UZI";
-          change = false;
-          break;
-        case 2:
-          pzWeaponID = 1;
-          pzWeaponName = "Glock";
-          change = false;
-          break;
-        }
-      }
-    }
-  
-
-    PVector getPos() {
-      return pos;
-    }  
-
-    void display() {
-      pushMatrix();
-      translate(pos.x, pos.y);
-      stroke(0);
-      fill(245, 0, 0);
-      textSize(20);
-      switch (pzWeaponID) {
-      case 1:
-        text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
-        break;
-      case 2:
-        text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
-        break;
-      }
-      rect(-maxHealth/2, -70, maxHealth, 20);
-      fill(col);        
-      rect(-maxHealth/2, -70, currentHealth, 20);
-      rotate(theta);
-      //rect(-25, -25, 50, 50);
-      circle(0, 0, 2*radius);
-      fill(128, 128, 128);
-      rect(15, 5, 20, 5);
-
-      popMatrix();
-    }
+    if (shoot == true) {
+     
+     switch(pzWeaponID) {
+     case 1:
+     pzGlock.shoot();
+     // shoot = false;
+     break;
+     case 2:
+     pzUZI.shoot();
+     // shoot = false;
+     break;
+     }
+     }
+     if (change == true && time < (second())) {
+     time = second()+0.5;
+     switch(pzWeaponID) {
+     case 1:
+     pzWeaponID = 2;
+     pzWeaponName = "UZI";
+     change = false;
+     break;
+     case 2:
+     pzWeaponID = 1;
+     pzWeaponName = "Glock";
+     change = false;
+     break;
+     }
+     }
+  }
 
 
-    void run() {
-      if (visible == gamestate) {
-        update();
-        display();
-      }
+  PVector getPos() {
+    return pos;
+  }  
+
+  void display() {
+    pushMatrix();
+    translate(pos.x, pos.y);
+    stroke(0);
+    fill(245, 0, 0);
+    textSize(20);
+    switch (pzWeaponID) {
+     case 1:
+     text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
+     break;
+     case 2:
+     text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
+     break;
+     }
+    rect(-maxHealth/2, -70, maxHealth, 20);
+    fill(col);        
+    rect(-maxHealth/2, -70, currentHealth, 20);
+    rotate(theta);
+    //rect(-25, -25, 50, 50);
+    circle(0, 0, 2*radius);
+    fill(128, 128, 128);
+    rect(15, 5, 20, 5);
+
+    popMatrix();
+  }
+
+
+  void run() {
+    if (visible == gamestate) {
+      update();
+      display();
     }
   }
+}

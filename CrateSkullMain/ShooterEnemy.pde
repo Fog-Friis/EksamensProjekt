@@ -30,22 +30,17 @@ class ShooterEnemy extends Enemy {
     }
   }
 
-  void updateShooter() {    
-
-    if (dist(playerPos.x, playerPos.y, pos.x, pos.y)<75) {
-      stand = true;
-    } else {
-      stand = false;
-    }
-
-    /*if (attackRate < 0.2) {
-      //trackPlayer();      
-      if (!stand) {
-        //move();
+  void update() {    
+    if (points.size() > 1 && path.size() > 1) {
+      if (!moved(points.get(1))) {
+        move(points.get(0), points.get(1));
+      } else {
+        points.remove(0);
       }
-    }*/
-      attack();
-    vel.mult(0);
+    }
+    calcNewPath(50);    
+
+    pos.add(vel);
   }
 
   void display() {
@@ -55,12 +50,11 @@ class ShooterEnemy extends Enemy {
     circle(0, 0, 2*radius);
     translate(0, 0);
     popMatrix();
-   // println(bullets.size());
+    // println(bullets.size());
   }
 
   void run() {
     update(); 
-    updateShooter();
     display();
   }
 }
