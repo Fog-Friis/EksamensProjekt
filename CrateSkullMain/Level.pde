@@ -198,6 +198,12 @@ class LevelTile {
           }
         }
       }
+      for (ShooterEnemy s : EM.ShooterEnemies){
+        //kollision mellem shooterenemy og væg
+        for (Bullet b : s.bullets){
+          //fjern bullet når den rammer væg
+        }
+      }
     }
   }
 

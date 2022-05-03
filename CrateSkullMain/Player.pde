@@ -110,7 +110,7 @@ class Player {
     pos.add(vel);
     vel.mult(0);
 
-    if (shoot == true) {
+    /*if (shoot == true) {
 
       switch(pzWeaponID) {
       case 1:
@@ -137,7 +137,7 @@ class Player {
         change = false;
         break;
       }
-    }
+    }*/
   }
 
 
@@ -151,14 +151,14 @@ class Player {
     stroke(0);
     fill(245, 0, 0);
     textSize(20);
-    switch (pzWeaponID) {
+    /*switch (pzWeaponID) {
     case 1:
       text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
       break;
     case 2:
       text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
       break;
-    }
+    }*/
     rect(-maxHealth/2, -70, maxHealth, 20);
     fill(col);        
     rect(-maxHealth/2, -70, currentHealth, 20);

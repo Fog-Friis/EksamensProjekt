@@ -1,5 +1,5 @@
 class EnemyManager {
-  int EnemyCount = 20, ShooterEnemyCount = 0;
+  int EnemyCount = 0, ShooterEnemyCount = 1;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
@@ -97,7 +97,7 @@ class EnemyManager {
 
       //ShooterEnemy spawn with inteval
       if (millis()>nextShooterEnemySpawn&&ShooterEnemyCount>ShooterEnemySpawned) {
-        ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30));
+        ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30, 100));
         ShooterEnemySpawned += 1;
         nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
       }
