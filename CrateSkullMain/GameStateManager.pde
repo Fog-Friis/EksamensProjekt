@@ -9,6 +9,8 @@ EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
 ArrayList<PVector> spawns;
+boolean gamePaused;
+boolean pausedScreen;
 
 ArrayList<Level> levels;
 Level lvl1, lvl2;
@@ -17,6 +19,8 @@ class GameStateManager {
 
   GameStateManager() {
     gamestate = 0;
+    gamePaused = false;
+    pausedScreen = false;
     players = new ArrayList<Player>();
     textBoxes = new ArrayList<TextBox>();   
     spawns = new ArrayList<PVector>();
@@ -52,7 +56,8 @@ class GameStateManager {
 
     for (Level l : levels) l.run();
     for (TextBox t : textBoxes) t.display();
-    for (Player p : players) p.run();
+    if(!gamePaused)
+      for (Player p : players) p.run();
 
     switch(gamestate) {
     case 0:
@@ -139,9 +144,9 @@ class GameStateManager {
   }
 
   void survivalScreen() {
-    fill(0);
     fill(255);
-    EM.run();  
+    if(!gamePaused)
+      EM.run();  
   }
 
   void survivalGameOver() {
