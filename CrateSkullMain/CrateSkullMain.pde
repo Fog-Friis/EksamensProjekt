@@ -10,7 +10,15 @@ void setup() {
 
 void draw() {
   loadPixels();
-  background(255);
+  if(!gamePaused){
+    background(255);
+    pausedScreen = false;
+  } else
+    if(!pausedScreen){
+      fill(100,100);
+      rect(0, 0, width, height);
+      pausedScreen = true;
+    }
   gameStateManager.manage();
 }
 
@@ -26,11 +34,14 @@ void mouseClicked() {
 
 void keyPressed() {
   if (key == ' ') gamestate++;
-
-  for (Player p : players) p.keyPress();
+  if (key == 'p') gamePaused = !gamePaused;
+  
+  if(!gamePaused)
+    for (Player p : players) p.keyPress();
   for (TextBox t : textBoxes) t.keyWasTyped(key, (int)keyCode);
 }
 
 void keyReleased() {
-  for (Player p : players) p.keyRelease();
+  if(!gamePaused) 
+    for (Player p : players) p.keyRelease();
 }

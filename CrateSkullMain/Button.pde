@@ -94,7 +94,7 @@ class Button {
   }
   
   void run(){
-    if(visible == gameState){
+    if(visible == gamestate){
       display();
     }
   }
