@@ -82,7 +82,7 @@ class Player {
 
   void takeDamage(float damage) {
     damagedTime = millis();
-    
+
     currentHealth -= damage;
 
     if (currentHealth <= 0) dead();
@@ -91,16 +91,16 @@ class Player {
   void dead() {
     gamestate += 1;
   }
-  
+
   float damagedTime = 0;
   float healTime = 7500;
   void update() {
-    
-    if (millis() >= damagedTime + healTime){
+
+    if (millis() >= damagedTime + healTime) {
       heal(0.5);
       //damagedTime
     }
-    
+
     move();
     theta = 2*dir*PI/8-PI/2;
 
@@ -111,33 +111,33 @@ class Player {
     vel.mult(0);
 
     if (shoot == true) {
-     
-     switch(pzWeaponID) {
-     case 1:
-     pzGlock.shoot();
-     // shoot = false;
-     break;
-     case 2:
-     pzUZI.shoot();
-     // shoot = false;
-     break;
-     }
-     }
-     if (change == true && time < (second())) {
-     time = second()+0.5;
-     switch(pzWeaponID) {
-     case 1:
-     pzWeaponID = 2;
-     pzWeaponName = "UZI";
-     change = false;
-     break;
-     case 2:
-     pzWeaponID = 1;
-     pzWeaponName = "Glock";
-     change = false;
-     break;
-     }
-     }
+
+      switch(pzWeaponID) {
+      case 1:
+        pzGlock.shoot();
+        // shoot = false;
+        break;
+      case 2:
+        pzUZI.shoot();
+        // shoot = false;
+        break;
+      }
+    }
+    if (change == true && time < (second())) {
+      time = second()+0.5;
+      switch(pzWeaponID) {
+      case 1:
+        pzWeaponID = 2;
+        pzWeaponName = "UZI";
+        change = false;
+        break;
+      case 2:
+        pzWeaponID = 1;
+        pzWeaponName = "Glock";
+        change = false;
+        break;
+      }
+    }
   }
 
 
@@ -152,13 +152,13 @@ class Player {
     fill(245, 0, 0);
     textSize(20);
     switch (pzWeaponID) {
-     case 1:
-     text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
-     break;
-     case 2:
-     text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
-     break;
-     }
+    case 1:
+      text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
+      break;
+    case 2:
+      text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
+      break;
+    }
     rect(-maxHealth/2, -70, maxHealth, 20);
     fill(col);        
     rect(-maxHealth/2, -70, currentHealth, 20);
