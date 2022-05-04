@@ -6,6 +6,7 @@ PVector pos = new PVector();
 PVector pos2 = new PVector();
 PVector pos3 = new PVector();
 int posx, posy;
+int localx, localy;
 int maxDistance=width,maxDistanceShutgun=250;  
 int targettype;
 int maxBullets=20, currentBullets=20;
@@ -23,15 +24,14 @@ int bombRange;
 color c;
 int explosionRange;
 int colorTarget1, colorTarget2, colorTargetBonus;
-  Weapon(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets,int ydistance,int xdistance, float fireRate, int damage,float time, int colorTarget1, int colorTarget2, int colorTargetBonus,int playerNR ) {
+  Weapon(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, color c, float fireRate, int damage,float time, int colorTarget1, int colorTarget2, int colorTargetBonus,int playerNR ) {
     this.pos = pos;
     this.dir = dir;
     this.posx = posx;
     this.posy = posy;
     this.maxBullets = maxBullets;
     this.currentBullets = currentBullets;
-    this.yDistance = yDistance;
-    this.xDistance = xDistance;
+    this.c = c;
     this.fireRate = fireRate;
     this.damage = damage;
     this.time = time;
@@ -95,7 +95,7 @@ void shoot() {
       xDistance = minDistance*-1;
       break;
       }
-      for (int i = minDistance; i < maxDistance;  i+= minDistance) {
+      for (int i = minDistance; i <  maxDistance;  i+= minDistance) {
       pos.y += yDistance;
       pos.x += xDistance;
      // pos.add(pos2);
@@ -108,7 +108,7 @@ void shoot() {
     //  c = pixels[posy*width+posx];
      c = get(posx,posy);
     
-    //   println(posx+"x"+posy+"y"+"farvekode:"+c);
+       println(posx+"x"+posy+"y"+"farvekode:"+c);
 
       if ((c == colorTarget1 ) //Enemy
       || c == (colorTarget2) || //Shooter Enemy
@@ -121,6 +121,7 @@ void shoot() {
          else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
           targettype = 1+colorTargetBonus;
           hit();
+          break;
       }
           else {
           println("Can't Aim???");
@@ -249,27 +250,27 @@ void shotgunshoot(){
       xDistance = minDistance*-1;
       break;
       }
-      
+      localx = xDistance; localy = yDistance;
       Random1 = (int) random(1,8);
       Random2 = (int) random(1,8);
+      
       if (Random2 == Random1)
       {if (Random2 == 7){Random2 = Random2-1;}
-      else{Random2 = Random2+1;}}
+      else{Random2 = Random2+1;}}      
       
       if (Random1 != 1 && Random2 != 1){    
-    for (int i =minDistance; i < maxDistance;  i+= minDistance) {
-        
-        pos.x = pos.x+xDistance;        
-        pos.y = pos.y+yDistance;
+    for (int i =minDistance; i < maxDistanceShutgun ;  i+= minDistance) {
+        pos.x = pos.x+xDistance*2;        
+        pos.y = pos.y+yDistance*2;
       targettype = 2+colorTargetBonus;
       hit();
-  }pos = pos3.copy(); }
+  }pos = pos3.copy();  xDistance = localx; yDistance = localy; }
     
   
 }}
 
 void bomb(){
-    e < (millis())) {
+   if (time < (millis())) {
      time = millis()+fireRate;
           switch(playerNR){
        case 1:
@@ -327,7 +328,6 @@ switch(dir) {
 }
 
 void hit(){
-  
    switch(targettype){
      case 0:
         enemycount = EM.Enemies.size();
@@ -338,25 +338,21 @@ void hit(){
       }
       else{
       for (int x = 0; x <= enemycount;  x+= 1){
-        
          pos2 =  EM.Enemies.get(x).pos;
         float d = pos.dist(pos2);
-    //    println(pos);
-
         if (d < 50){
             EM.Enemies.get(x).life -= damage;
+        
       if (EM.Enemies.get(x).life <= 0) {
       EM.Enemies.remove(x); 
       killCount += 1;
       println(EM.Enemies.size()+"kills:"+killCount);
-      break;
     }
       else {
       println(EM.Enemies.get(x).life);
-      break;
       }
-       
-        } 
+      
+      break;}
   }
  
   } break;
@@ -378,17 +374,16 @@ void hit(){
         EM.ShooterEnemies.get(x).life=Life;
         println(EM.ShooterEnemies.get(x).life);
       EM.ShooterEnemies.remove(x); 
+      enemycount = enemycount-1;
       killCount += 1;
-      break;
      }
      else{
        EM.ShooterEnemies.get(x).life=Life;
-       break;
         }
-  }
-// */
-  } break;
-} 
+     break;
+  } 
+}
+}break;
 case 2:
 //Enemy
         enemycount = EM.Enemies.size();
@@ -420,6 +415,8 @@ case 2:
         if (d <= swordSize){
       EM.ShooterEnemies.remove(x); 
       killCount += 1;
+      enemycount = enemycount-1;
+      x -= x;
       println(EM.ShooterEnemies.size()+"kills:"+killCount);
 }}
    }break;

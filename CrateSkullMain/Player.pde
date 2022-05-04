@@ -174,25 +174,6 @@ class Player {
       popMatrix();
 
     }
-    if (change == true && time < (second())) {
-      time = second()+0.5;
-      switch(pzWeaponID) {
-      case 1:
-        pzWeaponID = 2;
-        pzWeaponName = "UZI";
-        change = false;
-        break;
-      case 2:
-        pzWeaponID = 1;
-        pzWeaponName = "Glock";
-        change = false;
-        break;
-      }
-    }*/
-  }
-
-
-
 
   void run() {
     if (visible == gamestate) {

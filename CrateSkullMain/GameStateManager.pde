@@ -32,19 +32,20 @@ class GameStateManager {
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
+// -16711936
 
   void setupManager() {
-  pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
-  pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);//
- pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+  pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-16711936,0,3);
+  pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-16711936,0,3);//
+ pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-16711936,0,3);
     
-  p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
-  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);
- p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+  p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,1);
+  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,1);
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-65526,0,1);;
     
- p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
-  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);
-  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+ p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,2);
+  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,2);
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-65526,0,2);
     
     
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
