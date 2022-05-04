@@ -346,6 +346,8 @@ void hit(){
       if (EM.Enemies.get(x).life <= 0) {
       EM.Enemies.remove(x); 
       killCount += 1;
+       x = x-1;
+      enemycount = enemycount-1;
       println(EM.Enemies.size()+"kills:"+killCount);
     }
       else {
@@ -357,6 +359,7 @@ void hit(){
  
   } break;
   case 1:
+      println("Check");
         enemycount = EM.ShooterEnemies.size();
       println(EM.ShooterEnemies.size());
       if (enemycount == 0){
@@ -365,25 +368,25 @@ void hit(){
       }
       else{
       for (int x = 0; x <= enemycount;  x+= 1){
-         pos2 =  EM.ShooterEnemies.get(x).pos;
+         pos2 =  EM.ShooterEnemies.get(x).pos;   
+         
         float d = pos.dist(pos2);
         if (d <= 50){
            Life  =  EM.ShooterEnemies.get(x).life;
-           Life = Life - damage;
       if (Life <= 0) {
         EM.ShooterEnemies.get(x).life=Life;
         println(EM.ShooterEnemies.get(x).life);
       EM.ShooterEnemies.remove(x); 
-      enemycount = enemycount-1;
-      killCount += 1;
+      killCount += 1; 
      }
      else{
-       EM.ShooterEnemies.get(x).life=Life;
+       EM.ShooterEnemies.get(x).life=Life;  
         }
-     break;
-  } 
+    break; 
+  }
 }
 }break;
+
 case 2:
 //Enemy
         enemycount = EM.Enemies.size();

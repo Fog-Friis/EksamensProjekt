@@ -32,12 +32,12 @@ class GameStateManager {
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
-// -16711936
-
+// -6618981 shooter
+// -65536 enemy
   void setupManager() {
-  pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-16711936,0,3);
-  pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-16711936,0,3);//
- pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-16711936,0,3);
+  pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-6618981,0,3);
+  pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-6618981,0,3);//
+ pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-6618981,0,3);
     
   p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,1);
   p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,1);
