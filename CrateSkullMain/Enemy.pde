@@ -4,7 +4,7 @@ class Enemy {
   PVector pos, vel = new PVector();
   boolean up, down, left, right;
   int dir;
-  int life = 10;
+  int life = 100;
   float theta;
   float attackRate;
   PVector playerPos = new PVector();
@@ -173,12 +173,22 @@ class Enemy {
     }
   }
 
-  void calcNewPath() {
-    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y)>30) {
+  boolean inAttackRange(float d) {
+    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y)<=d) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void calcNewPath(float d) {
+    if (!inAttackRange(d)) {
       findNewPath();
       addPoints();
       points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
       nextFindTime = millis() + findRate;
+    } else {
+      vel = new PVector(0, 0);
     }
   }  
 
@@ -200,6 +210,10 @@ class Enemy {
     } else {
       return false;
     }
+  }
+
+  void takeDamage(float damage) {
+    life -= damage;
   }
 
   Vertex t1;
@@ -234,23 +248,57 @@ class Enemy {
         points.remove(0);
       }
     }
-    calcNewPath();
+    theta = atan2(pz.pos.y-pos.y, pz.pos.x-pos.x);//+PI;
+
+    calcNewPath(radius+25);
+    if (inAttackRange(radius+pz.radius+5)) {
+      hitAnimation();
+    }
 
     pos.add(vel);
   }
-  
+
+  float armpos = 0; 
+  float hitdir = 1;
+  float cooldown = 0;
+  void hitAnimation() {
+    pushMatrix();
+    translate(pos.x, pos.y);
+    fill(255, 0, 0);
+    rotate(theta);
+    rect(armpos-10, 10, radius+10, radius/2);
+    rect(armpos-10, -25, radius+10, radius/2);
+    popMatrix();
+    if (armpos <= 0) cooldown ++;
+    if (cooldown > 60) {
+      cooldown = 0;
+      armpos = 0.5;
+      hitdir = abs(hitdir);
+    }
+    if (armpos > 0) armpos += hitdir*1;
+    if (armpos >= 5 && armpos <= 10) armpos += hitdir*3;
+    if (armpos >=15) armpos += hitdir*1;    
+    if (armpos >= 20) {
+      hitdir = -hitdir ;
+      pz.takeDamage(15);
+    }
+  }
 
   void display() {
+    pushMatrix();
+    translate(pos.x, pos.y);
     fill(255, 0, 0);
-    circle(pos.x, pos.y, 2*radius);
+    rotate(theta);
+    circle(0, 0, 2*radius);
+    popMatrix();
   }
 
   void run() {
-    if (life > 0){ 
-    update();
-    display();
+    if (life > 0) { 
+      update();
+      display();
+    }
   }
-}
 }
 
 class Vertex {
