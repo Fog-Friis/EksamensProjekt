@@ -15,7 +15,6 @@ class Player {
   //player constructor
   Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, int maxHealth, int v, int dir) {
     this.playerNR = playerNR;
-
     pos = p;
     this.radius = radius;
     col = c;
@@ -81,32 +80,32 @@ class Player {
     }
     pos.add(vel);
     vel.mult(0);
-
       if (shoot == true) {
-
-      switch(pzWeaponID) {
-      case 1:
-              pzGlock.shoot();
-            // shoot = false;
+      switch(playerNR) {
+              case 1:
+              WPMp1.WeaponShoot();
             break;
           case 2:
-            pzUZI.shoot();
-              // shoot = false;
+              WPMp2.WeaponShoot();
               break;
+          case 3:
+          WPMpz.WeaponShoot();
+          break;
           }
         }
-      if (change == true && time < (second())) {
-        time = second()+0.5;
-        switch(pzWeaponID) {
+      if (change == true) {
+        switch(playerNR) {
         case 1:
-          pzWeaponID = 2;
-          pzWeaponName = "UZI";
-          change = false;
+         WPMp1.WeaponChange();
+         change=false;
           break;
         case 2:
-          pzWeaponID = 1;
-          pzWeaponName = "Glock";
-          change = false;
+         WPMp2.WeaponChange(); 
+         change=false;
+          break;
+          case 3:
+         WPMpz.WeaponChange();
+         change=false;
           break;
         }
       }
@@ -123,14 +122,19 @@ class Player {
       stroke(0);
       fill(245, 0, 0);
       textSize(20);
-      switch (pzWeaponID) {
+      
+      switch (playerNR) {
       case 1:
-        text(pzWeaponName+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets, 0, -80);
+       text(WPMp1.WeaponText, 0, -80);
         break;
       case 2:
-        text(pzWeaponName+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets, 0, -80);
+        text(WPMp2.WeaponText, 0, -80);
         break;
+        case 3:
+       text(WPMpz.WeaponText, 0, -80);
+       break;
       }
+      
       rect(-maxHealth/2, -70, maxHealth, 20);
       fill(col);        
       rect(-maxHealth/2, -70, currentHealth, 20);

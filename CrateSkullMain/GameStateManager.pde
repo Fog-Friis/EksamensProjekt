@@ -2,9 +2,12 @@ int gamestate;
 ArrayList<Player> players;
 Player p1, p2, pz;
 
+Weapon pzGlock, p1Glock, p2Glock;
+Weapon pzUZI, p1UZI, p2UZI;
+Weapon pzSword, p1Sword, p2Sword;
 
-Pistol pzGlock, p1Glock, p2Glock, pzUZI, p1UZI, p2UZI;
-WeaponManager WPM;
+
+WeaponManager WPMp1,WPMp2,WPMpz;
 EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
@@ -24,6 +27,19 @@ class GameStateManager {
   }
 
   void setupManager() {
+  pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
+  pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);//
+ pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+    
+  p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
+  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+    
+ p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,-65536,-65526,0);
+  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,-65536,-65526,0);
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,0,0,color(155),100,10,0,-65536,-65526,0);
+    
+    
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
     players.add(p1);
     p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0 , 100, 3, 0);//Change shootkey and changekey
@@ -35,10 +51,10 @@ class GameStateManager {
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
     EM = new EnemyManager();
-    WPM = new WeaponManager();
-    pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,"Glock",1,-65536,-65526,0);
-    pzUZI = new Pistol (new PVector(width/2+100, height/2),0,0,0,40,40,0,0,color(155),100,10,0,"UZI",2,-65536,-65526,0);
-
+    
+    WPMp1 = new WeaponManager(1,0,1,"Glock 20/20",20);
+    WPMp2 = new WeaponManager(2,0,1,"Glock 20/20",20);
+    WPMpz = new WeaponManager(3,0,1,"Glock 20/20",20);
     
     spawns.add(new PVector(width/2,height/2));
 
