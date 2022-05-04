@@ -5,7 +5,7 @@ class Player {
   boolean up, down, left, right, shoot, change;
   float theta = 0;
   color col;
-  int currentHealth, maxHealth;
+  float currentHealth, maxHealth;
   int visible;
   float time;
   int playerNR;
@@ -13,7 +13,7 @@ class Player {
   float speed = 5;
 
   //player constructor
-  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, int maxHealth, int v, int dir) {
+  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, float maxHealth, int v, int dir) {
     this.playerNR = playerNR;
     pos = p;
     this.radius = radius;
@@ -71,7 +71,35 @@ class Player {
     }
   }
 
+  void heal(float healAmount) {
+    if (currentHealth < maxHealth) {
+      currentHealth += healAmount;
+    } else if (currentHealth > maxHealth) {
+      currentHealth = maxHealth;
+    }
+  }
+
+  void takeDamage(float damage) {
+    damagedTime = millis();
+
+    currentHealth -= damage;
+
+    if (currentHealth <= 0) dead();
+  }
+
+  void dead() {
+    gamestate += 1;
+  }
+
+  float damagedTime = 0;
+  float healTime = 7500;
   void update() {
+
+    if (millis() >= damagedTime + healTime) {
+      heal(0.5);
+      //damagedTime
+    }
+
     move();
     theta = 2*dir*PI/8-PI/2;
 
@@ -129,7 +157,6 @@ class Player {
         break;
       case 2:
         text(WPMp2.WeaponText, 0, -80);
-        break;
         case 3:
        text(WPMpz.WeaponText, 0, -80);
        break;
@@ -145,13 +172,32 @@ class Player {
       rect(15, 5, 20, 5);
 
       popMatrix();
+
     }
-
-
-    void run() {
-      if (visible == gamestate) {
-        update();
-        display();
+    if (change == true && time < (second())) {
+      time = second()+0.5;
+      switch(pzWeaponID) {
+      case 1:
+        pzWeaponID = 2;
+        pzWeaponName = "UZI";
+        change = false;
+        break;
+      case 2:
+        pzWeaponID = 1;
+        pzWeaponName = "Glock";
+        change = false;
+        break;
       }
+    }*/
+  }
+
+
+
+
+  void run() {
+    if (visible == gamestate) {
+      update();
+      display();
     }
   }
+}

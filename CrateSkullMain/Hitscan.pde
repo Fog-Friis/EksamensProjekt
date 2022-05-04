@@ -1,4 +1,3 @@
-
 int killCount=0;
 class Weapon { 
 int dir;

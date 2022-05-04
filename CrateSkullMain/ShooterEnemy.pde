@@ -1,51 +1,53 @@
 class ShooterEnemy extends Enemy {
   ArrayList<Bullet> bullets;
-  float time, nextAttackTime = 5;
+  float time, nextAttackTime = 1;
   float phi;
   int life;
-  boolean stand = false;
+  float attackRange;
 
-  ShooterEnemy(PVector p, float s) {
+  ShooterEnemy(PVector p, float s, float aR) {
     super(p, s);
+    attackRange = aR;
     bullets = new ArrayList<Bullet>();
   }
 
   void shoot() {
-    phi = atan2(pos.y-playerPos.y, pos.x-playerPos.x)+PI;
-    bullets.add(new Bullet(new PVector(pos.x, pos.y), phi, 15, color(255, 255, 0)));
+    phi = atan2(pz.pos.y-pos.y, pz.pos.x-pos.x);    
+    bullets.add(new Bullet(new PVector(pos.x, pos.y), phi, 25, color(255, 255, 0)));
   }
 
   void attack() {
-    for (int i = bullets.size()-1; i >= 0; i--) {
-      Bullet b = bullets.get(i);
-      b.run();
-      if (b.isDead()) {
-        bullets.remove(i);
-      }
-    }
-
-    if (millis() > time+nextAttackTime*1000 && stand) {
+    //phi = atan2(pz.pos.y-pos.y, pz.pos.x-pos.x) + PI;
+    if (millis() > time+nextAttackTime*1000) {
       shoot();
       time = millis();
     }
   }
 
-  void updateShooter() {    
-
-    if (dist(playerPos.x, playerPos.y, pos.x, pos.y)<75) {
-      stand = true;
-    } else {
-      stand = false;
+  void update() {    
+    if (points.size() > 1 && path.size() > 1) {
+      if (!moved(points.get(1))) {
+        move(points.get(0), points.get(1));
+      } else {
+        points.remove(0);
+      }
+    }
+    calcNewPath(pz.radius+radius+attackRange);
+    if (inAttackRange(pz.radius+radius+attackRange)) {
+      attack();
+    }
+    for (int i = bullets.size()-1; i >= 0; i--) {
+      Bullet b = bullets.get(i);
+      b.run();
+      if (b.hitPlayer()){
+        pz.takeDamage(20);
+      }
+      if (b.isDead()) {
+        bullets.remove(i);
+      }
     }
 
-    /*if (attackRate < 0.2) {
-      //trackPlayer();      
-      if (!stand) {
-        //move();
-      }
-    }*/
-      attack();
-    vel.mult(0);
+    pos.add(vel);
   }
 
   void display() {
@@ -55,19 +57,17 @@ class ShooterEnemy extends Enemy {
     circle(0, 0, 2*radius);
     translate(0, 0);
     popMatrix();
-   // println(bullets.size());
   }
 
   void run() {
     update(); 
-    updateShooter();
     display();
   }
 }
 
 class Bullet {
   PVector pos, vel;
-  float theta;
+  float angle;
   float radius;
   float dir;
   color col;
@@ -75,14 +75,22 @@ class Bullet {
 
   Bullet(PVector p, float a, float r, color c) {
     pos = p;
-    theta = a;
+    angle = a;
     radius = r;
     col = c;
-    vel = new PVector(cos(theta)*6, sin(theta)*6);
+    vel = new PVector(cos(angle)*6, sin(angle)*6);
+  }
+
+  boolean hitPlayer() {
+    if (dist(pz.pos.x, pz.pos.y, pos.x, pos.y) <= pz.radius+radius) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   boolean isDead() {
-    if (pos.x > width || pos.x < 0 || pos.y > height || pos.y < 0) {
+    if (pos.x > width || pos.x < 0 || pos.y > height || pos.y < 0 || hitPlayer()) {
       return true;
     } else {
       return false;
@@ -99,8 +107,8 @@ class Bullet {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 0, 10);
-    circle(-radius, -radius, radius*2);
+    fill(255, 255, 0);
+    circle(0, 0, radius*2);
     translate(0, 0);
     popMatrix();
   }
