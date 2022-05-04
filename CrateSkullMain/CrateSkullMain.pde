@@ -25,9 +25,12 @@ void draw() {
 }
 
 void mousePressed() {
+  for (Button b : buttons) b.pressed();
+  //for (Button b : buttons) println(b.clicked);
 }
 
 void mouseReleased() {
+  for (Button b : buttons) b.released();
 }
 
 void mouseClicked() {

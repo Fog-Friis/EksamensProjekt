@@ -8,24 +8,24 @@ class TextBox {
   int visible;
 
   //colors
-  public color Background = color(140, 140, 140);
-  public color Foreground = color(0, 0, 0);
-  public color BackgroundSelected = color(160, 160, 160);
-  public color Border = color(30, 30, 30);
+  color Background = color(140, 140, 140);
+  color Foreground = color(0, 0, 0);
+  color BackgroundSelected = color(160, 160, 160);
+  color Border = color(30, 30, 30);
 
   //border
-  public boolean BorderEnable = false;
-  public int BorderWeight = 1;
+  boolean BorderEnable = false;
+  int BorderWeight = 1;
 
   //text and textsize
-  public int TEXTSIZE = 48;
-  public boolean isProtected;
-  public String Text = "";
-  public String protectedText = "";
-  public int TextLength = 0;
+  int TEXTSIZE = 48;
+  boolean isProtected;
+  String Text = "";
+  String protectedText = "";
+  int TextLength = 0;
 
   //if button is clicked
-  private boolean selected = false;
+  boolean selected = false;
 
   //constructor
   TextBox(PVector position, PVector size, boolean isProtected, int visible) {
@@ -114,7 +114,7 @@ class TextBox {
   }
 
   //add text to textbox
-  private void addText(char text) {
+  void addText(char text) {
     if (textWidth(Text + text) < (size.x)) {
       Text += text;
       TextLength++;
@@ -122,14 +122,14 @@ class TextBox {
   }
 
   //add asterisk if textbox is a password textbox
-  private void addProtection(char text) {
+  void addProtection(char text) {
     if (textWidth(Text + text) < (size.x)) {
       protectedText += text;
     }
   }
 
   //remove text if backspace is pressed
-  private void backSpace() {
+  void backSpace() {
     if (TextLength - 1 >= 0) {
       Text = Text.substring(0, TextLength - 1);
       TextLength--;
@@ -137,7 +137,7 @@ class TextBox {
   }
 
   //check if mouse is over box
-  private boolean overBox(int x, int y) {
+  boolean overBox(int x, int y) {
     if (x >= position.x && x <= position.x + size.x) {
       if (y >= position.y + scroll && y <= position.y + size.y + scroll) {
         return true;

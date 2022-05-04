@@ -8,6 +8,8 @@ WeaponManager WPM;
 EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2;
+ArrayList<Button> buttons;
+Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
@@ -22,7 +24,8 @@ class GameStateManager {
     gamePaused = false;
     pausedScreen = false;
     players = new ArrayList<Player>();
-    textBoxes = new ArrayList<TextBox>();   
+    textBoxes = new ArrayList<TextBox>();  
+    buttons = new ArrayList<Button>();
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
@@ -34,10 +37,35 @@ class GameStateManager {
     //players.add(p2);
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 6, 0);
     players.add(pz);
+    
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
+    
+    zs = new Button(new PVector(width/2-175, height*0.4-60), new PVector(350,120), 5, color(150), color(160), color(140), "Zombie Survival", 48, 0);
+    buttons.add(zs);
+    dm = new Button(new PVector(width/2-175, height*0.6-60), new PVector(350,120), 5, color(150), color(160), color(140), "1v1 Deathmatch", 48, 0);
+    buttons.add(dm);
+    cs = new Button(new PVector(width/2-175, height*0.8-60), new PVector(350,120), 5, color(150), color(160), color(140), "Controls", 48, 0);
+    buttons.add(cs);
+    
+    cb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350,120), 5, color(150), color(160), color(140), "Back", 48, 1);
+    buttons.add(cb);
+    db = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350,120), 5, color(150), color(160), color(140), "Back", 48, 2);
+    buttons.add(db);
+    dggb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350,120), 5, color(150), color(160), color(140), "Back", 48, 4);
+    buttons.add(dggb);
+    zb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350,120), 5, color(150), color(160), color(140), "Back", 48, 5);
+    buttons.add(zb);
+    zggb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350,120), 5, color(150), color(160), color(140), "Back", 48, 7);
+    buttons.add(zggb);
+    
+    dms = new Button(new PVector(width/2-175, height*0.75-60), new PVector(350,120), 5, color(150), color(160), color(140), "Start", 48, 2);
+    buttons.add(dms);
+    zss = new Button(new PVector(width/2-175, height*0.75-60), new PVector(350,120), 5, color(150), color(160), color(140), "Start", 48, 5);
+    buttons.add(zss);
+    
     EM = new EnemyManager();
     WPM = new WeaponManager();
     pzGlock = new Pistol (new PVector(width/2+100, height/2),0,0,0,20,20,0,0,color(155),800,15,0,"Glock",1,-65536,-65526,0);
@@ -97,6 +125,7 @@ class GameStateManager {
       gamestate = 0;
       break;
     }
+    for (Button b : buttons) b.run();
   }
 
   void menuScreen() {
@@ -104,6 +133,9 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("CrateSkull", width/2, height/6);
+    if(zs.clicked) gamestate = 5;
+    if(dm.clicked) gamestate = 2;
+    if(cs.clicked) gamestate = 1;
     fill(255);
   }
 
@@ -112,6 +144,7 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Controls", width/2, height/6);
+    if(cb.clicked) gamestate = 0;
     fill(255);
   }
 
@@ -120,6 +153,8 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
+    if(dms.clicked) gamestate = 3;
+    if(db.clicked) gamestate = 0;
     fill(255);
   }
 
@@ -131,6 +166,7 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Game Over", width/2, height/4);
+    if(dggb.clicked) gamestate = 0;
     fill(255);
   }  
 
@@ -139,6 +175,8 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
+    if(zss.clicked) gamestate = 6;
+    if(zb.clicked) gamestate = 0;
     killCount = 0;
     fill(255);
   }
@@ -154,6 +192,7 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Game Over", width/2, height/4);
+    if(zggb.clicked) gamestate = 0;
     fill(255);
   }
 }
