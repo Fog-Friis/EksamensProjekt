@@ -49,10 +49,12 @@ class Enemy {
     for ( int ix = 0; ix < width/40.0; ix+=1 ) {
       for ( int iy = 0; iy < height/40.0; iy+=1) {
         grid[iy][ix] = 1;
-        for (LevelTile l : lvl2.levelTiles) {
-          for (WallTile w : l.wallTiles) {
+        for (int i = 0; i < lvl2.rows; i++) {
+          for (int j = 0; j < lvl2.columns; j++) {
+          for (WallTile w : lvl2.grid[j][i].wallTiles) {
             grid[int(w.pos.y/40)][int(w.pos.x/40)]=-1;
           }
+        }
         }
         if (grid[iy][ix] != -1) {
           vertices.add(new Vertex(ix*40, iy*40));
