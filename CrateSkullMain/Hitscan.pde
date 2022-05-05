@@ -7,7 +7,7 @@ PVector pos2 = new PVector();
 PVector pos3 = new PVector();
 int posx, posy;
 int localx, localy;
-int maxDistance=width,maxDistanceShutgun=width*2;  
+int maxDistance=width,maxDistanceShutgun=500;  
 int targettype;
 int maxBullets=20, currentBullets=20;
 int minDistance = 1, yDistance, xDistance;
@@ -19,7 +19,7 @@ String name;
 int WeaponID;
 int playerNR;
 int Life;
-int swordSize = 80;
+int swordSize = 60;
 int bombRange;
 color c;
 int explosionRange;
@@ -160,7 +160,7 @@ void buckshot(){
      dir = pz.dir;
      break;
      }
-      updatePixels();
+      
          switch(dir) {
       case 0:
       yDistance = minDistance;
@@ -201,13 +201,17 @@ void buckshot(){
       
       if (Random2 == Random1)
       {if (Random2 == 7){Random2 = Random2-1;}
-      else{Random2 = Random2+1;}}      
+      else{Random2 = Random2+1;}} 
+      println(Random1+" "+Random2);
            
-      if (Random1 != 1 && Random2 != 1){    
-    for (int i =minDistance; i < (maxDistanceShutgun/2) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*2;        
-        pos.y = pos.y+yDistance*2;
+      if (Random1 != 1 && Random2 != 1){  
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*2);        
+        pos.y = pos.y+(yDistance*2);
+         int posx = (int) pos.x;
+      int posy = (int) pos.y;
         c = get(posx,posy);
+         println("1:"+posx+"x"+posy+"y"+"farvekode:"+c);
       if ((c == colorTarget1 ) //Enemy
       || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
@@ -226,16 +230,110 @@ void buckshot(){
           break; //hit the wall}
            
       }
-      }
+      } 
       }
 }
+else{}
 pos = pos3.copy();  xDistance = localx; yDistance = localy; 
-        
-      if (Random1 != 2 && Random2 != 2){    
-    for (int i =minDistance; i < (maxDistanceShutgun/2) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*2;        
-        pos.y = pos.y+yDistance*1;
+updatePixels();
+      if (Random1 != 2 && Random2 != 2){    updatePixels();
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*2);        
+        pos.y = pos.y+(yDistance*1);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
         c = get(posx,posy);
+        println("2:"+posx+"x"+posy+"y"+"farvekode:"+c);
+      if ((c == colorTarget1 ) //Enemy
+      || c == (colorTarget2) || //Shooter Enemy
+      c == (-6908266)){ //wall
+        if (c == (colorTarget1))  { 
+        targettype = 0+colorTargetBonus;
+         hit();
+         break; 
+        }
+         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
+          targettype = 1+colorTargetBonus;
+          hit();
+          break;
+      } 
+          else {
+          println("Can't Aim???");
+          break; //hit the wall}
+           
+      }
+      } 
+      }
+  }else{}pos = pos3.copy();  xDistance = localx; yDistance = localy; 
+   updatePixels();
+        if (Random1 != 3 && Random2 != 3){   
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*1);        
+        pos.y = pos.y+(yDistance*2);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
+        c = get(posx,posy);
+        println("3:"+posx+"x"+posy+"y"+"farvekode:"+c);
+      if ((c == colorTarget1 ) //Enemy
+      || c == (colorTarget2) || //Shooter Enemy
+      c == (-6908266)){ //wall
+        if (c == (colorTarget1))  { 
+        targettype = 0+colorTargetBonus;
+         hit();
+         break; 
+        }
+         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
+          targettype = 1+colorTargetBonus;
+          hit();
+          break;
+      }
+          else {
+          println("Can't Aim???");
+          break; //hit the wall}
+           
+      }
+      } 
+      }
+  }else{}pos = pos3.copy();  xDistance = localx; yDistance = localy;  
+  updatePixels();
+  if (Random1 != 4 && Random2 != 4){  
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*1);        
+        pos.y = pos.y+(yDistance*3);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
+        c = get(posx,posy);
+        println("4:"+posx+"x"+posy+"y"+"farvekode:"+c);
+      if ((c == colorTarget1 ) //Enemy
+      || c == (colorTarget2) || //Shooter Enemy
+      c == (-6908266)){ //wall
+        if (c == (colorTarget1))  { 
+        targettype = 0+colorTargetBonus;
+         hit();
+         break; 
+        }
+         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
+          targettype = 1+colorTargetBonus;
+          hit();
+          break;
+      }
+          else {
+          println("Can't Aim???");
+          break; //hit the wall}
+           
+      }
+      } 
+      }
+  }else{}pos = pos3.copy();  xDistance = localx; yDistance = localy;   
+    updatePixels();
+  if (Random1 != 5 && Random2 != 5){   
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*3);        
+        pos.y = pos.y+(yDistance*1);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
+        c = get(posx,posy);
+        println("5:"+posx+"x"+posy+"y"+"farvekode:"+c);
       if ((c == colorTarget1 ) //Enemy
       || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
@@ -256,95 +354,17 @@ pos = pos3.copy();  xDistance = localx; yDistance = localy;
       }
       }
       }
-  }pos = pos3.copy();  xDistance = localx; yDistance = localy; 
-   
-        if (Random1 != 3 && Random2 != 3){    
-    for (int i =minDistance; i < (maxDistanceShutgun/2) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*1;        
-        pos.y = pos.y+yDistance*2;
-        c = get(posx,posy);
-      if ((c == colorTarget1 ) //Enemy
-      || c == (colorTarget2) || //Shooter Enemy
-      c == (-6908266)){ //wall
-        if (c == (colorTarget1))  { 
-        targettype = 0+colorTargetBonus;
-         hit();
-         break; 
-        }
-         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
-          targettype = 1+colorTargetBonus;
-          hit();
-          break;
-      }
-          else {
-          println("Can't Aim???");
-          break; //hit the wall}
-           
-      }
-      }
-      }
-  }pos = pos3.copy();  xDistance = localx; yDistance = localy;  
-  
-  if (Random1 != 4 && Random2 != 4){    
-    for (int i =minDistance; i < (maxDistanceShutgun/3) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*1;        
-        pos.y = pos.y+yDistance*3;
-        c = get(posx,posy);
-      if ((c == colorTarget1 ) //Enemy
-      || c == (colorTarget2) || //Shooter Enemy
-      c == (-6908266)){ //wall
-        if (c == (colorTarget1))  { 
-        targettype = 0+colorTargetBonus;
-         hit();
-         break; 
-        }
-         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
-          targettype = 1+colorTargetBonus;
-          hit();
-          break;
-      }
-          else {
-          println("Can't Aim???");
-          break; //hit the wall}
-           
-      }
-      }
-      }
-  }pos = pos3.copy();  xDistance = localx; yDistance = localy; }  
-    
-  if (Random1 != 5 && Random2 != 5){    
-    for (int i =minDistance; i < (maxDistanceShutgun/3) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*3;        
-        pos.y = pos.y+yDistance*1;
-        c = get(posx,posy);
-      if ((c == colorTarget1 ) //Enemy
-      || c == (colorTarget2) || //Shooter Enemy
-      c == (-6908266)){ //wall
-        if (c == (colorTarget1))  { 
-        targettype = 0+colorTargetBonus;
-         hit();
-         break; 
-        }
-         else if (c == (colorTarget2)) { //RGB(255,0,10) -65526
-          targettype = 1+colorTargetBonus;
-          hit();
-          break;
-      }
-          else {
-          println("Can't Aim???");
-          break; //hit the wall}
-           
-      }
-      }
-      }
-  }pos = pos3.copy();  xDistance = localx; yDistance = localy;   
-  
+  }else{}pos = pos3.copy();  xDistance = localx; yDistance = localy;   
+  updatePixels();
       
-  if (Random1 != 6 && Random2 != 6){    
-    for (int i =minDistance; i < (maxDistanceShutgun/3) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*3;        
-        pos.y = pos.y+yDistance*2;
+  if (Random1 != 6 && Random2 != 6){  
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*3);        
+        pos.y = pos.y+(yDistance*2);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
         c = get(posx,posy);
+        println("6:"+posx+"x"+posy+"y"+"farvekode:"+c);
       if ((c == colorTarget1 ) //Enemy
       || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
@@ -365,14 +385,17 @@ pos = pos3.copy();  xDistance = localx; yDistance = localy;
       }
       }
       }
-  }pos = pos3.copy();  xDistance = localx; yDistance = localy;  
-  
+  }else{}pos = pos3.copy();  xDistance = localx; yDistance = localy;  
+  updatePixels();
       
   if (Random1 != 7 && Random2 != 7){    
-    for (int i =minDistance; i < (maxDistanceShutgun/3) ;  i+= minDistance) {
-        pos.x = pos.x+xDistance*2;        
-        pos.y = pos.y+yDistance*3;
+    for (int i =minDistance; i < (maxDistanceShutgun) ;  i+= minDistance) {
+        pos.x = pos.x+(xDistance*2);        
+        pos.y = pos.y+(yDistance*3);
+             int posx = (int) pos.x;
+      int posy = (int) pos.y;
         c = get(posx,posy);
+        println("7:"+posx+"x"+posy+"y"+"farvekode:"+c);
       if ((c == colorTarget1 ) //Enemy
       || c == (colorTarget2) || //Shooter Enemy
       c == (-6908266)){ //wall
@@ -390,10 +413,12 @@ pos = pos3.copy();  xDistance = localx; yDistance = localy;
           println("Can't Aim???");
           break; //hit the wall}
            
+      } 
       }
-      }
-      }
-  }} 
+      } 
+  }
+  }
+} 
 
 
 void swing(){

@@ -159,6 +159,7 @@ class Player {
         break;
       case 2:
         text(WPMp2.WeaponText, 0, -80);
+        break;
         case 3:
        text(WPMpz.WeaponText, 0, -80);
        break;
@@ -170,11 +171,33 @@ class Player {
       rotate(theta);
       //rect(-25, -25, 50, 50);
       circle(0, 0, 2*radius);
-      fill(128, 128, 128);
-      rect(15, 5, 20, 5);
+           switch (playerNR) {
+      case 1:
+               
+        break;
+      case 2:
 
+        break;
+        case 3:
+   switch(WPMpz.WeaponID) {
+          case 1:
+           fill(128, 128, 128);
+            rect(15, 0, 20, 5);
+          break;
+          case 2:
+           fill(169, 169, 200);
+            rect(15, 0, 30, 10);
+          break;
+           case 3:
+           fill(6, 6, 6);
+            rect(15, 0, 40, 10);
+           break;
+           case 4:
+            fill(128, 128, 128);
+            rect(25, 0, pzSword.swordSize, 2);
+           break;}
+       break; }
       popMatrix();
-
     }
 
   void run() {
