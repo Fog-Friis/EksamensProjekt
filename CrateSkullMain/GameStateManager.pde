@@ -38,7 +38,7 @@ class GameStateManager {
   pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-6618981,0,3);
   pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-6618981,0,3);//
  pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),100,10,0,-65536,-6618981,0,3);
- pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,-65536,-6618981,0,3);   
+ pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,0,color(1),500,20,0,-65536,-6618981,0,3);   
     
   p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,1);
   p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,1);

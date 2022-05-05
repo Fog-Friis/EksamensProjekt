@@ -19,7 +19,7 @@ String name;
 int WeaponID;
 int playerNR;
 int Life;
-int swordSize = 60;
+int swordSize = 80;
 int bombRange;
 color c;
 int explosionRange;
@@ -582,6 +582,7 @@ case 2:
       }
       else{
   for (int x = 0; x < enemycount;  x+= 1){
+        if (enemycount == 0){break;}
          pos2 =  EM.Enemies.get(x).pos;
         float d = pos.dist(pos2);
         if (d <= swordSize){
@@ -589,8 +590,7 @@ case 2:
       enemycount = enemycount-1;
       killCount += 1;
       x -= x;
-      if (enemycount == 0){break;}
-      
+     
       println(EM.Enemies.size()+"kills:"+killCount);
         break;
         }}
@@ -600,17 +600,18 @@ case 2:
     if (enemycount == 0){
       }
       else{
-  for (int x = 0; x <= enemycount;  x+= 1){
+  for (int x = 0; x <= enemycount;  x = x+1){
+        if (enemycount == 0){break;}
          pos2 =  EM.ShooterEnemies.get(x).pos;
         float d = pos.dist(pos2);
+        enemycount = enemycount-1;
         if (d <= swordSize){
       EM.ShooterEnemies.remove(x); 
       killCount += 1;
-      enemycount = enemycount-1;
       x -= x;
       println(EM.ShooterEnemies.size()+"kills:"+killCount);
-      if (enemycount == 0){break;}
-}}
+      
+}break;}
    }break;
 case 3:
 //Enemy
