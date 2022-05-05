@@ -1,11 +1,16 @@
 //bane klasse
 class Level {
-  //ArrayList<LevelTile> levelTiles;
-  LevelTile[][] grid;
-  LevelTile start;
+  ArrayList<LevelTile> levelTiles;
+  //LevelTile[][] grid;
+  //LevelTile start;
 
-  ArrayList<LevelTile> openSet, closedSet;
-  ArrayList<LevelTile> tree;
+  //ArrayList<LevelTile> openSet, closedSet;
+  //ArrayList<LevelTile> tree;
+  ArrayList<PVector> points, openSet;
+  ArrayList<Connection> cons;
+  PVector newPoint, current;
+
+  boolean[] openTop, openLeft, openBottom, openRight;
 
   //antal rækker og kolonner med leveltiles
   int rows, columns;
@@ -15,183 +20,147 @@ class Level {
   //banens seed, bruges til procedural generation
   int seed;
   //om banen er synling eller ej
-  int visible;
+  int visible;  
 
   //konstruktør
   Level(int s, int v, int cs) {
     seed = s;
     visible = v;
     cellSize = cs;
+    levelTiles = new ArrayList<LevelTile>();
     rows = height/(cellSize*9);
     columns = width/(cellSize*8);
-    openSet = new ArrayList<LevelTile>();
-    closedSet = new ArrayList<LevelTile>();
-    tree = new ArrayList<LevelTile>();
-    grid = new LevelTile[columns][rows];
+    points = new ArrayList<PVector>();
+    addPoints();
+    openSet = new ArrayList<PVector>();
+    cons = new ArrayList<Connection>();
+    openTop = new boolean[points.size()];
+    openBottom = new boolean[points.size()];
+    openLeft = new boolean[points.size()];
+    openRight = new boolean[points.size()];
+    openSet.add(points.get(0));
+    createGraph();
+    generateLevel();
     addTiles();
-    start = grid[0][0];
-    openSet.add(start);
-    tree.add(start);
-    int d = 0;
-    while (tree.size() < rows*columns-1) {
-      correctTiles();
-      d++;
-      if (d >= 100) break;
+  }
+
+  void addPoints() {
+    for (int i = 0; i < columns; i++) {
+      for (int j = 0; j < rows; j++) {
+        points.add(new PVector(8*cellSize*i+4*cellSize, 9*cellSize*j+4.5*cellSize));
+      }
     }
   }
 
+  ArrayList<PVector> neighbors(PVector p) {
+    ArrayList<PVector> returns = new ArrayList<PVector>();
+    for (PVector o : points) {
+      if (o.x == p.x) {
+        if (o.y == p.y + 40*9) {
+          returns.add(o);
+        }
+        if (o.y == p.y - 40*9) {
+          returns.add(o);
+        }
+      }
+      if (o.y == p.y) {
+        if (o.x == p.x + 40*8) {
+          returns.add(o);
+        }
+        if (o.x == p.x - 40*8) {
+          returns.add(o);
+        }
+      }
+    }
+    return returns;
+  }
+
+  boolean Stuck(PVector p) {
+    int nCounter = 0;
+    ArrayList<PVector> neighbors = neighbors(p);
+    for (PVector o : neighbors) {
+      if (openSet.contains(o)) {
+        nCounter++;
+      }
+    }
+    if (nCounter == neighbors.size()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void createGraph() {
+    randomSeed(seed);
+    int i = 0;
+    while (openSet.size() < points.size()) {
+      current = openSet.get(openSet.size()-1);
+      while (Stuck(current)) {
+        current = openSet.get(int(random(0, openSet.size()-1)));
+      }
+
+      ArrayList<PVector> neighbors = neighbors(current);
+      //println(neighbors.size());
+      newPoint = neighbors.get(int(random(0, neighbors.size())));
+      if (!openSet.contains(newPoint)) {
+        openSet.add(newPoint);
+      }
+
+      if (!cons.contains(new Connection(current, newPoint)) && !cons.contains(new Connection(newPoint, current))) cons.add(new Connection(current, newPoint));
+    }
+    //for (Connection c : cons) println(visible/3, c.current, c.newPoint);
+  }
+
+  void generateLevel() {
+    
+    //println(cons.size());
+    for (int i = 0; i < points.size(); i++) {
+      PVector p = openSet.get(i);
+      openRight[i] = false;
+      openLeft[i] = false;
+      openBottom[i] = false;
+      openTop[i] = false;
+      ArrayList<PVector> neighbors = neighbors(p);
+      for (PVector n : neighbors) {
+        Connection check = new Connection(p, n);
+        //println(visible/3, check.current, check.newPoint);
+        
+        if (cons.contains(check)) {
+          if (n.x > p.x) openRight[i] = true;
+          if (n.x < p.x) openLeft[i] = true;
+          if (n.y > p.y) openBottom[i] = true;
+          if (n.y < p.y) openTop[i] = true;
+          //println(i, openRight[i], openLeft[i], openBottom[i], openTop[i]);
+        }
+      }
+    }
+    for (Connection c : cons)println(c.current, c.newPoint);
+  }
+  
   //skal bruge seed til at generere bane frem for at være predifineret
   void addTiles() {
-    randomSeed(seed);
+    //randomSeed(seed);
+    int type = 0;
 
-
-    for (int j=0; j < rows; j++) {
-      for (int i=0; i < columns; i++) {
-
-        int[] types;// = int(random(0, 12));
-        int type = 0;
-
-        if (j == 0) { 
-          if (i == 0) {
-            types = new int[]{6, 10, 11};
-            type = randomType(types);
-          }
-        }
-        if (i == 5) {
-          //type = 7 || 11 || 12
-          types = new int[]{7, 11, 12};
-          type = randomType(types);
-        }
-        if (i > 0 && i < 5) {
-          //type = 2 || 6 || 7 || 10 || 11 || 12 || 14
-          types = new int[]{2, 6, 7, 10, 11, 12, 14};
-          type = randomType(types);
-        }
-
-        if (j == 1) {
-          if (i == 0) {
-            //type = 1 || 5 || 6 || 9 || 10 || 11 || 13
-            types = new int[]{1, 5, 6, 9, 10, 11, 13};
-            type = randomType(types);
-          }
-          if (i == 5) {
-            //type = 3 || 7 || 8 || 9 || 11 || 12 || 13
-            types = new int[]{3, 7, 8, 9, 11, 12, 13};
-            type = randomType(types);
-          }
-          if (i > 0 && i < 5) {
-            type = int(random(0, 14));
-          }
-        }
-
-        if (j == 2) {
-          if (i == 0) {
-            //type = 5 || 9 || 10
-            types = new int[]{5, 9, 10};
-            type = randomType(types);
-          }
-          if (i == 5) {
-            //type = 8 || 9 || 12
-            types = new int[]{8, 9, 12};
-            type = randomType(types);
-          }
-          if (i > 0 && i < 5) {
-            //type = 4 || 5 || 8 || 9 || 10 || 12 || 14;
-            types = new int[]{4, 5, 8, 9, 10, 12, 14};
-            type = randomType(types);
-          }
-        }
-
-        if (!tree.contains(grid[i][j])) grid[i][j] = new LevelTile(i*cellSize*8, j*cellSize*9, cellSize, type, true, false);
-      }
-    }
-    for (int j = 0; j < rows; j++) {
-      for (int i = 0; i < columns; i++) {
-        grid[i][j].addNeighbors(grid);
-        //openSet.add(grid[i][j]);
-      }
-    }
-    //println(openSet.size());
-    //println(grid[0][0].pos, grid[0][0].neighbors.get(0).pos, grid[0][0].neighbors.get(1).pos);
-  }
-
-  void generateTree() {
-    while (openSet.size() > 0) {
-      for (int i = 0; i < openSet.size(); i++) {
-        for (int j = 0; j < openSet.get(i).neighbors.size(); j++) {
-          if (!closedSet.contains(openSet.get(i).neighbors.get(j))) {
-            checkNeighbor(openSet.get(i), openSet.get(i).neighbors.get(j));
-          }
-        }
-
-        closedSet.add(openSet.get(i));
-        openSet.remove(openSet.get(i));
-      }
-    }
-  }
-
-  int b = 0;
-  //algoritme der sørger for at man kan nå hen til alle leveltiles
-  void correctTiles() {
-    //for (LevelTile l : tree) println(visible/3 + ": " + l.pos);
-
-    while (tree.size() < rows*columns-1) {
-
-      generateTree();
-
-      seed+=1;
-      addTiles();
-      ;
-      b++;
-      if (b <= 100) break;
-    }
-
-    if (tree.size() < rows*columns-1) {
-      correctTree();
-    }
-  }
-
-  boolean remove = false;
-  void correctTree() {
-    for (int i = 0; i < tree.size(); i++) {
-      for (int j = 0; j < tree.get(i).neighbors.size(); j++) {
-        if (!tree.contains(tree.get(i).neighbors.get(j))) {
-          remove = true;
-        }
-      }
-      if (remove) {
-        tree.remove(tree.get(i));
-        remove = false;
-      }
-    }
-  }
-
-
-
-  void checkNeighbor(LevelTile tile, LevelTile neighbor) {
-    if (neighbor.pos.x > tile.pos.x) {
-      if (tile.openRight && neighbor.openLeft) {
-        if (!tree.contains(neighbor)) tree.add(neighbor);
-        openSet.add(neighbor);
-      }
-    }
-    if (neighbor.pos.x < tile.pos.x) {
-      if (tile.openLeft && neighbor.openRight) {
-        if (!tree.contains(neighbor)) tree.add(neighbor);
-        openSet.add(neighbor);
-      }
-    }
-    if (neighbor.pos.y > tile.pos.y) {
-      if (tile.openBottom && neighbor.openTop) {
-        if (!tree.contains(neighbor)) tree.add(neighbor);
-        openSet.add(neighbor);
-      }
-    }
-    if (neighbor.pos.y < tile.pos.y) {
-      if (tile.openTop && neighbor.openBottom) {
-        if (!tree.contains(neighbor)) tree.add(neighbor);
-        openSet.add(neighbor);
-      }
+    for (int i = 0; i < points.size(); i++) {
+      //println(openTop[i], openBottom[i], openRight[i], openLeft[i]);
+      if (openTop[i]  && openBottom[i]  && openRight[i]  && openLeft[i])  type = 0; //println(0);
+      if (openTop[i]  && openBottom[i]  && openRight[i]  && !openLeft[i]) type = 1; //println(1);
+      if (!openTop[i] && openBottom[i]  && openRight[i]  && openLeft[i])  type = 2; //println(2);
+      if (openTop[i]  && openBottom[i]  && !openRight[i] && openLeft[i])  type = 3; //println(3);
+      if (openTop[i]  && !openBottom[i] && openRight[i]  && openLeft[i])  type = 4; //println(4);
+      if (openTop[i]  && !openBottom[i] && !openRight[i] && openLeft[i])  type = 5; //println(5);
+      if (!openTop[i] && openBottom[i]  && !openRight[i] && openLeft[i])  type = 6; //println(6);
+      if (!openTop[i] && openBottom[i]  && openRight[i]  && !openLeft[i]) type = 7; //println(7);
+      if (openTop[i]  && !openBottom[i] && openRight[i]  && !openLeft[i]) type = 8; //println(8);
+      if (openTop[i]  && !openBottom[i] && !openRight[i] && !openLeft[i]) type = 9; //println(9);
+      if (!openTop[i] && !openBottom[i] && openRight[i]  && !openLeft[i]) type = 10; //println(10);
+      if (!openTop[i] && openBottom[i]  && !openRight[i] && !openLeft[i]) type = 11; //println(11);
+      if (!openTop[i] && !openBottom[i] && !openRight[i] && openLeft[i])  type = 12; //println(12);
+      if (openTop[i]  && openBottom[i]  && !openRight[i] && !openLeft[i]) type = 13; //println(13);
+      if (!openTop[i] && !openBottom[i] && openRight[i]  && openLeft[i])  type = 14; //println(14);
+      //println(type);
+      levelTiles.add(new LevelTile(int(points.get(i).x-4*cellSize), int(points.get(i).y-4.5*cellSize), cellSize, type, true, false));
     }
   }
 
@@ -200,12 +169,10 @@ class Level {
 
   //tegner tiles
   void display() {
-    //for (LevelTile l : levelTiles) l.run();
-    for (int i = 0; i < columns; i++) {
-      for (int j = 0; j < rows; j++) {
-        grid[i][j].run();
-      }
-    }
+    for (LevelTile l : levelTiles) l.run();
+    //for (LevelTile l : levelTiles) println(l.type);    
+    //for (Connection c: cons) c.display();
+    
   }
 
   //opdaterer og tegner bane hvis den er synlig
@@ -435,5 +402,17 @@ class LevelTile {
   void run() {
     update();
     display();
+  }
+}
+
+class Connection {
+  PVector current, newPoint;
+  Connection(PVector c, PVector nP) {
+    current = c;
+    newPoint = nP;
+  }
+  
+  void display(){
+    line(current.x, current.y, newPoint.x, newPoint.y);
   }
 }
