@@ -7,7 +7,7 @@ PVector pos2 = new PVector();
 PVector pos3 = new PVector();
 int posx, posy;
 int localx, localy;
-int maxDistance=width,maxDistanceShutgun=800;  
+int maxDistance=width,maxDistanceShutgun=width*2;  
 int targettype;
 int maxBullets=20, currentBullets=20;
 int minDistance = 1, yDistance, xDistance;
@@ -160,8 +160,7 @@ void buckshot(){
      dir = pz.dir;
      break;
      }
-     updatePixels();
-  
+      updatePixels();
          switch(dir) {
       case 0:
       yDistance = minDistance;
@@ -203,7 +202,7 @@ void buckshot(){
       if (Random2 == Random1)
       {if (Random2 == 7){Random2 = Random2-1;}
       else{Random2 = Random2+1;}}      
-      
+           
       if (Random1 != 1 && Random2 != 1){    
     for (int i =minDistance; i < (maxDistanceShutgun/2) ;  i+= minDistance) {
         pos.x = pos.x+xDistance*2;        
@@ -610,6 +609,7 @@ case 2:
       enemycount = enemycount-1;
       x -= x;
       println(EM.ShooterEnemies.size()+"kills:"+killCount);
+      if (enemycount == 0){break;}
 }}
    }break;
 case 3:
