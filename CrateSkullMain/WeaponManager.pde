@@ -1,5 +1,5 @@
 class WeaponManager{
-String WeaponName1 ="Glock", WeaponName2 = "UZI" , WeaponName3= "Sword", WeaponName4= "Grenade", WeaponName5= "No Name";
+String WeaponName1 ="Glock", WeaponName2 = "UZI" , WeaponName3= "Shotgun", WeaponName4= "Sword", WeaponName5= "Grenade";
 int WeaponID=1;
 int PlayerNR;
 float time = 0;
@@ -33,10 +33,10 @@ switch(PlayerNR){
       break;
    }else{ WeaponID = WeaponID+1;}
   case 3:
-  WeaponText = "Sword";
+  WeaponText = WeaponName3+" "+p1Shotgun.currentBullets+"/"+p1Shotgun.maxBullets;
   break;
   case 4:
-  WeaponText = "Grenade";
+  WeaponText = WeaponName4;
   break;
   }
 }else{
@@ -49,21 +49,23 @@ case 3:
    }else{ WeaponID = WeaponID+1;}
   switch(WeaponID){
    case 1:
-   if  (pzGlock.currentBullets>0){
    WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
    break;
-   }else{ WeaponID = WeaponID+1;}
    case 2:
-   if  (p1UZI.currentBullets>0){
+   if  (pzUZI.currentBullets>0){
    WeaponText = WeaponName2+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets;
       break;
    }else{ WeaponID = WeaponID+1;}
   case 3:
-  WeaponText = "Sword";
+  if  (pzShotgun.currentBullets>0){
+  WeaponText = WeaponName3+" "+pzShotgun.currentBullets+"/"+pzShotgun.maxBullets;
   break;
+   }else{ WeaponID = WeaponID+1;}
   case 4:
-  WeaponText = "Grenade";
+  if  (pzSword.currentBullets>0){
+  WeaponText = WeaponName4;
   break;
+  }else{ WeaponID = 1;}
   }
 }else{
 break;
@@ -83,10 +85,11 @@ p1UZI.shoot();
 WeaponText = WeaponName2+" "+p1UZI.currentBullets+"/"+p1UZI.maxBullets;
 break;
 case 3:
-p1Sword.swing();
+p1Shotgun.buckshot();
+WeaponText = WeaponName3+" "+p1Shotgun.currentBullets+"/"+p1Shotgun.maxBullets;
 break;
 case 4:
-// Max time like 3 sec then auto cast bomb.
+p1Sword.swing();
 break;
 }
 case 2:
@@ -100,10 +103,11 @@ p2UZI.shoot();
 WeaponText = WeaponName2+" "+p2UZI.currentBullets+"/"+p2UZI.maxBullets;
 break;
 case 3:
-p2Sword.swing();
+p2Shotgun.buckshot();
+WeaponText = WeaponName3+" "+p2Shotgun.currentBullets+"/"+p2Shotgun.maxBullets;
 break;
 case 4:
-// Max time like 3 sec then auto cast bomb.
+p2Sword.swing();
 break;
 }
 case 3:
@@ -117,10 +121,11 @@ pzUZI.shoot();
 WeaponText = WeaponName2+" "+pzUZI.currentBullets+"/"+pzUZI.maxBullets;
 break;
 case 3:
-pzSword.swing();
+pzShotgun.buckshot();
+WeaponText = WeaponName3+" "+pzShotgun.currentBullets+"/"+pzShotgun.maxBullets;
 break;
 case 4:
-// Max time like 3 sec then auto cast bomb.
+pzSword.swing();
 break;
 }
 }

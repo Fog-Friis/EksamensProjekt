@@ -5,7 +5,7 @@ Player p1, p2, pz;
 Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
 Weapon pzSword, p1Sword, p2Sword;
-
+Weapon pzShotgun, p1Shotgun,p2Shotgun;
 
 WeaponManager WPMp1,WPMp2,WPMpz;
 EnemyManager EM;
@@ -37,16 +37,18 @@ class GameStateManager {
   void setupManager() {
   pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-6618981,0,3);
   pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-6618981,0,3);//
- pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-6618981,0,3);
+ pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),100,10,0,-65536,-6618981,0,3);
+ pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,-65536,-6618981,0,3);   
     
   p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,1);
   p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,1);
- p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-65526,0,1);;
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),100,10,0,-65536,-65526,0,1);;
+  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,-65536,-65526,0,1);  
     
  p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,-65536,-65526,0,2);
   p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,-65536,-65526,0,2);
-  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,0,0,color(1),100,10,0,-65536,-65526,0,2);
-    
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),100,10,0,-65536,-65526,0,2);
+  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,-65536,-65526,0,2);
     
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd','q','e', 100, 3, 0);
     players.add(p1);
