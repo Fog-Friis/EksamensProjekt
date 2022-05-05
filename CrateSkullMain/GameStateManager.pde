@@ -196,7 +196,6 @@ class GameStateManager {
     text("Zombie Survival", width/2, height/6);
     if(zss.clicked) gamestate = 6;
     if(zb.clicked) gamestate = 0;
-    killCount = 0;
     fill(255);
   }
 

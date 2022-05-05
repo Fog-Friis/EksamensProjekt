@@ -88,6 +88,8 @@ class Player {
   }
 
   void dead() {
+            killCount = 0;
+         pz.currentHealth = pz.maxHealth;
     gamestate += 1;
   }
 
