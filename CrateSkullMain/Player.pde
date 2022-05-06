@@ -196,6 +196,9 @@ class Player {
             fill(128, 128, 128);
             rect(25, 0, pzSword.swordSize, 2);
            break;}
+           case 5:
+            fill(6, 6, 6);
+            rect(15, 0, 30, 10);
        break; }
       popMatrix();
     }

@@ -1,5 +1,5 @@
 class WeaponManager{
-String WeaponName1 ="Glock", WeaponName2 = "UZI" , WeaponName3= "Shotgun", WeaponName4= "Sword", WeaponName5= "Grenade";
+String WeaponName1 ="Glock", WeaponName2 = "UZI" , WeaponName3= "Shotgun", WeaponName4= "Sword", WeaponName5= "Grenades";
 int WeaponID=1;
 int PlayerNR;
 float time = 0;
@@ -17,10 +17,8 @@ this.BulletsCurrent = BulletsCurrent;
 void WeaponChange(){
 switch(PlayerNR){
   case 1:
- if( time < millis()){
-        time = millis()+changeTime;
-   if (WeaponID ==4){ WeaponID=1;
-   }else{ WeaponID = WeaponID+1;}
+ if(time < millis()){
+   WeaponID += 1;
   switch(WeaponID){
    case 1:
    if  (p1Glock.currentBullets>0){
@@ -33,20 +31,32 @@ switch(PlayerNR){
       break;
    }else{ WeaponID = WeaponID+1;}
   case 3:
+  if  (p1Shotgun.currentBullets>0){
   WeaponText = WeaponName3+" "+p1Shotgun.currentBullets+"/"+p1Shotgun.maxBullets;
   break;
+  }else{ WeaponID = WeaponID+1;}
   case 4:
+  if  (p1Sword.currentBullets>0){
   WeaponText = WeaponName4;
+  break;
+  }else{ WeaponID = WeaponID+1;}
+  case 5: //<>//
+  if  (p1Grenades.currentBullets>0){
+  WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
+  }else{ WeaponID = WeaponID+1;}
+  break;
+  case 6:
+  WeaponID = 1;
   break;
   }
 }else{
 break;
 }
 case 3:
+
  if( time < millis()){
         time = millis()+changeTime;
-   if (WeaponID ==4){ WeaponID=1;
-   }else{ WeaponID = WeaponID+1;}
+           WeaponID += 1;
   switch(WeaponID){
    case 1:
    WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
@@ -66,12 +76,21 @@ case 3:
   WeaponText = WeaponName4;
   break;
   }else{ WeaponID = 1;}
+  case 5:
+  if  (pzGrenades.currentBullets>0){
+  WeaponText = WeaponName5+" "+pzGrenades.currentBullets+"/"+pzGrenades.maxBullets;
+    break;
+  }else{ WeaponID = WeaponID+1;}
+  case 6:
+  WeaponID = 1;
+  break;
   }
 }else{
 break;
 }
 }
 }
+
 void WeaponShoot(){
 switch(PlayerNR){
   case 1:
@@ -126,6 +145,10 @@ WeaponText = WeaponName3+" "+pzShotgun.currentBullets+"/"+pzShotgun.maxBullets;
 break;
 case 4:
 pzSword.swing();
+break;
+case 5:
+pzGrenades.bomb();
+WeaponText = WeaponName5+" "+pzGrenades.currentBullets+"/"+pzGrenades.maxBullets;
 break;
 }
 }

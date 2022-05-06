@@ -1,12 +1,14 @@
 int killCount=0;
 class Weapon { 
 int dir;
+float theta;
 int Random1, Random2;
 PVector pos = new PVector();
 PVector pos2 = new PVector();
 PVector pos3 = new PVector();
 int posx, posy;
 int localx, localy;
+int animation;
 int maxDistance=width,maxDistanceShutgun=500;  
 int targettype;
 int maxBullets=20, currentBullets=20;
@@ -14,15 +16,16 @@ int minDistance = 1, yDistance, xDistance;
 float fireRate;
 int enemycount;
 int damage;
-float time = 0;
+float time = 0, time2;
 String name;
 int WeaponID;
 int playerNR;
 int Life;
 int swordSize = 60;
-int bombRange;
+int bombRange = 100, drawBombRange =0;
 color c;
-int explosionRange;
+int explosionRange = 200;
+float bombDelay = 700;
 int colorTarget1, colorTarget2, colorTargetBonus;
   Weapon(PVector pos,int dir,int posx, int posy, int maxBullets,int currentBullets, color c, float fireRate, int damage,float time, int colorTarget1, int colorTarget2, int colorTargetBonus,int playerNR ) {
     this.pos = pos;
@@ -42,7 +45,7 @@ int colorTarget1, colorTarget2, colorTargetBonus;
   }
 void shoot() {
  
-   if (currentBullets>0 && time < (millis())) {
+   if (currentBullets>0 && time < (millis()) &&!gamePaused) {
      time = millis()+fireRate;
      currentBullets -=1;
      switch(playerNR){
@@ -66,11 +69,11 @@ void shoot() {
   
          switch(dir) {
       case 0:
-      yDistance = minDistance;
+      yDistance = minDistance*-1;
       xDistance = minDistance*0;
       break;
       case 1:
-      yDistance = minDistance;
+      yDistance = minDistance*-1;
       xDistance = minDistance;
       break;
       case 2:
@@ -78,15 +81,15 @@ void shoot() {
       xDistance = minDistance;
       break;
       case 3:
-      yDistance = minDistance*-1;
+      yDistance = minDistance;
       xDistance = minDistance;
       break;
       case 4:
-      yDistance = minDistance*-1;
+      yDistance = minDistance*1;
       xDistance = minDistance*0;
       break;
       case 5:
-      yDistance = minDistance*-1;
+      yDistance = minDistance*1;
       xDistance = minDistance*-1;
       break;
       case 6:
@@ -94,7 +97,7 @@ void shoot() {
       xDistance = minDistance*-1;
       break;
       case 7:
-      yDistance = minDistance*1;
+      yDistance = minDistance*-1;
       xDistance = minDistance*-1;
       break;
       }
@@ -140,9 +143,10 @@ void shoot() {
 }
 
 void buckshot(){
-   if (currentBullets>0 && time < (millis())) {
+   if (currentBullets>0 && time < (millis()) &&!gamePaused) {
      time = millis()+fireRate;
      currentBullets -=1;
+           
      switch(playerNR){
        case 1:
     pos =  p1.pos.copy(); 
@@ -160,14 +164,14 @@ void buckshot(){
      dir = pz.dir;
      break;
      }
-      
+      updatePixels();
          switch(dir) {
       case 0:
-      yDistance = minDistance;
+      yDistance = minDistance*-1;
       xDistance = minDistance*0;
       break;
       case 1:
-      yDistance = minDistance;
+      yDistance = minDistance*-1;
       xDistance = minDistance;
       break;
       case 2:
@@ -175,15 +179,15 @@ void buckshot(){
       xDistance = minDistance;
       break;
       case 3:
-      yDistance = minDistance*-1;
+      yDistance = minDistance*1;
       xDistance = minDistance;
       break;
       case 4:
-      yDistance = minDistance*-1;
+      yDistance = minDistance*1;
       xDistance = minDistance*0;
       break;
       case 5:
-      yDistance = minDistance*-1;
+      yDistance = minDistance*1;
       xDistance = minDistance*-1;
       break;
       case 6:
@@ -191,7 +195,7 @@ void buckshot(){
       xDistance = minDistance*-1;
       break;
       case 7:
-      yDistance = minDistance*1;
+      yDistance = minDistance*-1;
       xDistance = minDistance*-1;
       break;
       }
@@ -422,7 +426,7 @@ updatePixels();
 
 
 void swing(){
-  if (time < (millis())) {
+  if (time < (millis()) && !gamePaused) {
      time = millis()+fireRate;
           switch(playerNR){
        case 1:
@@ -483,8 +487,9 @@ void swing(){
 
 
 void bomb(){
-   if (time < (millis())) {
+   if (time < (millis()) &&!gamePaused) {
      time = millis()+fireRate;
+     currentBullets -=1;
           switch(playerNR){
        case 1:
     pos =  p1.pos.copy(); 
@@ -499,46 +504,64 @@ void bomb(){
      dir = pz.dir;
      break;
      }
+     updatePixels();
 switch(dir) {
       case 0:
-      yDistance = bombRange;
-      xDistance = bombRange*0;
+      yDistance = minDistance*-1;
+      xDistance = minDistance*0;
       break;
       case 1:
-      yDistance = bombRange;
-      xDistance = bombRange;
+      yDistance = minDistance*-1;
+      xDistance = minDistance;
       break;
       case 2:
-      yDistance = bombRange*0;
-      xDistance = bombRange;
+      yDistance = minDistance*0;
+      xDistance = minDistance;
       break;
       case 3:
-      yDistance = bombRange*-1;
-      xDistance = bombRange;
+      yDistance = minDistance*1;
+      xDistance = minDistance;
       break;
       case 4:
-      yDistance = bombRange*-1;
-      xDistance = bombRange*0;
+      yDistance = minDistance*1;
+      xDistance = minDistance*0;
       break;
       case 5:
-      yDistance = bombRange*-1;
-      xDistance = bombRange*-1;
+      yDistance = minDistance*1;
+      xDistance = minDistance*-1;
       break;
       case 6:
-      yDistance = bombRange*0;
-      xDistance = bombRange*-1;
+      yDistance = minDistance*0;
+      xDistance = minDistance*-1;
       break;
       case 7:
-      yDistance = bombRange*1;
-      xDistance = bombRange*-1;
+      yDistance = minDistance*-1;
+      xDistance = minDistance*-1;
       break;
       }
-      pos.x = pos.x+xDistance;
-      pos.y = pos.y+yDistance;
+      drawBombRange = 0;
+      for (int i = minDistance; i <=  bombRange;  i+= minDistance) {
+      drawBombRange += 1;
+      pos.y += yDistance;
+      pos.x += xDistance;
+      int posx = (int) pos.x;
+      int posy = (int) pos.y;     
+      c = get(posx,posy);
+      println(posx+"x"+posy+"y"+"farvekode:"+c);
+      if (c == (-6908266)){ //wall
+      pos.y -= yDistance;
+      pos.x -= xDistance;
+      println("Are u gau?");
+          break; //hit the wall}  
+    }
+   } 
+    time2 = millis()+bombDelay;
       targettype = 3+colorTargetBonus;
       hit();
-}
-}
+  }
+  }
+
+
 
 void hit(){
    switch(targettype){
@@ -639,26 +662,38 @@ case 2:
 }break;}
    }break;
 case 3:
+     if (time2 > millis()) {  
+      animation=1;
+     }
+
 //Enemy
         enemycount = EM.Enemies.size();
       if (enemycount == 0){
       }
       else{
       for (int x = 0; x <= enemycount;  x+= 1){
+        if (enemycount == 0){break;}
          pos2 =  EM.Enemies.get(x).pos;
         float d = pos.dist(pos2);
+        println(d);
         if (d <= explosionRange){
+          println("high");
           int d2= (int) d;
+                  println(d2);
            Life  =  EM.Enemies.get(x).life;
-           Life = Life - (explosionRange/d2); //Adjust damage
+           println(Life);
+           Life = Life - ((explosionRange/d2)*damage); //Adjust damage
+           println(Life);
       if (Life <= 0) {
         EM.Enemies.get(x).life=Life;
       EM.Enemies.remove(x); 
+      x-=1;
      }
      else{
        EM.Enemies.get(x).life=Life;
         }
           }
+       enemycount-= 1;
 
       }
          }
@@ -668,6 +703,7 @@ case 3:
       }
       else{
       for (int x = 0; x <= enemycount;  x+= 1){
+        if (enemycount == 0){break;}
          pos2 =  EM.ShooterEnemies.get(x).pos;
         float d = pos.dist(pos2);
         if (d <= explosionRange){
@@ -676,15 +712,38 @@ case 3:
            Life = Life - (explosionRange/d2); //Adjust damage
       if (Life <= 0) {
         EM.ShooterEnemies.get(x).life=Life;
-      EM.ShooterEnemies.remove(x); 
+      EM.ShooterEnemies.remove(x);
+      x-=1;
      }
      else{
        EM.ShooterEnemies.get(x).life=Life;
      }
-        }
+        } enemycount-= 1;
       }
       break;
    }
    }
 }
+
+void Display(){ 
+
+ switch(animation){
+   
+   case 0: break;
+   case 1:
+       pushMatrix();
+       translate(pos.x,pos.y);
+        theta = 2*dir*PI/8-PI/2;   
+     // rotate(theta);
+      fill(5,5,5);
+      rect(0+(xDistance*drawBombRange), 0+(yDistance*drawBombRange), 20, 20);
+       popMatrix();
+      
+   break;
+      }
+      
+}
+
+  
+
 }
