@@ -1,5 +1,5 @@
 class EnemyManager {
-  int EnemyCount = 10, ShooterEnemyCount = 5;
+  int EnemyCount = 0, ShooterEnemyCount = 100;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
@@ -10,8 +10,8 @@ class EnemyManager {
   EnemyManager() {
     SpawnPoints.add(new PVector(40*4, 40*4.5));
     SpawnPoints.add(new PVector(width-40*4, height-40*4.5));
-    EnemySpawnRate = 1500;
-    ShooterEnemySpawnRate = 5000;
+    EnemySpawnRate = 1000;
+    ShooterEnemySpawnRate = 1000;
   }
 
   void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s, Player p) {

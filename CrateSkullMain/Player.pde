@@ -82,7 +82,7 @@ class Player {
   void takeDamage(float damage) {
     damagedTime = millis();
 
-    currentHealth -= damage;
+    //currentHealth -= damage;
 
     if (currentHealth <= 0) dead();
   }

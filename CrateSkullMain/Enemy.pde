@@ -17,6 +17,7 @@ class Enemy {
   ArrayList closedSet;
   ArrayList vertices;
   ArrayList path;
+  ArrayList currentPath;
 
   ArrayList<PVector> points;
 
@@ -36,6 +37,7 @@ class Enemy {
     closedSet = new ArrayList();
     vertices = new ArrayList();
     path = new ArrayList();
+    currentPath = new ArrayList();
 
     grid = new int[height/40][width/40];
     generateMap();
@@ -50,10 +52,10 @@ class Enemy {
       for ( int iy = 0; iy < height/40.0; iy+=1) {
         grid[iy][ix] = 1;
         //for (int i = 0; i < lvl2.rows; i++) {
-          //for (int j = 0; j < lvl2.columns; j++) {
-            for (LevelTile l : lvl2.levelTiles){
-            for (WallTile w : l.wallTiles) {
-              grid[int(w.pos.y/40)][int(w.pos.x/40)]=-1;
+        //for (int j = 0; j < lvl2.columns; j++) {
+        for (LevelTile l : lvl2.levelTiles) {
+          for (WallTile w : l.wallTiles) {
+            grid[int(w.pos.y/40)][int(w.pos.x/40)]=-1;
             //}
           }
         }
@@ -186,10 +188,19 @@ class Enemy {
 
   void calcNewPath(float d) {
     if (!inAttackRange(d)) {
-      findNewPath();
-      addPoints();
-      points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
-      nextFindTime = millis() + findRate;
+      if (inAttackRange(600)) {
+        findNewPath();
+        addPoints();
+        points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
+        //nextFindTime = millis() + findRate;
+      } else {
+        if (millis() > nextFindTime) {
+          findNewPath();
+          addPoints();
+          points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
+          nextFindTime = millis() + findRate;
+        }
+      }
     } else {
       vel = new PVector(0, 0);
     }

@@ -139,7 +139,7 @@ class Level {
   void generateLevel() {
     for (int i = 0; i < points.size(); i++) {
       levelTiles.add(new LevelTile(int(points.get(i).x-4*cellSize), int(points.get(i).y-4.5*cellSize), cellSize));
-    }    
+    }
   }
 
   void update() {
@@ -381,13 +381,16 @@ class LevelTile {
         }
         for (Bullet b : s.bullets) {
           //fjern bullet når den rammer væg
+          if (w.collision(b.pos, b.radius)) {
+            b.pos = new PVector(2*width, 2*height);
+          }
         }
       }
     }
   }
-  
-  PVector getSpawnPoint(){
-    if (spawnTile){
+
+  PVector getSpawnPoint() {
+    if (spawnTile) {
       return new PVector(pos.x+4*cellSize, pos.y+4.5*cellSize);
     } else {
       return null;

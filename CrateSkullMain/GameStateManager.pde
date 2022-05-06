@@ -86,9 +86,9 @@ class GameStateManager {
     zss = new Button(new PVector(width/2-175, height*0.75-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Start", 48, 5);
     buttons.add(zss);
 
-    lvl1 = new Level(170, 3, 40);
+    lvl1 = new Level(1, 3, 40);
     levels.add(lvl1);
-    lvl2 = new Level(2501, 6, 40);
+    lvl2 = new Level(1, 6, 40);
     levels.add(lvl2);
 
     EM = new EnemyManager();
