@@ -10,7 +10,7 @@ Weapon pzShotgun, p1Shotgun, p2Shotgun;
 WeaponManager WPMp1, WPMp2, WPMpz;
 EnemyManager EM;
 ArrayList<TextBox> textBoxes;
-TextBox tb1, tb2;
+TextBox tb1, tb2, tbs1, tbs2;
 ArrayList<Button> buttons;
 Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb;
 ArrayList<PVector> spawns;
@@ -62,6 +62,10 @@ class GameStateManager {
     textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
+    tbs1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 2);
+    textBoxes.add(tbs1);
+    tbs2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 5);
+    textBoxes.add(tbs2);
 
     zs = new Button(new PVector(width/2-175, height*0.4-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Zombie Survival", 48, 0);
     buttons.add(zs);
@@ -172,6 +176,7 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
+    lvl1.seed = int(tbs1.Text);
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
     fill(255);
@@ -200,6 +205,7 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
+    lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
     killCount = 0;
