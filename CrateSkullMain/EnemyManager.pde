@@ -1,5 +1,5 @@
 class EnemyManager {
-  int EnemyCount = 0, ShooterEnemyCount = 100;
+  int EnemyCount =20, ShooterEnemyCount = 5;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   //int Escalation;
