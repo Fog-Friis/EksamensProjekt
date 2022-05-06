@@ -99,6 +99,7 @@ class Level {
   }
 
   void drawGraph() {
+    randomSeed(seed);
 
     for (int i = 0; i < points.size(); i++) {
       openRight[i] = false;
