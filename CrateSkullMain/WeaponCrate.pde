@@ -5,8 +5,8 @@ class WeaponCrate {
   int size;
 
   int lootType = 0;
-
-  float cooldown, nextSpawnTime;
+  float pickupNumber = 0;
+  float cooldown, nextSpawnTime = 80000000;
   boolean collected = false;
 
   WeaponCrate(PVector p, int s, float c) {
@@ -37,76 +37,123 @@ class WeaponCrate {
     }
   }
 
+  void updateWeaponText(WeaponManager W, Weapon Glock, Weapon UZI, Weapon Shotgun, Weapon Grenades) {
+    println(W.WeaponID);
+    
+    switch(W.WeaponID) {
+    case 1:
+      W.WeaponText = W.WeaponName1+" "+Glock.currentBullets+"/"+Glock.maxBullets;
+      break;
 
+    case 2:
+      W.WeaponText = W.WeaponName2+" "+UZI.currentBullets+"/"+UZI.maxBullets;  
+      break;
 
-  void giveLoot(Player p) {
+    case 3:
+      W.WeaponText = W.WeaponName3+" "+Shotgun.currentBullets+"/"+Shotgun.maxBullets;  
+      break;
 
-    if (!collected) {
-      if (p.currentHealth != p.maxHealth) {
-        lootType = int(random(0, 11));
-      } else {
-        lootType = int(random(3, 11));
-      }
+    case 4:
+      W.WeaponText = W.WeaponName4;
+      break;
 
-
-      switch(lootType) {
-      case 0:
-        lootType = 2;
-        break;
-      case 1:
-        lootType = 2;
-        break;      
-      case 2:
-        p.currentHealth = p.maxHealth;
-        break;
-
-      case 3:
-        lootType = 5;
-        break;
-      case 4:
-        lootType = 5;
-        break;
-      case 5:
-        if (p == pz) pzGlock.currentBullets = pzGlock.maxBullets;
-        if (p == p1) p1Glock.currentBullets = p1Glock.maxBullets;
-        if (p == p2) p2Glock.currentBullets = p2Glock.maxBullets;
-        break;
-
-      case 6:
-        lootType = 8;
-        break;
-      case 7:
-        lootType = 8;
-        break;
-      case 8:
-        if (p == pz) pzUZI.currentBullets = pzUZI.maxBullets;
-        if (p == p1) p1UZI.currentBullets = p1UZI.maxBullets;
-        if (p == p2) p2UZI.currentBullets = p2UZI.maxBullets;
-        break;
-
-      case 9:
-        lootType = 10;
-        break;
-      case 10:
-        if (p == pz) pzShotgun.currentBullets = pzShotgun.maxBullets;
-        if (p == p1) p1Shotgun.currentBullets = p1Shotgun.maxBullets;
-        if (p == p2) p2Shotgun.currentBullets = p2Shotgun.maxBullets;
-        break;
-
-      case 11:
-        if (p == pz) pzGrenades.currentBullets = pzGrenades.maxBullets;
-        if (p == p1) p1Grenades.currentBullets = p1Grenades.maxBullets;
-        if (p == p2) p2Grenades.currentBullets = p2Grenades.maxBullets;
-        break;
-
-      default:
-        lootType = 0;
-        break;
-      }
+    case 5:
+      W.WeaponText = W.WeaponName5+" "+Grenades.currentBullets+"/"+Grenades.maxBullets;
+      break;
     }
   }
 
+  void giveLoot(Player p) {
+      if (!collected) {
+        if (p.currentHealth != p.maxHealth) {
+          lootType = int(random(0, 4));
+        } else {
+          lootType = int(random(1, 4));
+        }
+
+        switch(lootType) {
+        case 0:
+          println("full health!");
+          p.currentHealth = p.maxHealth;
+          break;
+
+        case 1:
+          println("glock ammo!");
+          if (p == pz) { 
+            pzGlock.currentBullets = pzGlock.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+          }
+          if (p == p1) {
+            p1Glock.currentBullets = p1Glock.maxBullets;
+            updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
+          }
+          if (p == p2) {
+            p2Glock.currentBullets = p2Glock.maxBullets;
+            updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+          }
+          break;
+
+        case 2:
+          println("UZI ammo!");
+          if (p == pz) {
+            pzUZI.currentBullets = pzUZI.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+          }
+          if (p == p1) {
+            p1UZI.currentBullets = p1UZI.maxBullets;
+            updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
+          }
+          if (p == p2) {
+            p2UZI.currentBullets = p2UZI.maxBullets;
+            updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+          }
+          break;
+
+        case 3:
+          println("shotgun ammo!");
+          if (p == pz) {
+            pzShotgun.currentBullets = pzShotgun.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+          }
+          if (p == p1) {
+            p1Shotgun.currentBullets = p1Shotgun.maxBullets;
+            updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
+          }
+          if (p == p2) {
+            p2Shotgun.currentBullets = p2Shotgun.maxBullets;
+            updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+          }
+          break;
+
+        case 4:
+          println("grenade ammo");
+          if (p == pz) {
+            pzGrenades.currentBullets = pzGrenades.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+          }
+          if (p == p1) {
+            p1Grenades.currentBullets = p1Grenades.maxBullets;
+            updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
+          }
+          if (p == p2) {
+            p2Grenades.currentBullets = p2Grenades.maxBullets;
+            updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+          }
+          break;
+
+        default:
+          lootType = 0;
+          break;
+        }
+      }
+  }
+
   void update() {
+    if (collected && pickupNumber == 0){
+      nextSpawnTime = cooldown*1000+millis();
+      pickupNumber++;
+    }
+    
     if (collected && millis() > nextSpawnTime) {
       collected = false;
       nextSpawnTime = cooldown*1000+millis();

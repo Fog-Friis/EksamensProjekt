@@ -15,6 +15,7 @@ this.WeaponText = WeaponText;
 this.BulletsCurrent = BulletsCurrent;
 }
 void WeaponChange(){
+  
 switch(PlayerNR){
   case 1:
  if(time < millis()){
@@ -39,7 +40,7 @@ switch(PlayerNR){
   if  (p1Sword.currentBullets>0){
   WeaponText = WeaponName4;
   break;
-  }else{ WeaponID = WeaponID+1;}
+  }else{ WeaponID = WeaponID+1;} //<>//
   case 5: //<>// //<>//
   if  (p1Grenades.currentBullets>0){
   WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
