@@ -45,7 +45,6 @@ class Player {
     if (keyCode == leftKey || key == leftKey) left = false;
     if (keyCode == rightKey || key == rightKey) right = false; 
     if (keyCode == shootKey || key == shootKey) shoot = false;
-    if (keyCode == rightKey || key == rightKey) right = false;
   }
 
   void move() {

@@ -2,10 +2,20 @@ int gamestate;
 ArrayList<Player> players;
 Player p1, p2, pz;
 
+int ColpzTarget1 = -65536;
+int ColpzTarget2 = -6618981;
+
+int Colp1Target1 ;
+int Colp1Target2 ;
+
+int Colp2Target1 ;
+int Colp2Target2 ;
+
 Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
 Weapon pzSword, p1Sword, p2Sword;
 Weapon pzShotgun, p1Shotgun, p2Shotgun;
+Weapon pzGrenades,p1Grenades,p2Grenades;
 
 WeaponManager WPMp1, WPMp2, WPMpz;
 EnemyManager EM;
@@ -32,24 +42,26 @@ class GameStateManager {
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
-  // -6618981 shooter
+  // -6618981 shooter //<>//
   // -65536 enemy
   void setupManager() {
-    pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -6618981, 0, 3);
-    pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -6618981, 0, 3);//
-    pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -6618981, 0, 3);
-    pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 0, color(1), 500, 20, 0, -65536, -6618981, 0, 3);   
+    pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,100,0,ColpzTarget1,ColpzTarget2,0,3);
+    pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),300,80,0,ColpzTarget1,ColpzTarget2,0,3);//
+    pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
+    pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,50,0,ColpzTarget1,ColpzTarget2,0,3);   
+    pzGrenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
 
-    p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -65526, 0, 1);
-    p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -65526, 0, 1);
-    p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -65526, 0, 1);
-    ;
-    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, -65536, -65526, 0, 1);  
-
-    p2Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -65526, 0, 2);
-    p2UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -65526, 0, 2);
-    p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -65526, 0, 2);
-    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, -65536, -65526, 0, 2);
+    p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp1Target1,Colp1Target2,0,1);
+  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp1Target1,Colp1Target2,0,1);
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp1Target1,Colp1Target2,0,1);;
+  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp1Target1,Colp1Target2,0,1);
+  p1Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp1Target1,Colp1Target2,0,1);
+    
+ p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp2Target1,Colp2Target2,0,2);
+  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp2Target1,Colp2Target2,0,2);
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp2Target1,Colp2Target2,0,2);
+  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,0,2);
+  p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,0,2);
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0);
     players.add(p1);
@@ -222,6 +234,7 @@ class GameStateManager {
     fill(255);
     if (!gamePaused)
       EM.run();
+      pzGrenades.Display();
   }
 
   void survivalGameOver() {
