@@ -8,11 +8,9 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName;
 
-int ColpzTarget1 = -5066036;
-int ColpzTarget2 = -65536;
-//int ColpzTarget2 = -6618981;
+int ColpzTarget1 = -65536;
+int ColpzTarget2 = -6618981;
 
 int Colp1Target1 = -16711936;
 int Colp1Target2 = -16711936;
@@ -42,14 +40,14 @@ Level lvl1, lvl2;
 class GameStateManager {
 
   GameStateManager() {
-    gamestate = 0; //<>//
+    gamestate = 0;
     gamePaused = false;
-    pausedScreen = false; //<>//
+    pausedScreen = false;
     p1l_pzl = loadImage("pz-p1.png");
     p2l = loadImage("p2.png");
-    players = new ArrayList<Player>(); //<>//
+    players = new ArrayList<Player>();
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>(); //<>//
+    buttons = new ArrayList<Button>();
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }

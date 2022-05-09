@@ -25,7 +25,7 @@ class Weapon {
   int bombRange = 100, drawBombRange =0;
   color c;
   int explosionRange = 150;
-  float bombDelay = 700;
+  float bombDelay = 5000;
   int colorTarget1, colorTarget2, colorTargetBonus;
   Weapon(PVector pos, int dir, int posx, int posy, int maxBullets, int currentBullets, color c, float fireRate, int damage, float time, int colorTarget1, int colorTarget2, int colorTargetBonus, int playerNR ) {
     this.pos = pos;
@@ -663,17 +663,17 @@ class Weapon {
       } 
       break;
     case 3:
-      if (time2 > millis()) {  
-        animation=1;
-        enemycount = EM.Enemies.size();
-        delay(500);
+    animation=1;
+
+          enemycount = EM.Enemies.size();
         if (enemycount == 0) {
-        animation=0;
+
         } else {
           for (int x = 0; x <= enemycount; x+= 1) {
             if (enemycount == 0) {
               break;
             }
+            animation=0;
             pos2 =  EM.Enemies.get(x).pos;
             float d = pos.dist(pos2);
             println(d);
@@ -721,7 +721,6 @@ class Weapon {
               enemycount-= 1;
             }
           }
-        }
       } 
       break; 
     case 4:

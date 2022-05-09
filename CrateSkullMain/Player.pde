@@ -205,4 +205,62 @@ class Player {
     bonustime = millis()+bonuslosetime;
     points += 10*bonusMultiplier;
   }
+  
+  void saveHighscore() {
+    
+  if (points > highscore) {
+  highscore4 = highscore5; 
+  highscoreName4 = highscoreName5;
+  highscore3 = highscore4;
+  highscoreName3 = highscoreName4;
+  highscore2 = highscore3;
+  highscoreName2 = highscoreName3;
+  highscore = highscore2;
+  highscoreName = highscoreName2;
+  points =  highscore;
+  localName = highscoreName;
+  }
+  else if (points > highscore2 && points < highscore) {
+   highscore4 = highscore5; 
+  highscoreName4 = highscoreName5;
+  highscore3 = highscore4;
+  highscoreName3 = highscoreName4;
+  highscore2 = highscore3;
+  highscoreName2 = highscoreName3;   
+    points =  highscore2;
+  localName = highscoreName2;
+  }
+  else if (points > highscore3 && points < highscore2) {
+     highscore4 = highscore5; 
+  highscoreName4 = highscoreName5;
+  highscore3 = highscore4;
+  highscoreName3 = highscoreName4;  
+    points =  highscore3;
+  localName = highscoreName3;
+  }
+  else if (points > highscore4 && points < highscore3) {
+       highscore4 = highscore5; 
+  highscoreName4 = highscoreName5; 
+    points =  highscore4;
+  localName = highscoreName4;
+  } 
+  else if (points > highscore5 && points < highscore4) {
+      points =  highscore5;
+  localName = highscoreName5;
+} 
+  else{ }
+
+  json = new JSONObject();
+  json.setInt("Score",highscore);
+  json.setString("Name", highscoreName);
+  json.setInt("Score2",highscore2);
+  json.setString("Name2", highscoreName2);
+  json.setInt("Score3",highscore3);
+  json.setString("Name3", highscoreName3);
+  json.setInt("Score4",highscore4);
+  json.setString("Name4", highscoreName4);
+  json.setInt("Score5",highscore5);
+  json.setString("Name5", highscoreName5);
+  saveJSONObject  (json, "data/Highscore.json"); 
+  }
 }
