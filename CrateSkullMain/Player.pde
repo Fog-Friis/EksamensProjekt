@@ -183,8 +183,26 @@ class Player {
       display();
     }
   }
+  void bonus(){
+    if (bonustime < millis()){
+    if (bonusMultiplier > 1.1){
+      bonusMultiplier -= 1;
+    bonustime = millis()+bonuslosetime/2;
+    }
+    }
+    /*
+    do {
+      bonusMultiplier -= 0.2;
+       bonustime = millis()+(bonuslosetime);
+       break;
+        }
+     while (bonustime < millis() && bonusMultiplier>1.1);
+    */   
+     }
+  
   void points() {
-    
-    points += 10;
+    bonusMultiplier += 1;
+    bonustime = millis()+bonuslosetime;
+    points += 10*bonusMultiplier;
   }
 }
