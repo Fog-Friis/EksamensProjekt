@@ -1,5 +1,6 @@
 class Player {
   PVector pos, vel = new PVector(); 
+  PImage look;
   int upKey, downKey, leftKey, rightKey, shootKey, changeKey;
   int dir;
   boolean up, down, left, right, shoot, change;
@@ -13,7 +14,7 @@ class Player {
   float speed = 5;
 
   //player constructor
-  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, float maxHealth, int v, int dir) {
+  Player(int playerNR, PVector p, float radius, color c, int u, int d, int l, int r, int q, int e, float maxHealth, int v, int dir, PImage look) {
     this.playerNR = playerNR;
     pos = p;
     this.radius = radius;
@@ -28,6 +29,7 @@ class Player {
     currentHealth = this.maxHealth;
     visible = v;
     this.dir = dir;
+    this.look = look;
   }
 
   void keyPress() {
@@ -169,7 +171,8 @@ class Player {
       circle(0, 0, 2*radius);
       fill(128, 128, 128);
       rect(15, 5, 20, 5);
-
+      rotate(PI/2);
+      image(look, 5-radius, 11-radius);
       popMatrix();
 
     }

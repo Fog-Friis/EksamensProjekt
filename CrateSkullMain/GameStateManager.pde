@@ -5,6 +5,8 @@ int points = 0;
 float bonustime;
 ArrayList<Player> players;
 Player p1, p2, pz;
+PImage p1l_pzl;
+PImage p2l;
 
 int ColpzTarget1 = -65536;
 int ColpzTarget2 = -6618981;
@@ -40,6 +42,8 @@ class GameStateManager {
     gamestate = 0;
     gamePaused = false;
     pausedScreen = false;
+    p1l_pzl = loadImage("pz-p1.png");
+    p2l = loadImage("p2.png");
     players = new ArrayList<Player>();
     textBoxes = new ArrayList<TextBox>();  
     buttons = new ArrayList<Button>(); //<>//
@@ -67,11 +71,11 @@ class GameStateManager {
   p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,0,2);
   p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,0,2);
 
-    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0);
+    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
-    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0);//Change shootkey and changekey
-    //players.add(p2);
-    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0);
+    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0, p2l);//Change shootkey and changekey
+    players.add(p2);
+    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
 
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
