@@ -1,4 +1,8 @@
 int gamestate;
+int killCount=0;
+float bonusMultiplier = 1;
+int points = 0; 
+float bonustime;
 ArrayList<Player> players;
 Player p1, p2, pz;
 
@@ -38,11 +42,11 @@ class GameStateManager {
     pausedScreen = false;
     players = new ArrayList<Player>();
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>();
+    buttons = new ArrayList<Button>(); //<>//
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
-  // -6618981 shooter //<>//
+  // -6618981 shooter
   // -65536 enemy
   void setupManager() {
     pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,100,0,ColpzTarget1,ColpzTarget2,0,3);
@@ -220,7 +224,7 @@ class GameStateManager {
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
-    killCount = 0;
+    points = 0;
     fill(255);
   }
 
@@ -232,6 +236,9 @@ class GameStateManager {
       lvlGend2 = true;
     }
     fill(255);
+    textSize(30);
+    textAlign(CENTER);
+    text("Score: "+points, width/2,25);
     if (!gamePaused)
       EM.run();
       pzGrenades.Display();
@@ -241,7 +248,7 @@ class GameStateManager {
     fill(0);
     textSize(72);
     textAlign(CENTER);
-    text("Game Over", width/2, height/4);
+    text("Game Over:"+points, width/2, height/4);
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }

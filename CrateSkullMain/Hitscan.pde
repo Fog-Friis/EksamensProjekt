@@ -1,4 +1,4 @@
-int killCount=0;
+
 class Weapon { 
 int dir;
 float theta;
@@ -573,7 +573,7 @@ void hit(){
         break;
       }
       else{
-      for (int x = 0; x <= enemycount;  x+= 1){
+      for (int x = 0; x <= enemycount-1;  x+= 1){
          pos2 =  EM.Enemies.get(x).pos;
         float d = pos.dist(pos2);
         if (d < 50){
@@ -581,13 +581,13 @@ void hit(){
         
       if (EM.Enemies.get(x).life <= 0) {
       EM.Enemies.remove(x); 
-      killCount += 1;
+      pz.points();
        x = x-1;
       enemycount = enemycount-1;
-      println(EM.Enemies.size()+"kills:"+killCount);
+      //println(EM.Enemies.size()+"kills:"+killCount);
     }
       else {
-      println(EM.Enemies.get(x).life);
+    //  println(EM.Enemies.get(x).life);
       }
       
       break;}
@@ -595,7 +595,6 @@ void hit(){
  
   } break;
   case 1:
-      println("Check");
         enemycount = EM.ShooterEnemies.size();
       println(EM.ShooterEnemies.size());
       if (enemycount == 0){
@@ -603,7 +602,7 @@ void hit(){
         break;
       }
       else{
-      for (int x = 0; x <= enemycount;  x+= 1){
+      for (int x = 0; x <= enemycount-1;  x+= 1){
          pos2 =  EM.ShooterEnemies.get(x).pos;   
          
         float d = pos.dist(pos2);
@@ -611,9 +610,9 @@ void hit(){
            Life  =  EM.ShooterEnemies.get(x).life;
       if (Life <= 0) {
         EM.ShooterEnemies.get(x).life=Life;
-        println(EM.ShooterEnemies.get(x).life);
+   //     println(EM.ShooterEnemies.get(x).life);
       EM.ShooterEnemies.remove(x); 
-      killCount += 1; 
+      pz.points();
      }
      else{
        EM.ShooterEnemies.get(x).life=Life;  
@@ -636,10 +635,10 @@ case 2:
         if (d <= swordSize){
       EM.Enemies.remove(x); 
       enemycount = enemycount-1;
-      killCount += 1;
+      pz.points();
       x -= x;
      
-      println(EM.Enemies.size()+"kills:"+killCount);
+ //     println(EM.Enemies.size()+"kills:"+killCount);
         break;
         }}
       }
@@ -655,17 +654,16 @@ case 2:
         enemycount = enemycount-1;
         if (d <= swordSize){
       EM.ShooterEnemies.remove(x); 
-      killCount += 1;
+      pz.points();
       x -= x;
       println(EM.ShooterEnemies.size()+"kills:"+killCount);
       
-}break;}
+}}
    }break;
 case 3:
      if (time2 > millis()) {  
       animation=1;
      }
-
 //Enemy
         enemycount = EM.Enemies.size();
       if (enemycount == 0){
@@ -720,8 +718,10 @@ case 3:
      }
         } enemycount-= 1;
       }
+      break; }
+      case 4:
       break;
-   }
+   
    }
 }
 

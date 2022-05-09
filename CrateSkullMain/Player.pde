@@ -180,4 +180,8 @@ class Player {
       display();
     }
   }
+  void points() {
+    
+    points += 10;
+  }
 }
