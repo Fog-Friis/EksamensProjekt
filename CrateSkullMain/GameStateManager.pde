@@ -1,11 +1,27 @@
 int gamestate;
+int killCount=0;
+float bonusMultiplier = 1;
+int points = 0; 
+float bonustime;
 ArrayList<Player> players;
 Player p1, p2, pz;
+PImage p1l_pzl;
+PImage p2l;
+
+int ColpzTarget1 = -65536;
+int ColpzTarget2 = -6618981;
+
+int Colp1Target1 ;
+int Colp1Target2 ;
+
+int Colp2Target1 ;
+int Colp2Target2 ;
 
 Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
 Weapon pzSword, p1Sword, p2Sword;
 Weapon pzShotgun, p1Shotgun, p2Shotgun;
+Weapon pzGrenades,p1Grenades,p2Grenades;
 
 WeaponManager WPMp1, WPMp2, WPMpz;
 EnemyManager EM;
@@ -26,36 +42,40 @@ class GameStateManager {
     gamestate = 0;
     gamePaused = false;
     pausedScreen = false;
+    p1l_pzl = loadImage("pz-p1.png");
+    p2l = loadImage("p2.png");
     players = new ArrayList<Player>();
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>();
+    buttons = new ArrayList<Button>(); //<>//
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
   // -6618981 shooter
   // -65536 enemy
   void setupManager() {
-    pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -6618981, 0, 3);
-    pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -6618981, 0, 3);//
-    pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -6618981, 0, 3);
-    pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 0, color(1), 500, 20, 0, -65536, -6618981, 0, 3);   
+    pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,100,0,ColpzTarget1,ColpzTarget2,0,3);
+    pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),300,80,0,ColpzTarget1,ColpzTarget2,0,3);//
+    pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
+    pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,50,0,ColpzTarget1,ColpzTarget2,0,3);   
+    pzGrenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
 
-    p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -65526, 0, 1);
-    p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -65526, 0, 1);
-    p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -65526, 0, 1);
-    ;
-    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, -65536, -65526, 0, 1);  
+    p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp1Target1,Colp1Target2,0,1);
+  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp1Target1,Colp1Target2,0,1);
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp1Target1,Colp1Target2,0,1);;
+  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp1Target1,Colp1Target2,0,1);
+  p1Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp1Target1,Colp1Target2,0,1);
+    
+ p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp2Target1,Colp2Target2,0,2);
+  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp2Target1,Colp2Target2,0,2);
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp2Target1,Colp2Target2,0,2);
+  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,0,2);
+  p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,0,2);
 
-    p2Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, -65536, -65526, 0, 2);
-    p2UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, -65536, -65526, 0, 2);
-    p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 100, 10, 0, -65536, -65526, 0, 2);
-    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, -65536, -65526, 0, 2);
-
-    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0);
+    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
-    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0);//Change shootkey and changekey
-    //players.add(p2);
-    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0);
+    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0, p2l);//Change shootkey and changekey
+    players.add(p2);
+    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
 
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
@@ -208,7 +228,7 @@ class GameStateManager {
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
-    killCount = 0;
+    points = 0;
     fill(255);
   }
 
@@ -220,15 +240,19 @@ class GameStateManager {
       lvlGend2 = true;
     }
     fill(255);
+    textSize(30);
+    textAlign(CENTER);
+    text("Score: "+points, width/2,25);
     if (!gamePaused)
       EM.run();
+      pzGrenades.Display();
   }
 
   void survivalGameOver() {
     fill(0);
     textSize(72);
     textAlign(CENTER);
-    text("Game Over", width/2, height/4);
+    text("Game Over:"+points, width/2, height/4);
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }
