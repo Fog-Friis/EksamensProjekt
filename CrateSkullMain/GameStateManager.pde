@@ -1,6 +1,7 @@
 int gamestate;
 int killCount=0;
-float bonusMultiplier = 1;
+int bonusMultiplier = 1;
+float bonuslosetime= 2000;
 int points = 0; 
 float bonustime;
 ArrayList<Player> players;
@@ -11,11 +12,11 @@ PImage p2l;
 int ColpzTarget1 = -65536;
 int ColpzTarget2 = -6618981;
 
-int Colp1Target1 ;
-int Colp1Target2 ;
+int Colp1Target1 = -16711936;
+int Colp1Target2 = -16711936;
 
-int Colp2Target1 ;
-int Colp2Target2 ;
+int Colp2Target1 = -16776961;
+int Colp2Target2 = -16776961;
 
 Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
@@ -41,7 +42,7 @@ class GameStateManager {
   GameStateManager() {
     gamestate = 0;
     gamePaused = false;
-    pausedScreen = false;
+    pausedScreen = false; //<>//
     p1l_pzl = loadImage("pz-p1.png");
     p2l = loadImage("p2.png");
     players = new ArrayList<Player>();
@@ -59,17 +60,17 @@ class GameStateManager {
     pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,50,0,ColpzTarget1,ColpzTarget2,0,3);   
     pzGrenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
 
-    p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp1Target1,Colp1Target2,0,1);
-  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp1Target1,Colp1Target2,0,1);
- p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp1Target1,Colp1Target2,0,1);;
-  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp1Target1,Colp1Target2,0,1);
-  p1Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp1Target1,Colp1Target2,0,1);
+    p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,75,0,Colp1Target1,Colp1Target2,4,1);
+  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,70,0,Colp1Target1,Colp1Target2,4,1);
+ p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,80,0,Colp1Target1,Colp1Target2,4,1);;
+  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,80,0,Colp1Target1,Colp1Target2,4,1);
+  p1Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp1Target1,Colp1Target2,4,1);
     
- p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp2Target1,Colp2Target2,0,2);
-  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp2Target1,Colp2Target2,0,2);
-  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp2Target1,Colp2Target2,0,2);
-  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,0,2);
-  p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,0,2);
+ p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp2Target1,Colp2Target2,8,2);
+  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp2Target1,Colp2Target2,8,2);
+  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp2Target1,Colp2Target2,8,2);
+  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,8,2);
+  p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,8,2);
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
@@ -209,6 +210,8 @@ class GameStateManager {
       lvl1.generateLevel();
       lvlGend1 = true;
     }
+    p1Grenades.Display();
+    p2Grenades.Display();
   }
 
   void deathMatchGameOver() {
@@ -242,9 +245,10 @@ class GameStateManager {
     fill(255);
     textSize(30);
     textAlign(CENTER);
-    text("Score: "+points, width/2,25);
+    text("Score: "+points+"         x"+bonusMultiplier, width/2,25);
     if (!gamePaused)
       EM.run();
+      pz.bonus();
       pzGrenades.Display();
   }
 
