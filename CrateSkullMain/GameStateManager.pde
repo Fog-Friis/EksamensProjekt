@@ -8,8 +8,9 @@ Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
 
-int ColpzTarget1 = -65536;
-int ColpzTarget2 = -6618981;
+int ColpzTarget1 = -5066036;
+int ColpzTarget2 = -65536;
+//int ColpzTarget2 = -6618981;
 
 int Colp1Target1 ;
 int Colp1Target2 ;
