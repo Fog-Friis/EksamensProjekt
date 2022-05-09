@@ -85,14 +85,14 @@ class EnemyManager {
   void spawnEnemies() {
     if (roundEnemyCount < maxEnemyCount && roundEnemyCount > 0) {
       if (millis() > nextEnemySpawn) {
-        Enemies.add(new Enemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30));
+        Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30));
         roundEnemyCount--;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
     }
     if (roundShooterCount < maxShooterCount && roundShooterCount > 0) {
       if (millis() > nextEnemySpawn) {
-        ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30, 100));
+        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100));
         roundShooterCount--;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
@@ -102,21 +102,8 @@ class EnemyManager {
   boolean addedSpawnPoints = false;
   void update() {
     spawnEnemies();
-
-    //Enemy spawn with inteval
-    /*if (millis()>nextEnemySpawn&&EnemyCount>EnemySpawned) {
-     Enemies.add(new Enemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30));
-     EnemySpawned += 1;
-     nextEnemySpawn = millis() + EnemySpawnRate;
-     println(EnemyCount, EnemySpawned);
-     }
-     
-     //ShooterEnemy spawn with inteval
-     if (millis()>nextShooterEnemySpawn&&ShooterEnemyCount>ShooterEnemySpawned) {
-     ShooterEnemies.add(new ShooterEnemy(SpawnPoints.get(int(random(0, SpawnPoints.size()))), 30, 100));
-     ShooterEnemySpawned += 1;
-     nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
-     }*/
+    
+    for (PVector p : SpawnPoints) println(p);
     enemyCollision(Enemies, ShooterEnemies, pz);
     for (Enemy e : Enemies) e.run();
     for (ShooterEnemy s : ShooterEnemies) s.run();
