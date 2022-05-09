@@ -105,11 +105,11 @@ class EnemyManager {
     for (Enemy e : Enemies) e.run();
     for (ShooterEnemy s : ShooterEnemies) s.run();    
 
-    textMode(CENTER);
+   // textMode(CENTER);
     fill(0);
     textSize(48);
     text(roundNumber+1, width/2, 100);
-    textMode(CORNER);
+ //   textMode(CORNER);
 
     nextRound();
   }

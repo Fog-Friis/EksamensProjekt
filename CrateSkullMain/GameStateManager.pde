@@ -8,7 +8,7 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName;
+String localName = "Thor";
 
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
@@ -258,6 +258,7 @@ class GameStateManager {
     fill(0);
     textSize(72);
     textAlign(CENTER);
+    pz.saveHighscore();
     text("Game Over:"+points, width/2, height/4);
     if (zggb.clicked) gamestate = 0;
     fill(255);
