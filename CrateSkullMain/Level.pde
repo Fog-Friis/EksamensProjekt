@@ -1,11 +1,12 @@
 //bane klasse
 class Level {
   ArrayList<LevelTile> levelTiles;
-  //LevelTile[][] grid;
-  //LevelTile start;
 
-  //ArrayList<LevelTile> openSet, closedSet;
-  //ArrayList<LevelTile> tree;
+  ArrayList<WeaponCrate> weaponCrates;
+  ArrayList<PVector> crateSpawnPoints;
+  int crateSpawnRate, nextCrateTime;
+  int currentCrates, maxCrates = 3;
+
   ArrayList<PVector> points, openSet;
   ArrayList<Connection> cons;
   PVector newPoint, current;
@@ -40,21 +41,16 @@ class Level {
     openLeft = new boolean[points.size()];
     openRight = new boolean[points.size()];
     randomSeed(seed);
+
+    crateSpawnPoints = new ArrayList<PVector>();
+    weaponCrates = new ArrayList<WeaponCrate>();
+    addCrates();
   }
 
   void addPoints() {
     for (int i = 0; i < columns; i++) {
       for (int j = 0; j < rows; j++) {
         points.add(new PVector(40*8*i+40*4, 40*9*j+40*4.5));
-      }
-    }
-  }
-
-  void drawGrid() {
-    for (int i = 0; i < columns; i++) {
-      for (int j = 0; j < rows; j++) {
-        fill(255);
-        rect(40*8*i, 40*9*j, 40*8, 40*9);
       }
     }
   }
@@ -143,12 +139,29 @@ class Level {
     }
   }
 
+  void addCrates() {
+    for (int i = 0; i < maxCrates; i++) {
+      PVector spawnPoint = new PVector(points.get(int(random(0, points.size()))).x, points.get(int(random(0, points.size()))).y);
+      crateSpawnPoints.add(spawnPoint);
+    }
+    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 60));
+  }
+
   void update() {
+
+    for (int i = 0; i < weaponCrates.size(); i++) {
+      if (weaponCrates.get(i).collideWith(pz, pz.radius)) {
+        //give player loot
+        weaponCrates.get(i).giveLoot(pz);
+        weaponCrates.get(i).collected = true;
+      }
+    }
   }
 
   //tegner tiles
   void display() {
     for (LevelTile l : levelTiles) l.run();
+    for (WeaponCrate w : weaponCrates) w.run();
   }
 
   //opdaterer og tegner bane hvis den er synlig

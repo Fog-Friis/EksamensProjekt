@@ -74,7 +74,6 @@ class EnemyManager {
     if (Enemies.size() + ShooterEnemies.size() == 0) {
       roundNumber++;
       roundEnemyCount = startEnemyCount + roundNumber * 5;
-      println(roundEnemyCount);
 
       if (roundNumber >= 5) {
         roundShooterCount = startShooterCount + roundNumber - 4;
@@ -102,17 +101,14 @@ class EnemyManager {
   boolean addedSpawnPoints = false;
   void update() {
     spawnEnemies();
-    
-    for (PVector p : SpawnPoints) println(p);
     enemyCollision(Enemies, ShooterEnemies, pz);
     for (Enemy e : Enemies) e.run();
-    for (ShooterEnemy s : ShooterEnemies) s.run();
-
+    for (ShooterEnemy s : ShooterEnemies) s.run();    
 
     textMode(CENTER);
     fill(0);
     textSize(48);
-    text(roundNumber, width/2, 100);
+    text(roundNumber+1, width/2, 100);
     textMode(CORNER);
 
     nextRound();

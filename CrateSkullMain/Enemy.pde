@@ -1,4 +1,5 @@
 int cols, rows;
+PImage zb1, zb2, zb3;
 
 class Enemy {
   PVector pos, vel = new PVector();
@@ -43,6 +44,10 @@ class Enemy {
     generateMap();
 
     enemiesPos = new ArrayList<PVector>();
+
+    zb1 = loadImage("zb1.png");
+    zb2 = loadImage("zb2.png");
+    zb3 = loadImage("zb3.png");
   }
   void generateMap() {
 
@@ -278,7 +283,7 @@ class Enemy {
   void hitAnimation() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 0, 0);
+    fill(178, 178, 204);
     rotate(theta);
     rect(armpos-10, 10, radius+10, radius/2);
     rect(armpos-10, -25, radius+10, radius/2);
@@ -301,9 +306,13 @@ class Enemy {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 0, 0);
+    fill(178, 178, 204);
     rotate(theta);
     circle(0, 0, 2*radius);
+    rotate(PI/2);
+    if (life > 60) image(zb1, 10-radius, 11-radius);
+    if (life <= 60 && life > 30) image(zb2, 10-radius, 11-radius);
+    if (life <= 30) image(zb3, 10-radius, 11-radius);
     popMatrix();
   }
 
