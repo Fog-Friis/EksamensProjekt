@@ -144,16 +144,38 @@ class Level {
       PVector spawnPoint = new PVector(points.get(int(random(0, points.size()))).x, points.get(int(random(0, points.size()))).y);
       crateSpawnPoints.add(spawnPoint);
     }
-    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 60));
+    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 1));
   }
 
   void update() {
 
-    for (int i = 0; i < weaponCrates.size(); i++) {
-      if (weaponCrates.get(i).collideWith(pz, pz.radius)) {
-        //give player loot
-        weaponCrates.get(i).giveLoot(pz);
-        weaponCrates.get(i).collected = true;
+    if (visible == 6) {
+      for (int i = 0; i < weaponCrates.size(); i++) {
+        if (weaponCrates.get(i).collideWith(pz, pz.radius)) {
+          //give player loot
+
+          weaponCrates.get(i).giveLoot(pz);
+          weaponCrates.get(i).collected = true;
+        }
+      }
+    }
+
+    if (visible == 3) {
+      for (int i = 0; i < weaponCrates.size(); i++) {
+        if (weaponCrates.get(i).collideWith(p1, p1.radius)) {
+          //give player loot
+          weaponCrates.get(i).giveLoot(p1);
+          weaponCrates.get(i).collected = true;
+        }
+      }
+
+      for (int i = 0; i < weaponCrates.size(); i++) {
+        if (weaponCrates.get(i).collideWith(p2, p2.radius)) {
+          //give player loot
+
+          weaponCrates.get(i).giveLoot(p2);
+          weaponCrates.get(i).collected = true;
+        }
       }
     }
   }
