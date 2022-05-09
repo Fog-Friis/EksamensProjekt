@@ -43,10 +43,11 @@ switch(PlayerNR){
   case 5: //<>// //<>//
   if  (p1Grenades.currentBullets>0){
   WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
-  }else{ WeaponID = WeaponID+1;}
+  }else{ WeaponID = 1;}
   break;
   case 6:
   WeaponID = 1;
+  WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
   break;
   }
 }else{
@@ -80,9 +81,10 @@ case 3:
   if  (pzGrenades.currentBullets>0){
   WeaponText = WeaponName5+" "+pzGrenades.currentBullets+"/"+pzGrenades.maxBullets;
     break;
-  }else{ WeaponID = WeaponID+1;}
+  }else{ WeaponID = 1;}
   case 6:
   WeaponID = 1;
+  WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
   break;
   }
 }else{

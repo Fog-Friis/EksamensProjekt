@@ -666,7 +666,9 @@ class Weapon {
       if (time2 > millis()) {  
         animation=1;
         enemycount = EM.Enemies.size();
+        delay(500);
         if (enemycount == 0) {
+        animation=0;
         } else {
           for (int x = 0; x <= enemycount; x+= 1) {
             if (enemycount == 0) {
