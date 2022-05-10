@@ -8,8 +8,9 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName = "", savetext = "Enter name here";
+String localName1 = "", savetext = "Enter name here";
 int localNR, localPoints;
+String[] text;
 
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
@@ -42,16 +43,19 @@ ArrayList<Level> levels;
 Level lvl1, lvl2;
 
 class GameStateManager {
- //<>//
-  GameStateManager() {
-    gamestate = 0; //<>// //<>// //<>//
-    gamePaused = false;
-    pausedScreen = false; //<>// //<>//
-    p1l_pzl = loadImage("pz-p1.png"); //<>//
-    p2l = loadImage("p2.png");
-    players = new ArrayList<Player>(); //<>// //<>// //<>//
+
+
+  GameStateManager() { 
+    gamestate = 0; 
+    gamePaused = false; 
+    pausedScreen = false; 
+    p1l_pzl = loadImage("pz-p1.png");
+    p2l = loadImage("p2.png"); 
+    players = new ArrayList<Player>(); 
+    text = loadStrings("Controls.txt"); 
+    players = new ArrayList<Player>(); 
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>(); //<>// //<>//
+    buttons = new ArrayList<Button>(); 
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
@@ -79,7 +83,7 @@ class GameStateManager {
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
-    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0, p2l);//Change shootkey and changekey
+    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, ',', '.', 100, 3, 0, p2l);//Change shootkey and changekey
     players.add(p2);
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
@@ -197,6 +201,9 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Controls", width/2, height/6);
+    textSize(29);
+    for(int i = 0; text.length > i; i++)
+      text(text[i], width/2, height/2+i*32-200);
     if (cb.clicked) gamestate = 0;
     fill(255);
   }
@@ -207,7 +214,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl1.seed = int(tbs1.Text);
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
@@ -240,7 +247,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
@@ -276,10 +283,11 @@ class GameStateManager {
       newRun = false;
     }
     if (sb.clicked) {
-      localName = tb2.Text;
-      pz.saveHighscore();
-      points = 0;
-      savetext = "Scored saved";
+    localName = tb2.Text;
+    pz.saveHighscore();
+    if (points > 4200){link("https://docs.google.com/document/d/1BDvwcpiaByMPB89EZXgYqP3h22itbywldKxY0k7Xgh4/edit?usp=sharing");}
+    points = 0;
+    savetext = "Scored saved";
     }
     text(savetext, width/2, height/4+240);
     textSize(72);
