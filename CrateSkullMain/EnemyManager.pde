@@ -88,14 +88,14 @@ class EnemyManager {
   void spawnEnemies() {
     if (roundEnemyCount <= maxEnemyCount && roundEnemyCount > 0) {
       if (millis() > nextEnemySpawn) {
-        Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30));
+        Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30));
         roundEnemyCount--;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
     }
     if (roundShooterCount <= maxShooterCount && roundShooterCount > 0) {
       if (millis() > nextShooterEnemySpawn) {
-        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100));
+        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100));
         roundShooterCount--;
         nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
       }
@@ -109,11 +109,11 @@ class EnemyManager {
     for (Enemy e : Enemies) e.run();
     for (ShooterEnemy s : ShooterEnemies) s.run();    
 
-   // textMode(CENTER);
+    // textMode(CENTER);
     fill(0);
     textSize(48);
     text(roundNumber+1, width/2, 100);
- //   textMode(CORNER);
+    //   textMode(CORNER);
 
     nextRound();
   }

@@ -13,6 +13,11 @@ class WeaponCrate {
   float showTime;
   float textPos = height-100;
 
+  String upgradeText = "";
+  boolean glockUpgrade, uziUpgrade, shotgunUpgrade, grenadeUpgrade;
+  boolean upgraded;
+  float upgradeShowTime = 60, upgradeTextPos = height-100;
+
   WeaponCrate(PVector p, int s, float c) {
     pos = p;
     size = s;
@@ -136,10 +141,30 @@ class WeaponCrate {
       showTime--;
       textPos--;
     }
+
+    if (upgraded && showTime > 0) {
+      println(upgraded, upgradeShowTime);
+      fill(0, 255, 0);
+      textMode(CENTER);
+      textSize(24);
+      text(upgradeText, width/2, upgradeTextPos);
+      textMode(CORNER);
+      upgradeShowTime--;
+      upgradeTextPos--;
+    }
+    if (upgradeShowTime < 0) {
+      upgraded = false;
+      upgradeShowTime = 60;
+      upgradeTextPos = height - 100;
+    }
   }
-  void resetCrate(){
+  void resetCrate() {
     pickupNumber = 0;
     collected = false;
+    glockUpgrade = false;
+    uziUpgrade = false;
+    shotgunUpgrade = false;
+    grenadeUpgrade = false;
   }
 
   void update() {
@@ -151,6 +176,39 @@ class WeaponCrate {
     if (collected && millis() > nextSpawnTime) {
       collected = false;
       nextSpawnTime = cooldown*1000+millis();
+    }
+
+    if (points >= 500 && !glockUpgrade) {
+      upgradeText = "Glock Double Ammo!";
+      pzGlock.maxBullets = 40;
+      pzGlock.currentBullets = pzGlock.maxBullets;
+      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      upgraded = true;
+      glockUpgrade = true;
+    }
+    if (points >= 1000 && !uziUpgrade) {
+      upgradeText = "UZI Double Ammo!";
+      pzUZI.maxBullets = 80;
+      pzUZI.currentBullets = pzUZI.maxBullets;
+      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      upgraded = true;
+      uziUpgrade = true;
+    }
+    if (points >= 1500 && !shotgunUpgrade) {
+      upgradeText = "Shotgun Double Ammo!";
+      pzShotgun.maxBullets = 30;
+      pzShotgun.currentBullets = pzShotgun.maxBullets;
+      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      upgraded = true;
+      shotgunUpgrade = true;
+    }
+    if (points >= 2000 && !grenadeUpgrade) {
+      upgradeText = "Grenades Double Ammo!";
+      pzGrenades.maxBullets = 30;
+      pzGrenades.currentBullets = pzGrenades.maxBullets;
+      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      upgraded = true;
+      grenadeUpgrade = true;
     }
   }
 
