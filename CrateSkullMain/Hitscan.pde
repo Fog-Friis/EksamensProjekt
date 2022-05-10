@@ -724,6 +724,7 @@ class Weapon {
         p2.currentHealth -= damage;
       }
       if (p2.currentHealth <= 0) {
+        scorep1 += 1;
       p2.dead();
       }
       break; 
@@ -734,6 +735,7 @@ class Weapon {
         p2.currentHealth -= damage;
       }
             if (p2.currentHealth <= 0) {
+              scorep1 += 1;
       p2.dead();
       }
       break; 
@@ -744,6 +746,7 @@ class Weapon {
         p2.currentHealth -= damage;
       }
             if (p2.currentHealth <= 0) {
+       scorep1 += 1;
       p2.dead();
       }
       break; 
@@ -757,6 +760,7 @@ class Weapon {
         p2.currentHealth -= ((explosionRange/c2)*damage);
       }
             if (p2.currentHealth <= 0) {
+      scorep1 += 1;        
       p2.dead();
       }
       break;
@@ -767,6 +771,7 @@ class Weapon {
         p1.currentHealth -= damage;
       }
             if (p1.currentHealth <= 0) {
+      scorep2 += 1;        
       p1.dead();
       }
       break; 
@@ -777,6 +782,7 @@ class Weapon {
         p1.currentHealth -= damage;
       }
                   if (p1.currentHealth <= 0) {
+      scorep2 += 1;              
       p1.dead();
       }
       break; 
@@ -787,6 +793,7 @@ class Weapon {
         p1.currentHealth -= damage;
       }
                   if (p1.currentHealth <= 0) {
+      scorep2 += 1;              
       p1.dead();
       }
       break; 
@@ -800,6 +807,7 @@ class Weapon {
         p1.currentHealth -= ((explosionRange/m2)*damage);
       }
                   if (p1.currentHealth <= 0) {
+      scorep2 += 1;  
       p1.dead();
       }
       break;

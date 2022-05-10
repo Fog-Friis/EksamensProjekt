@@ -1,6 +1,6 @@
 Zombie survival:
 Movement is controlled by  the 'wasd' buttons. 
-Switching weapons is done by pressing the left shift button.
+Switching weapons is done by pressing the 'e' button.
 Using the equipped weapons is done by  pressing the space button.
 
 1v1 deathmatch:
