@@ -203,6 +203,8 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
+    textSize(32);
+    text("Indsæt seed:", width/2, height/2-20);
     lvl1.seed = int(tbs1.Text);
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
@@ -234,6 +236,8 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
+    textSize(32);
+    text("Indsæt seed:", width/2, height/2-20);
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;

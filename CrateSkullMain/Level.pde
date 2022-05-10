@@ -144,7 +144,7 @@ class Level {
       PVector spawnPoint = new PVector(points.get(int(random(0, points.size()))).x, points.get(int(random(0, points.size()))).y);
       crateSpawnPoints.add(spawnPoint);
     }
-    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 1));
+    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 60));
   }
 
   void update() {
