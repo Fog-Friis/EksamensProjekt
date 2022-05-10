@@ -195,14 +195,14 @@ class WeaponCrate {
       nextSpawnTime = cooldown*1000+millis();
     }
 
-    if (points >= 50 && !glockUpgrade3) {
+    if (points >= 500 && !glockUpgrade3) {
       upgradeText = "Glock Rapid Fire!";
       pzGlock.fireRate = 400;
       upgraded = true;
       glockUpgrade3 = true;
     }
 
-    if (points >= 100 && !glockUpgrade1) {
+    if (points >= 1000 && !glockUpgrade1) {
       upgradeText = "Glock Double Ammo!";
       pzGlock.maxBullets = 40;
       pzGlock.currentBullets = pzGlock.maxBullets;
@@ -211,14 +211,14 @@ class WeaponCrate {
       glockUpgrade1 = true;
     }
 
-    if (points >= 200 && !uziUpgrade3) {
+    if (points >= 2000 && !uziUpgrade3) {
       upgradeText = "Uzi Rapid Fire!";
       pzUZI.fireRate = 100;
       upgraded = true;
       uziUpgrade3 = true;
     }
 
-    if (points >= 250 && !uziUpgrade1) {
+    if (points >= 2500 && !uziUpgrade1) {
       upgradeText = "UZI Double Ammo!";
       pzUZI.maxBullets = 80;
       pzUZI.currentBullets = pzUZI.maxBullets;
@@ -226,13 +226,13 @@ class WeaponCrate {
       upgraded = true;
       uziUpgrade1 = true;
     }
-    if (points >= 400 && !shotgunUpgrade3) {
+    if (points >= 4000 && !shotgunUpgrade3) {
       upgradeText = "Shotgun Rapid Fire!";
       pzShotgun.fireRate = 250;
       upgraded = true;
       shotgunUpgrade3 = true;
     }
-    if (points >= 500 && !shotgunUpgrade1) {
+    if (points >= 5000 && !shotgunUpgrade1) {
       upgradeText = "Shotgun Double Ammo!";
       pzShotgun.maxBullets = 30;
       pzShotgun.currentBullets = pzShotgun.maxBullets;
@@ -240,7 +240,7 @@ class WeaponCrate {
       upgraded = true;
       shotgunUpgrade1 = true;
     }
-    if (points >= 1000 && !grenadeUpgrade1) {
+    if (points >= 10000 && !grenadeUpgrade1) {
       upgradeText = "Grenades Double Ammo!";
       pzGrenades.maxBullets = 30;
       pzGrenades.currentBullets = pzGrenades.maxBullets;

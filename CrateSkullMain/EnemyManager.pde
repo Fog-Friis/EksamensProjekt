@@ -9,9 +9,9 @@ class EnemyManager {
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
   int roundNumber = 0;
-  int startEnemyCount = 20, startShooterCount = 1;
+  int startEnemyCount = 20, startShooterCount = 1, spawnedEnemies;
   //int startEnemyCount = 0, startShooterCount = 20;
-  int roundEnemyCount, roundShooterCount;
+  int roundEnemyCount, roundShooterCount, spawnedShooters;
 
 
   EnemyManager() {
@@ -25,6 +25,7 @@ class EnemyManager {
     ShooterEnemies.clear();
     enemyHealth = 100;
     escalation = 0;
+    spawnedEnemies = 0;
   }
 
   void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s, Player p) {
@@ -82,11 +83,12 @@ class EnemyManager {
       roundNumber++;
       escalation++;
       roundEnemyCount = startEnemyCount + roundNumber * 5;
+      spawnedEnemies = 0;
 
       if (roundNumber >= 4) {
         roundShooterCount = startShooterCount + roundNumber - 3;
       }
-      if (escalation >= 4){
+      if (escalation >= 4) {
         enemyHealth += 25;
         escalation = 0;
       }
@@ -94,17 +96,19 @@ class EnemyManager {
   }
 
   void spawnEnemies() {
-    if (roundEnemyCount <= maxEnemyCount && roundEnemyCount > 0) {
+    if (spawnedEnemies <= maxEnemyCount && roundEnemyCount > 0) {
       if (millis() > nextEnemySpawn) {
         Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, enemyHealth));
         roundEnemyCount--;
+        spawnedEnemies++;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
     }
-    if (roundShooterCount <= maxShooterCount && roundShooterCount > 0) {
+    if (spawnedShooters <= maxShooterCount && roundShooterCount > 0) {
       if (millis() > nextShooterEnemySpawn) {
         ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100, 250));
         roundShooterCount--;
+        spawnedShooters++;
         nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
       }
     }
@@ -112,7 +116,7 @@ class EnemyManager {
 
   boolean addedSpawnPoints = false;
   void update() {
-    
+
     spawnEnemies();
     enemyCollision(Enemies, ShooterEnemies, pz);
     for (Enemy e : Enemies) e.run();
