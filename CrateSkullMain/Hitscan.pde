@@ -772,7 +772,7 @@ class Weapon {
       }
             if (p1.currentHealth <= 0) {
       scorep2 += 1;        
-      p1.dead();
+      p1.dead(); 
       }
       break; 
     case 9:

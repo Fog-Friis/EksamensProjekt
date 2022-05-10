@@ -44,15 +44,15 @@ boolean gamePaused;
 boolean pausedScreen;
 boolean newRun;
 
-ArrayList<Level> levels; //<>//
-Level lvl1, lvl2;  //<>//
- //<>//
- //<>//
+ArrayList<Level> levels; //<>// //<>//
+Level lvl1, lvl2;  //<>// //<>//
+ //<>// //<>//
+ //<>// //<>//
 class GameStateManager {
- //<>//
-  GameStateManager() {   //<>//
-    gamestate = 0;  //<>//
-    gamePaused = false;   //<>//
+ //<>// //<>//
+  GameStateManager() {   //<>// //<>//
+    gamestate = 0;  //<>// //<>//
+    gamePaused = false;   //<>// //<>//
     pausedScreen = false;  
     p1l_pzl = loadImage("pz-p1.png"); 
     p2l = loadImage("p2.png");  
@@ -261,6 +261,8 @@ class GameStateManager {
     text(scorep1+" v "+scorep2 , width/2, height/4);
     if (dmpa.clicked) gamestate = 3; 
     if (dggb.clicked) gamestate = 0;
+    p2Grenades.hasExploded = true;
+    p1Grenades.hasExploded = true;
     fill(255);
   }  
 
@@ -309,6 +311,7 @@ class GameStateManager {
     if (newRun == true) {
       localPoints = points;
       newRun = false;
+      pzGrenades.hasExploded = true;
     }
     if (sb.clicked) {
     localName = tb2.Text;
