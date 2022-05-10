@@ -56,7 +56,7 @@ class ShooterEnemy extends Enemy {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 0, 0);
+    fill(255,0,0);
     circle(0, 0, 2*radius);
     image(se, 10-radius, 11-radius);
     
