@@ -1,6 +1,7 @@
-
 class Weapon { 
   int dir;
+  float time2;
+  int animation;
   float theta;
   int Random1, Random2;
   PVector pos = new PVector();
@@ -8,7 +9,6 @@ class Weapon {
   PVector pos3 = new PVector();
   int posx, posy;
   int localx, localy;
-  int animation;
   int maxDistance=width, maxDistanceShutgun=500;  
   int targettype;
   int maxBullets=20, currentBullets=20;
@@ -16,7 +16,7 @@ class Weapon {
   float fireRate;
   int enemycount;
   int damage;
-  float time = 0, time2;
+  float time = 0;
   String name;
   int WeaponID;
   int playerNR;
@@ -24,9 +24,10 @@ class Weapon {
   int swordSize = 60;
   int bombRange = 100, drawBombRange =0;
   color c;
-  int explosionRange = 150;
-  float bombDelay = 5000;
+  int explosionRange = 250;
+  float bombDelay = 700;
   int colorTarget1, colorTarget2, colorTargetBonus;
+  boolean hasExploded;
   Weapon(PVector pos, int dir, int posx, int posy, int maxBullets, int currentBullets, color c, float fireRate, int damage, float time, int colorTarget1, int colorTarget2, int colorTargetBonus, int playerNR ) {
     this.pos = pos;
     this.dir = dir;
@@ -558,9 +559,9 @@ class Weapon {
           break; //hit the wall}
         }
       } 
-      time2 = millis()+bombDelay;
-      targettype = 3+colorTargetBonus;
-      hit();
+      time2 = millis()+bombDelay; 
+      hasExploded = false;
+      animation=1;
     }
   }
 
@@ -628,15 +629,14 @@ class Weapon {
       enemycount = EM.Enemies.size();
       if (enemycount == 0) {
       } else {
-        for (int x = 0; x < enemycount-1; x+= 1) {
+        for (int x = 0; x < enemycount; x+= 1) {
           pos2 =  EM.Enemies.get(x).pos;
           float d = pos.dist(pos2);
           if (d <= swordSize) {
             EM.Enemies.remove(x); 
-            enemycount = enemycount-1;
             pz.points();
             x -= x;
-
+            enemycount = enemycount-1;
             //     println(EM.Enemies.size()+"kills:"+killCount);
             break;
           }
@@ -663,17 +663,13 @@ class Weapon {
       } 
       break;
     case 3:
-    animation=1;
-
+           hasExploded = true;
+          animation = 0;
           enemycount = EM.Enemies.size();
-        if (enemycount == 0) {
-
-        } else {
-          for (int x = 0; x <= enemycount; x+= 1) {
             if (enemycount == 0) {
               break;
             }
-            animation=0;
+            for (int x = 0; x <= enemycount-1; x+= 1) {
             pos2 =  EM.Enemies.get(x).pos;
             float d = pos.dist(pos2);
             println(d);
@@ -692,9 +688,8 @@ class Weapon {
               } else {
                 EM.Enemies.get(x).life=Life;
               }
+            }enemycount-= 1;
             }
-            enemycount-= 1;
-          }
           //Shooter enemy
           enemycount = EM.ShooterEnemies.size();
           if (enemycount == 0) {
@@ -717,11 +712,11 @@ class Weapon {
                 } else {
                   EM.ShooterEnemies.get(x).life=Life;
                 }
-              } 
-              enemycount-= 1;
+              } enemycount-= 1;
+              
             }
           }
-      } 
+        
       break; 
     case 4:
       pos2 =  p2.pos;
@@ -745,6 +740,7 @@ class Weapon {
       }
       break; 
     case 7:
+    animation = 0;
       pos2 =  p2.pos;
       float c = pos.dist(pos2);  //d dublicate local variable error
       if (c <= explosionRange) {
@@ -774,6 +770,7 @@ class Weapon {
       }
       break; 
     case 11:
+      animation = 0;
       pos2 =  p1.pos;
       float m = pos.dist(pos2);
       if (m <= explosionRange) {
