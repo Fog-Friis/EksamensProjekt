@@ -8,3 +8,5 @@ Player one has the same controls as the player in the Zombie survival gamemode.
 Player two's movement is controlled by the arrow keys.
 Player two can switch weapons by pressing the ',' button.
 Player two can use the equipped weapon by pressing '.' button.
+
+In any of the two gamemodes the game can be paused by pressing 'p'.

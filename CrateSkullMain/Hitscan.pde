@@ -113,13 +113,11 @@ class Weapon {
 
         int posx = (int) pos.x;
         int posy = (int) pos.y;
-
-
+        
+        
+        
         //  c = pixels[posy*width+posx];
-
-
-
-
+        
         c = get(posx, posy);
         // println(posx+"x"+posy+"y"+"farvekode:"+c);
         if ((c == colorTarget1 ) //Enemy
