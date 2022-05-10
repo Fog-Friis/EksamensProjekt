@@ -112,6 +112,7 @@ class EnemyManager {
 
   boolean addedSpawnPoints = false;
   void update() {
+    
     spawnEnemies();
     enemyCollision(Enemies, ShooterEnemies, pz);
     for (Enemy e : Enemies) e.run();
