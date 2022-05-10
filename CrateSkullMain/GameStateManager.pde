@@ -11,7 +11,8 @@ PImage p2l;
 String localName = "", savetext = "Enter name here";
 int localNR, localPoints;
 String[] text;
-
+int scorep1 = 0;
+int scorep2 = 0;
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
 //int ColpzTarget2 = -6618981;
@@ -73,13 +74,13 @@ class GameStateManager { //<>//
     p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
     ;
-    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 15, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 5, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp1Target1, Colp1Target2, 4, 1);
 
     p2Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp2Target1, Colp2Target2, 8, 2);
-    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 15, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 5, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp2Target1, Colp2Target2, 8, 2);
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);

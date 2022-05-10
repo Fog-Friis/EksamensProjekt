@@ -589,12 +589,12 @@ class Weapon {
               EM.Enemies.remove(x); 
               pz.points();
               x = x-1;
-              enemycount = enemycount-1;
+    
               //println(EM.Enemies.size()+"kills:"+killCount);
             } else {
               //  println(EM.Enemies.get(x).life);
             }
-
+                      enemycount = enemycount-1;
             break;
           }
         }
@@ -609,14 +609,14 @@ class Weapon {
       } else {
         for (int x = 0; x <= enemycount-1; x+= 1) {
           pos2 =  EM.ShooterEnemies.get(x).pos;   
-
+          
           float d = pos.dist(pos2);
           if (d <= 50) {
-            Life  =  EM.ShooterEnemies.get(x).life;
+            EM.ShooterEnemies.get(x).life -= damage;
             if (Life <= 0) {
-              EM.ShooterEnemies.get(x).life=Life;
-              //     println(EM.ShooterEnemies.get(x).life);
+               
               EM.ShooterEnemies.remove(x); 
+              x = x-1;
               pz.points();
             } else {
               EM.ShooterEnemies.get(x).life=Life;
@@ -639,20 +639,16 @@ class Weapon {
             EM.Enemies.remove(x); 
             pz.points();
             x -= x;
-            enemycount = enemycount-1;
             //     println(EM.Enemies.size()+"kills:"+killCount);
             break;
-          }
+          }enemycount = enemycount-1;
         }
       }
       //Shooter enemy      
       enemycount = EM.ShooterEnemies.size();
       if (enemycount == 0) {
       } else {
-        for (int x = 0; x <= enemycount-1; x = x+1) {
-          if (enemycount == 0) {
-            break;
-          }
+        for (int x = 0; x <= enemycount; x = x+1) {
           pos2 =  EM.ShooterEnemies.get(x).pos;
           float d = pos.dist(pos2);
           enemycount = enemycount-1;
@@ -726,6 +722,10 @@ class Weapon {
       float d = pos.dist(pos2);
       if (d < 50) {
         p2.currentHealth -= damage;
+      }
+      if (p2.currentHealth <= 0) {
+      p2.dead();
+      
       }
       break; 
     case 5:
