@@ -725,7 +725,6 @@ class Weapon {
       }
       if (p2.currentHealth <= 0) {
       p2.dead();
-      
       }
       break; 
     case 5:
@@ -734,12 +733,18 @@ class Weapon {
       if (x < 50) {
         p2.currentHealth -= damage;
       }
+            if (p2.currentHealth <= 0) {
+      p2.dead();
+      }
       break; 
     case 6:
       pos2 =  p2.pos;
       float z = pos.dist(pos2);  //d dublicate local variable error
       if (z <= swordSize) {
         p2.currentHealth -= damage;
+      }
+            if (p2.currentHealth <= 0) {
+      p2.dead();
       }
       break; 
     case 7:
@@ -751,12 +756,18 @@ class Weapon {
         int c2= (int) c;
         p2.currentHealth -= ((explosionRange/c2)*damage);
       }
+            if (p2.currentHealth <= 0) {
+      p2.dead();
+      }
       break;
     case 8:
       pos2 =  p1.pos;
       float v = pos.dist(pos2);
       if (v < 50) {
         p1.currentHealth -= damage;
+      }
+            if (p1.currentHealth <= 0) {
+      p1.dead();
       }
       break; 
     case 9:
@@ -765,12 +776,18 @@ class Weapon {
       if (b < 50) {
         p1.currentHealth -= damage;
       }
+                  if (p1.currentHealth <= 0) {
+      p1.dead();
+      }
       break; 
     case 10:
       pos2 =  p1.pos;
       float n = pos.dist(pos2);
       if (n <= swordSize) {
         p1.currentHealth -= damage;
+      }
+                  if (p1.currentHealth <= 0) {
+      p1.dead();
       }
       break; 
     case 11:
@@ -781,6 +798,9 @@ class Weapon {
       if (m <= explosionRange) {
         int m2= (int) m;
         p1.currentHealth -= ((explosionRange/m2)*damage);
+      }
+                  if (p1.currentHealth <= 0) {
+      p1.dead();
       }
       break;
     }

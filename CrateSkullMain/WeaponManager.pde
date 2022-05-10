@@ -48,7 +48,7 @@ switch(PlayerNR){
   break;
   case 6:
   WeaponID = 1;
-  WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
+  WeaponText = WeaponName1+" "+p1Glock.currentBullets+"/"+p1Glock.maxBullets;
   break;
   } break;
 }else{
@@ -59,7 +59,7 @@ break;
    WeaponID += 1;
   switch(WeaponID){
    case 1:
-   if  (p2Glock.currentBullets>0){
+   if  (p1Glock.currentBullets>0){
    WeaponText = WeaponName1+" "+p2Glock.currentBullets+"/"+p2Glock.maxBullets;
    break;
    }else{ WeaponID = WeaponID+1;}
@@ -85,14 +85,13 @@ break;
   break;
   case 6:
   WeaponID = 1;
-  WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
-  break;
+  WeaponText = WeaponName1+" "+p2Glock.currentBullets+"/"+p2Glock.maxBullets;
+   break;
   } break;
 }else{
 break;
-}
+} 
 case 3:
-
  if( time < millis()){
         time = millis()+changeTime;
            WeaponID += 1;

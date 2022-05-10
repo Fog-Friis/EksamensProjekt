@@ -13,6 +13,7 @@ int localNR, localPoints;
 String[] text;
 int scorep1 = 0;
 int scorep2 = 0;
+
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
 //int ColpzTarget2 = -6618981;
@@ -43,15 +44,15 @@ boolean gamePaused;
 boolean pausedScreen;
 boolean newRun;
 
-ArrayList<Level> levels;
-Level lvl1, lvl2; 
-
-
+ArrayList<Level> levels; //<>//
+Level lvl1, lvl2;  //<>//
+ //<>//
+ //<>//
 class GameStateManager {
-
-  GameStateManager() {  
-    gamestate = 0; 
-    gamePaused = false;  
+ //<>//
+  GameStateManager() {   //<>//
+    gamestate = 0;  //<>//
+    gamePaused = false;   //<>//
     pausedScreen = false;  
     p1l_pzl = loadImage("pz-p1.png"); 
     p2l = loadImage("p2.png");  
@@ -224,6 +225,10 @@ class GameStateManager {
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
     fill(255);
+    p1.healTime = 100000;
+    p2.healTime = 100000;
+    scorep1 = 0;
+    scorep2 = 0;
   }
 
   boolean lvlGend1 = false;
@@ -269,6 +274,7 @@ class GameStateManager {
     points = 0;
     newRun = true;
     savetext = "Enter name here";
+    pz.healTime = 7500;
     fill(255);
   }
 
