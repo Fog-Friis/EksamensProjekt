@@ -10,7 +10,8 @@ class WeaponCrate {
   boolean collected = false;
 
   String givenLoot = "";
-  float stopShowTime, showTime;
+  float showTime;
+  float textPos = height-100;
 
   WeaponCrate(PVector p, int s, float c) {
     pos = p;
@@ -37,32 +38,6 @@ class WeaponCrate {
       return true;
     } else {
       return false;
-    }
-  }
-
-  void updateWeaponText(WeaponManager W, Weapon Glock, Weapon UZI, Weapon Shotgun, Weapon Grenades) {
-    println(W.WeaponID);
-
-    switch(W.WeaponID) {
-    case 1:
-      W.WeaponText = W.WeaponName1+" "+Glock.currentBullets+"/"+Glock.maxBullets;
-      break;
-
-    case 2:
-      W.WeaponText = W.WeaponName2+" "+UZI.currentBullets+"/"+UZI.maxBullets;  
-      break;
-
-    case 3:
-      W.WeaponText = W.WeaponName3+" "+Shotgun.currentBullets+"/"+Shotgun.maxBullets;  
-      break;
-
-    case 4:
-      W.WeaponText = W.WeaponName4;
-      break;
-
-    case 5:
-      W.WeaponText = W.WeaponName5+" "+Grenades.currentBullets+"/"+Grenades.maxBullets;
-      break;
     }
   }
 
@@ -153,13 +128,18 @@ class WeaponCrate {
 
   void showLootText() {
     if (collected && showTime > 0) {
-      fill(0,255,0);
+      fill(0, 255, 0);
       textMode(CENTER);
       textSize(24);
-      text(givenLoot, width/2, height-100);
+      text(givenLoot, width/2, textPos);
       textMode(CORNER);
       showTime--;
+      textPos--;
     }
+  }
+  void resetCrate(){
+    pickupNumber = 0;
+    collected = false;
   }
 
   void update() {
@@ -177,7 +157,8 @@ class WeaponCrate {
   void display() {
 
     if (!collected) {
-      showTime = 2*60;
+      showTime = 1*60;
+      textPos = height-100;
       //show crate
       pushMatrix();
       translate(pos.x, pos.y);
@@ -191,5 +172,30 @@ class WeaponCrate {
   void run() {
     update();
     display();
+  }
+}
+
+void updateWeaponText(WeaponManager W, Weapon Glock, Weapon UZI, Weapon Shotgun, Weapon Grenades) {
+
+  switch(W.WeaponID) {
+  case 1:
+    W.WeaponText = W.WeaponName1+" "+Glock.currentBullets+"/"+Glock.maxBullets;
+    break;
+
+  case 2:
+    W.WeaponText = W.WeaponName2+" "+UZI.currentBullets+"/"+UZI.maxBullets;  
+    break;
+
+  case 3:
+    W.WeaponText = W.WeaponName3+" "+Shotgun.currentBullets+"/"+Shotgun.maxBullets;  
+    break;
+
+  case 4:
+    W.WeaponText = W.WeaponName4;
+    break;
+
+  case 5:
+    W.WeaponText = W.WeaponName5+" "+Grenades.currentBullets+"/"+Grenades.maxBullets;
+    break;
   }
 }

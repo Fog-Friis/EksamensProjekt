@@ -9,6 +9,7 @@ class EnemyManager {
 
   int roundNumber = 0;
   int startEnemyCount = 20, startShooterCount = 0;
+  //int startEnemyCount = 0, startShooterCount = 20;
   int roundEnemyCount, roundShooterCount;
 
 
@@ -18,6 +19,9 @@ class EnemyManager {
     EnemySpawnRate = 1000;
     ShooterEnemySpawnRate = 1000;
     roundEnemyCount = startEnemyCount;
+    roundShooterCount = startShooterCount;
+    Enemies.clear();
+    ShooterEnemies.clear();
   }
 
   void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s, Player p) {
@@ -82,18 +86,18 @@ class EnemyManager {
   }
 
   void spawnEnemies() {
-    if (roundEnemyCount < maxEnemyCount && roundEnemyCount > 0) {
+    if (roundEnemyCount <= maxEnemyCount && roundEnemyCount > 0) {
       if (millis() > nextEnemySpawn) {
         Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30));
         roundEnemyCount--;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
     }
-    if (roundShooterCount < maxShooterCount && roundShooterCount > 0) {
-      if (millis() > nextEnemySpawn) {
+    if (roundShooterCount <= maxShooterCount && roundShooterCount > 0) {
+      if (millis() > nextShooterEnemySpawn) {
         ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x ,SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100));
         roundShooterCount--;
-        nextEnemySpawn = millis() + EnemySpawnRate;
+        nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
       }
     }
   }

@@ -24,7 +24,7 @@ Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
 Weapon pzSword, p1Sword, p2Sword;
 Weapon pzShotgun, p1Shotgun, p2Shotgun;
-Weapon pzGrenades,p1Grenades,p2Grenades;
+Weapon pzGrenades, p1Grenades, p2Grenades;
 
 WeaponManager WPMp1, WPMp2, WPMpz;
 EnemyManager EM;
@@ -42,37 +42,38 @@ Level lvl1, lvl2;
 class GameStateManager {
 
   GameStateManager() {
-    gamestate = 0; //<>//
+    gamestate = 0; //<>// //<>//
     gamePaused = false;
-    pausedScreen = false; //<>//
+    pausedScreen = false; //<>// //<>//
     p1l_pzl = loadImage("pz-p1.png");
     p2l = loadImage("p2.png");
-    players = new ArrayList<Player>(); //<>//
+    players = new ArrayList<Player>(); //<>// //<>//
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>(); //<>//
+    buttons = new ArrayList<Button>(); //<>// //<>//
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
   // -6618981 shooter
   // -65536 enemy
   void setupManager() {
-    pzGlock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,100,0,ColpzTarget1,ColpzTarget2,0,3);
-    pzUZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),300,80,0,ColpzTarget1,ColpzTarget2,0,3);//
-    pzSword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
-    pzShotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,50,0,ColpzTarget1,ColpzTarget2,0,3);   
-    pzGrenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,ColpzTarget1,ColpzTarget2,0,3);
+    pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
+    pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 300, 80, 0, ColpzTarget1, ColpzTarget2, 0, 3);//
+    pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
+    pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 50, 0, ColpzTarget1, ColpzTarget2, 0, 3);   
+    pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
 
-    p1Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,75,0,Colp1Target1,Colp1Target2,4,1);
-  p1UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,70,0,Colp1Target1,Colp1Target2,4,1);
- p1Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,80,0,Colp1Target1,Colp1Target2,4,1);;
-  p1Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,80,0,Colp1Target1,Colp1Target2,4,1);
-  p1Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp1Target1,Colp1Target2,4,1);
-    
- p2Glock = new Weapon (new PVector(width/2+100, height/2),0,0,0,20,20,color(1),800,15,0,Colp2Target1,Colp2Target2,8,2);
-  p2UZI = new Weapon (new PVector(width/2+100, height/2),0,0,0,40,40,color(1),100,10,0,Colp2Target1,Colp2Target2,8,2);
-  p2Sword = new Weapon (new PVector(width/2+100, height/2),0,0,0,1,1,color(1),500,10,0,Colp2Target1,Colp2Target2,8,2);
-  p2Shotgun = new Weapon (new PVector(width/2+100, height/2),0,0,0,15,15,color(1),500,20,0,Colp2Target1,Colp2Target2,8,2);
-  p2Grenades = new Weapon (new PVector(width/2+100, height/2),0,0,0,10,10,color(1),500,100,0,Colp2Target1,Colp2Target2,8,2);
+    p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 75, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 70, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
+    ;
+    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp1Target1, Colp1Target2, 4, 1);
+
+    p2Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 10, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp2Target1, Colp2Target2, 8, 2);
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
@@ -164,6 +165,7 @@ class GameStateManager {
 
     case 7:
       survivalGameOver();
+      resetSurvival();
       break;
 
 
@@ -251,11 +253,11 @@ class GameStateManager {
     fill(255);
     textSize(30);
     textAlign(CENTER);
-    text("Score: "+points+"         x"+bonusMultiplier, width/2,25);
+    text("Score: "+points+"         x"+bonusMultiplier, width/2, 25);
     if (!gamePaused)
       EM.run();
-      pz.bonus();
-      pzGrenades.Display();
+    pz.bonus();
+    pzGrenades.Display();
   }
 
   void survivalGameOver() {
@@ -266,5 +268,21 @@ class GameStateManager {
     text("Game Over:"+points, width/2, height/4);
     if (zggb.clicked) gamestate = 0;
     fill(255);
+  }
+  
+  void resetDeathmatch(){
+    
+  }
+
+  void resetSurvival() {
+    EM = new EnemyManager();
+    pz.currentHealth = pz.maxHealth;
+    pz.pos = new PVector(width/2+100, height/2);
+    pzGlock.currentBullets = pzGlock.maxBullets;
+    pzUZI.currentBullets = pzUZI.maxBullets;
+    pzShotgun.currentBullets = pzShotgun.maxBullets;
+    pzGrenades.currentBullets = pzGrenades.maxBullets;
+    updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+    for (WeaponCrate w : lvl2.weaponCrates) w.resetCrate();
   }
 }
