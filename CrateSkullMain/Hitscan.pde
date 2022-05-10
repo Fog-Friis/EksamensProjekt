@@ -24,11 +24,11 @@ class Weapon {
   int swordSize = 60;
   int bombRange = 100, drawBombRange =0;
   color c;
-  int explosionRange = 250;
+  int explosionRange = 200;
   float bombDelay = 700;
   int colorTarget1, colorTarget2, colorTargetBonus;
   boolean hasExploded = true;
-  Weapon(PVector pos, int dir, int posx, int posy, int maxBullets, int currentBullets, color c, float fireRate, int damage, float time, int colorTarget1, int colorTarget2, int colorTargetBonus, int playerNR ) {
+  Weapon(PVector pos, int dir, int posx, int posy, int maxBullets, int currentBullets, color c, float fireRate, int damage, float time, int colorTarget1, int colorTarget2, int colorTargetBonus, int playerNR ) { //int animation, float time2, boolean hasExploded
     this.pos = pos;
     this.dir = dir;
     this.posx = posx;
@@ -43,6 +43,9 @@ class Weapon {
     this.colorTarget2 = colorTarget2;
     this.colorTargetBonus = colorTargetBonus;
     this.playerNR = playerNR;
+ // this.animation = animation;
+ // this.time2 = time2;
+ // this.hasExploded = hasExploded;
   }
   void shoot() {
 
@@ -740,7 +743,8 @@ class Weapon {
       }
       break; 
     case 7:
-    animation = 0;
+      hasExploded = true;
+      animation = 0;
       pos2 =  p2.pos;
       float c = pos.dist(pos2);  //d dublicate local variable error
       if (c <= explosionRange) {
@@ -770,6 +774,7 @@ class Weapon {
       }
       break; 
     case 11:
+      hasExploded = true;
       animation = 0;
       pos2 =  p1.pos;
       float m = pos.dist(pos2);
