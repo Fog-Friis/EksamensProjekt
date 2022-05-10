@@ -10,7 +10,6 @@ PImage p1l_pzl;
 PImage p2l;
 String localName = "", savetext = "Enter name here";
 int localNR, localPoints;
-String localName = "";
 String[] text;
 
 int ColpzTarget1 = -5066036;
@@ -45,14 +44,14 @@ Level lvl1, lvl2;
 
 class GameStateManager {
 
-  GameStateManager() {
+  GameStateManager() { //<>//
     gamestate = 0; 
-    gamePaused = false;
+    gamePaused = false; //<>//
     pausedScreen = false; 
     p1l_pzl = loadImage("pz-p1.png");
-    p2l = loadImage("p2.png");
+    p2l = loadImage("p2.png"); //<>//
     players = new ArrayList<Player>(); 
-    text = loadStrings("Controls.txt");
+    text = loadStrings("Controls.txt"); //<>//
     players = new ArrayList<Player>(); 
     textBoxes = new ArrayList<TextBox>();  
     buttons = new ArrayList<Button>(); 
