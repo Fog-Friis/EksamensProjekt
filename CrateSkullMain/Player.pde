@@ -207,50 +207,28 @@ class Player {
   }
   
   void saveHighscore() {
-    
+    localNR = 0;
+      println(highscore+""+highscore2+""+""+highscore3+""+""+highscore4+""+""+highscore5);
+  println(highscoreName+""+highscoreName2+""+""+highscoreName3+""+""+highscoreName4+""+""+highscoreName5);
+    println(localName+" "+points);
   if (points > highscore) {
-  highscore4 = highscore5; 
-  highscoreName4 = highscoreName5;
-  highscore3 = highscore4;
-  highscoreName3 = highscoreName4;
-  highscore2 = highscore3;
-  highscoreName2 = highscoreName3;
-  highscore = highscore2;
-  highscoreName = highscoreName2;
-  points =  highscore;
-  localName = highscoreName;
+    localNR += 1;
   }
-  else if (points > highscore2 && points < highscore) {
-   highscore4 = highscore5; 
-  highscoreName4 = highscoreName5;
-  highscore3 = highscore4;
-  highscoreName3 = highscoreName4;
-  highscore2 = highscore3;
-  highscoreName2 = highscoreName3;   
-    points =  highscore2;
-  localName = highscoreName2;
+  if (points > highscore2) {
+    localNR += 1;
   }
-  else if (points > highscore3 && points < highscore2) {
-     highscore4 = highscore5; 
-  highscoreName4 = highscoreName5;
-  highscore3 = highscore4;
-  highscoreName3 = highscoreName4;  
-    points =  highscore3;
-  localName = highscoreName3;
+  if (points > highscore3) {
+    localNR += 1;
   }
-  else if (points > highscore4 && points < highscore3) {
-       highscore4 = highscore5; 
-  highscoreName4 = highscoreName5; 
-    points =  highscore4;
-  localName = highscoreName4;
+   if (points > highscore4) {
+    localNR += 1;
   } 
-  else if (points > highscore5 && points < highscore4) {
-      points =  highscore5;
-  localName = highscoreName5;
+   if (points > highscore5) {
+    localNR += 1;
 } 
-  else{ }
-
-  json = new JSONObject();
+ json = new JSONObject();
+  switch (localNR) { 
+  case 0:
   json.setInt("Score",highscore);
   json.setString("Name", highscoreName);
   json.setInt("Score2",highscore2);
@@ -261,6 +239,68 @@ class Player {
   json.setString("Name4", highscoreName4);
   json.setInt("Score5",highscore5);
   json.setString("Name5", highscoreName5);
+  break;
+  case 1:
+  json.setInt("Score",highscore);
+  json.setString("Name", highscoreName);
+  json.setInt("Score2",highscore2);
+  json.setString("Name2", highscoreName2);
+  json.setInt("Score3",highscore3);
+  json.setString("Name3", highscoreName3);
+  json.setInt("Score4",highscore4);
+  json.setString("Name4", highscoreName4);
+  json.setInt("Score5",points);
+  json.setString("Name5", localName);
+  break;
+  case 2:
+  json.setInt("Score",highscore);
+  json.setString("Name", highscoreName);
+  json.setInt("Score2",highscore2);
+  json.setString("Name2", highscoreName2);
+  json.setInt("Score3",highscore3);
+  json.setString("Name3", highscoreName3);
+  json.setInt("Score4",points);
+  json.setString("Name4",localName );
+  json.setInt("Score5",highscore4);
+  json.setString("Name5", highscoreName4);
+  break;
+  case 3:
+    json.setInt("Score",highscore);
+  json.setString("Name", highscoreName);
+  json.setInt("Score2",highscore2);
+  json.setString("Name2", highscoreName2);
+  json.setInt("Score3",points);
+  json.setString("Name3",localName);
+  json.setInt("Score4",highscore3);
+  json.setString("Name4",highscoreName3);
+  json.setInt("Score5",highscore4);
+  json.setString("Name5", highscoreName4);
+  break;
+  case 4:
+      json.setInt("Score",highscore);
+  json.setString("Name", highscoreName);
+  json.setInt("Score2",points);
+  json.setString("Name2",localName);
+  json.setInt("Score3",highscore2);
+  json.setString("Name3",highscoreName2);
+  json.setInt("Score4",highscore3);
+  json.setString("Name4",highscoreName3);
+  json.setInt("Score5",highscore4);
+  json.setString("Name5", highscoreName4);
+  break;
+  case 5:
+  json.setInt("Score",points);
+  json.setString("Name", localName);
+  json.setInt("Score2",highscore);
+  json.setString("Name2",highscoreName);
+  json.setInt("Score3",highscore2);
+  json.setString("Name3",highscoreName2);
+  json.setInt("Score4",highscore3);
+  json.setString("Name4",highscoreName3);
+  json.setInt("Score5",highscore4);
+  json.setString("Name5", highscoreName4);
+  break;
+  }
   saveJSONObject  (json, "data/Highscore.json"); 
   }
 }

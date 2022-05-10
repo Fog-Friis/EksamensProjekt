@@ -8,7 +8,8 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName = "Thor";
+String localName = "", savetext = "Enter name here";
+int localNR, localPoints;
 
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
@@ -31,10 +32,11 @@ EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2, tbs1, tbs2;
 ArrayList<Button> buttons;
-Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb;
+Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
+boolean newRun;
 
 ArrayList<Level> levels;
 Level lvl1, lvl2;
@@ -107,6 +109,8 @@ class GameStateManager {
     buttons.add(zb);
     zggb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Back", 48, 7);
     buttons.add(zggb);
+    sb = new Button(new PVector(width/2-175, height*0.9-200), new PVector(350, 120), 5, color(150), color(160), color(140), "Save", 48, 7);
+    buttons.add(sb);
 
     dms = new Button(new PVector(width/2-175, height*0.75-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Start", 48, 2);
     buttons.add(dms);
@@ -234,6 +238,8 @@ class GameStateManager {
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
     points = 0;
+    newRun = true;
+    savetext = "Enter name here";
     fill(255);
   }
 
@@ -256,10 +262,21 @@ class GameStateManager {
 
   void survivalGameOver() {
     fill(0);
-    textSize(72);
+    textSize(52);
     textAlign(CENTER);
+    if (newRun == true){
+    localPoints = points;
+    newRun = false;
+    }
+    if (sb.clicked) {
+    localName = tb2.Text;
     pz.saveHighscore();
-    text("Game Over:"+points, width/2, height/4);
+    points = 0;
+    savetext = "Scored saved";
+    }
+    text(savetext, width/2, height/4+240);
+    textSize(72);
+    text("Game Over:"+localPoints, width/2, height/4);
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }

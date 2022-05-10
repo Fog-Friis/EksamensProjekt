@@ -11,16 +11,16 @@ void setup() {
   rows = height/40;
   
   json = loadJSONObject("Highscore.json");
-  int highscore = json.getInt("Score");
-  int highscore2 = json.getInt("Score2");
-  int highscore3 = json.getInt("Score3");
-  int highscore4 = json.getInt("Score4");
-  int highscore5 = json.getInt("Score5");
-  String highscoreName = json.getString("Name");
-  String highscoreName2 = json.getString("Name2");
-  String highscoreName3 = json.getString("Name3");
-  String highscoreName4 = json.getString("Name4");
-  String highscoreName5 = json.getString("Name5");
+  highscore = json.getInt("Score");
+  highscore2 = json.getInt("Score2");
+  highscore3 = json.getInt("Score3");
+  highscore4 = json.getInt("Score4");
+  highscore5 = json.getInt("Score5");
+  highscoreName = json.getString("Name");
+  highscoreName2 = json.getString("Name2");
+  highscoreName3 = json.getString("Name3");
+  highscoreName4 = json.getString("Name4");
+  highscoreName5 = json.getString("Name5");
 }
 
 void draw() {
