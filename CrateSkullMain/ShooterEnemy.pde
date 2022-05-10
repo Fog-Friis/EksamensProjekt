@@ -15,7 +15,6 @@ class ShooterEnemy extends Enemy {
   }
 
   void shoot() {
-    phi = atan2(pz.pos.y-pos.y, pz.pos.x-pos.x);    
     bullets.add(new Bullet(new PVector(pos.x, pos.y), phi, 25, color(255, 255, 0)));
   }
 
@@ -28,6 +27,7 @@ class ShooterEnemy extends Enemy {
   }
 
   void update() {    
+    phi = atan2(pz.pos.y-pos.y, pz.pos.x-pos.x);    
     if (points.size() > 1 && path.size() > 1) {
       if (!moved(points.get(1))) {
         move(points.get(0), points.get(1));
@@ -58,9 +58,8 @@ class ShooterEnemy extends Enemy {
     translate(pos.x, pos.y);
     fill(255,0,0);
     circle(0, 0, 2*radius);
+    rotate(phi+PI/2);
     image(se, 10-radius, 11-radius);
-    
-    translate(0, 0);
     popMatrix();
   }
 
