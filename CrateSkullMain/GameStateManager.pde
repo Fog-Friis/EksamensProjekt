@@ -334,7 +334,8 @@ class GameStateManager { //<>//
     p2.currentHealth = p2.maxHealth;
     p1.pos = new PVector(width/2-100, height/2);
     p2.pos = new PVector(width/2+100, height/2);
-
+    p1Grenades.hasExploded = true;
+    p2Grenades.hasExploded = true;
     resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
     resetWeapons(p2Glock, p2UZI, p2Shotgun, p2Grenades, WPMp2);
     for (WeaponCrate w : lvl1.weaponCrates) w.resetCrate();
@@ -347,7 +348,7 @@ class GameStateManager { //<>//
     EM = new EnemyManager();
     pz.currentHealth = pz.maxHealth;
     pz.pos = new PVector(width/2+100, height/2);
-
+    pzGrenades.hasExploded = true;
     resetWeapons(pzGlock, pzUZI, pzShotgun, pzGrenades, WPMpz);
     for (WeaponCrate w : lvl2.weaponCrates) w.resetCrate();
 
