@@ -26,6 +26,10 @@ class WeaponCrate {
     size = s;
     cooldown = c;
     box = loadImage("box.png");
+    pzGlock.currentBullets = pzGlock.maxBullets;
+    pzUZI.currentBullets = 0;
+    pzShotgun.currentBullets = 0;
+    pzGrenades.currentBullets = 0;
   }
 
   boolean collideWith(Player p, float s) {
@@ -65,6 +69,7 @@ class WeaponCrate {
 
       case 1:
         givenLoot = "Picked Up Glock Ammo!";
+
         if (p == pz) { 
           pzGlock.currentBullets = pzGlock.maxBullets;
           updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
@@ -80,48 +85,91 @@ class WeaponCrate {
         break;
 
       case 2:
-        givenLoot = "Picked Up UZI ammo!";
+
         if (p == pz) {
+          if (pzUZI.currentBullets == 0) {
+            givenLoot = "Picked Up UZI!";
+          } else {
+            givenLoot = "Picked Up UZI Ammo!";
+          }
           pzUZI.currentBullets = pzUZI.maxBullets;
           updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
+          if (p1UZI.currentBullets == 0) {
+            givenLoot = "Picked Up UZI!";
+          } else {
+            givenLoot = "Picked Up UZI Ammo!";
+          }
           p1UZI.currentBullets = p1UZI.maxBullets;
           updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
         }
         if (p == p2) {
+          if (p1UZI.currentBullets == 0) {
+            givenLoot = "Picked Up UZI!";
+          } else {
+            givenLoot = "Picked Up UZI Ammo!";
+          }
           p2UZI.currentBullets = p2UZI.maxBullets;
           updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
         }
         break;
 
       case 3:
-        givenLoot = "Picked Up Shotgun Ammo!";
         if (p == pz) {
+          if (pzShotgun.currentBullets == 0) {
+            givenLoot = "Picked Up Shotgun!";
+          } else {
+            givenLoot = "Picked Up Shotgun Ammo!";
+          }
           pzShotgun.currentBullets = pzShotgun.maxBullets;
           updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
+          if (p1Shotgun.currentBullets == 0) {
+            givenLoot = "Picked Up Shotgun!";
+          } else {
+            givenLoot = "Picked Up Shotgun Ammo!";
+          }
           p1Shotgun.currentBullets = p1Shotgun.maxBullets;
           updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
         }
         if (p == p2) {
+          if (p2Shotgun.currentBullets == 0) {
+            givenLoot = "Picked Up Shotgun!";
+          } else {
+            givenLoot = "Picked Up Shotgun Ammo!";
+          }
           p2Shotgun.currentBullets = p2Shotgun.maxBullets;
           updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
         }
         break;
 
       case 4:
-        givenLoot = "Picked Up Grenade Ammo";
         if (p == pz) {
+          if (pzGrenades.currentBullets == 0) {
+            givenLoot = "Picked Up Grenades!";
+          } else {
+            givenLoot = "Picked Up Grenade Ammo!";
+          }
           pzGrenades.currentBullets = pzGrenades.maxBullets;
           updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
+          if (p1Grenades.currentBullets == 0) {
+            givenLoot = "Picked Up Grenades!";
+          } else {
+            givenLoot = "Picked Up Grenade Ammo!";
+          }
           p1Grenades.currentBullets = p1Grenades.maxBullets;
           updateWeaponText(WPMp1, p1Glock, p1UZI, p1Shotgun, p1Grenades);
         }
         if (p == p2) {
+          if (p2Grenades.currentBullets == 0) {
+            givenLoot = "Picked Up Grenades!";
+          } else {
+            givenLoot = "Picked Up Grenade Ammo!";
+          }
           p2Grenades.currentBullets = p2Grenades.maxBullets;
           updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
         }
@@ -250,19 +298,19 @@ class WeaponCrate {
     }
 
     combo = bonusMultiplier;
-    if (combo >= 10 && !glockUpgrade2) {
+    if (combo >= 50 && !glockUpgrade2) {
       pzGlock.damage = 200;
     }
 
-    if (combo >= 25 && !uziUpgrade2) {
+    if (combo >= 100 && !uziUpgrade2) {
       pzUZI.damage = 160;
     }
 
-    if (combo >= 50 && !shotgunUpgrade2) {
+    if (combo >= 150 && !shotgunUpgrade2) {
       pzShotgun.damage = 100;
     }
 
-    if (combo >= 100 && !grenadeUpgrade2) {
+    if (combo >= 200 && !grenadeUpgrade2) {
       pzGrenades.damage = 200;
     }
   }
