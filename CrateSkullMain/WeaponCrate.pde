@@ -52,9 +52,9 @@ class WeaponCrate {
   void giveLoot(Player p) {
     if (!collected) {
       if (p.currentHealth != p.maxHealth) {
-        lootType = int(random(0, 4));
+        lootType = int(random(0, 5));
       } else {
-        lootType = int(random(1, 4));
+        lootType = int(random(1, 5));
       }
 
       switch(lootType) {
@@ -128,7 +128,7 @@ class WeaponCrate {
         break;
 
       default:
-        lootType = 0;
+        lootType = 1;
         break;
       }
     }
@@ -242,7 +242,7 @@ class WeaponCrate {
     }
     if (points >= 10000 && !grenadeUpgrade1) {
       upgradeText = "Grenades Double Ammo!";
-      pzGrenades.maxBullets = 30;
+      pzGrenades.maxBullets = 20;
       pzGrenades.currentBullets = pzGrenades.maxBullets;
       updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
       upgraded = true;

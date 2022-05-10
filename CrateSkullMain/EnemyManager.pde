@@ -8,8 +8,8 @@ class EnemyManager {
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
-  int roundNumber = 0;
-  int startEnemyCount = 20, startShooterCount = 1, spawnedEnemies;
+  int roundNumber = 3;
+  int startEnemyCount = 20, startShooterCount = 0, spawnedEnemies;
   //int startEnemyCount = 0, startShooterCount = 20;
   int roundEnemyCount, roundShooterCount, spawnedShooters;
 
@@ -84,6 +84,7 @@ class EnemyManager {
       escalation++;
       roundEnemyCount = startEnemyCount + roundNumber * 5;
       spawnedEnemies = 0;
+      spawnedShooters = 0;
 
       if (roundNumber >= 4) {
         roundShooterCount = startShooterCount + roundNumber - 3;
