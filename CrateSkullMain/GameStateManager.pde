@@ -16,11 +16,12 @@ int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
 //int ColpzTarget2 = -6618981;
 
-int Colp1Target1 = -16711936;
-int Colp1Target2 = -16711936;
+int Colp1Target1 = -16776961;
 
-int Colp2Target1 = -16776961;
-int Colp2Target2 = -16776961;
+int Colp1Target2 = -16776961;
+
+int Colp2Target1 =  -16711936;
+int Colp2Target2 = -16711936;
 
 Weapon pzGlock, p1Glock, p2Glock;
 Weapon pzUZI, p1UZI, p2UZI;
@@ -42,17 +43,17 @@ boolean pausedScreen;
 boolean newRun;
 
 ArrayList<Level> levels;
-Level lvl1, lvl2; //<>//
+Level lvl1, lvl2; 
 
-class GameStateManager { //<>// //<>//
 
- //<>//
-  GameStateManager() {  //<>//
+class GameStateManager {
+
+  GameStateManager() {  
     gamestate = 0; 
-    gamePaused = false;  //<>// //<>//
-    pausedScreen = false; 
-    p1l_pzl = loadImage("pz-p1.png"); //<>//
-    p2l = loadImage("p2.png"); 
+    gamePaused = false;  
+    pausedScreen = false;  
+    p1l_pzl = loadImage("pz-p1.png"); 
+    p2l = loadImage("p2.png");  
     players = new ArrayList<Player>(); 
     text = loadStrings("Controls.txt"); 
     players = new ArrayList<Player>(); 
@@ -66,28 +67,29 @@ class GameStateManager { //<>// //<>//
   void setupManager() {
     pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), pzGlockFireRate, pzGlockDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), pzUZIFireRate, pzUZIDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);//
+
     pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), pzShotgunFireRate, pzShotgunDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);   
     pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500,pzGrenadesDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
 
-    p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 75, 0, Colp1Target1, Colp1Target2, 4, 1);
-    p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 70, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
     ;
-    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
+    p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 15, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp1Target1, Colp1Target2, 4, 1);
 
     p2Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp2Target1, Colp2Target2, 8, 2);
-    p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 10, 0, Colp2Target1, Colp2Target2, 8, 2);
-    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 20, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp2Target1, Colp2Target2, 8, 2);
+    p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 15, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp2Target1, Colp2Target2, 8, 2);
 
-    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
+    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 16, 100, 3, 0, p1l_pzl);
     players.add(p1);
     p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, ',', '.', 100, 3, 0, p2l);//Change shootkey and changekey
     players.add(p2);
-    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0, p1l_pzl);
+    pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 16, 100, 6, 0, p1l_pzl);
     players.add(pz);
 
     tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
@@ -232,6 +234,7 @@ class GameStateManager { //<>// //<>//
     }
     p1Grenades.Display();
     p2Grenades.Display();
+    if (!gamePaused){
         if (p1Grenades.time2< millis()&& p1Grenades.hasExploded ==false) {
       p1Grenades.targettype = 3+p1Grenades.colorTargetBonus;
       p1Grenades.hit();  
@@ -239,6 +242,7 @@ class GameStateManager { //<>// //<>//
         if (p2Grenades.time2< millis()&& p2Grenades.hasExploded ==false) {
       p2Grenades.targettype = 3+p2Grenades.colorTargetBonus;
       p2Grenades.hit();  
+    }
     }
   }
 

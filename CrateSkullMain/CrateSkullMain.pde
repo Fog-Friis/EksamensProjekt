@@ -52,7 +52,7 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (key == ' '&&!gamePaused) gamestate++;
+  //if (key == ' '&&!gamePaused) gamestate++;
   if (key == 'p'&&gamestate == 3|| key == 'p'&&gamestate == 6) gamePaused = !gamePaused;
   
   if(!gamePaused)

@@ -41,7 +41,7 @@ switch(PlayerNR){
   WeaponText = WeaponName4;
   break;
   }else{ WeaponID = WeaponID+1;} //<>//
-  case 5: //<>// //<>//
+  case 5:  //<>//
   if  (p1Grenades.currentBullets>0){
   WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
   }else{ WeaponID = 1;}
@@ -50,7 +50,44 @@ switch(PlayerNR){
   WeaponID = 1;
   WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
   break;
-  }
+  } break;
+}else{
+break;
+}
+  case 2:
+ if(time < millis()){
+   WeaponID += 1;
+  switch(WeaponID){
+   case 1:
+   if  (p2Glock.currentBullets>0){
+   WeaponText = WeaponName1+" "+p2Glock.currentBullets+"/"+p2Glock.maxBullets;
+   break;
+   }else{ WeaponID = WeaponID+1;}
+   case 2:
+   if  (p2UZI.currentBullets>0){
+   WeaponText = WeaponName2+" "+p2UZI.currentBullets+"/"+p2UZI.maxBullets;
+      break;
+   }else{ WeaponID = WeaponID+1;}
+  case 3:
+  if  (p2Shotgun.currentBullets>0){
+  WeaponText = WeaponName3+" "+p2Shotgun.currentBullets+"/"+p2Shotgun.maxBullets;
+  break;
+  }else{ WeaponID = WeaponID+1;}
+  case 4:
+  if  (p2Sword.currentBullets>0){
+  WeaponText = WeaponName4;
+  break;
+  }else{ WeaponID = WeaponID+1;}
+  case 5: 
+  if  (p2Grenades.currentBullets>0){
+  WeaponText = WeaponName5+" "+p2Grenades.currentBullets+"/"+p2Grenades.maxBullets;
+  }else{ WeaponID = 1;}
+  break;
+  case 6:
+  WeaponID = 1;
+  WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
+  break;
+  } break;
 }else{
 break;
 }
@@ -87,7 +124,7 @@ case 3:
   WeaponID = 1;
   WeaponText = WeaponName1+" "+pzGlock.currentBullets+"/"+pzGlock.maxBullets;
   break;
-  }
+  } break;
 }else{
 break;
 }
@@ -113,7 +150,12 @@ break;
 case 4:
 p1Sword.swing();
 break;
+case 5:
+p1Grenades.bomb();
+WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
+break;
 }
+break;
 case 2:
 switch(WeaponID){
 case 1:
@@ -131,7 +173,12 @@ break;
 case 4:
 p2Sword.swing();
 break;
+case 5:
+p2Grenades.bomb();
+WeaponText = WeaponName5+" "+p2Grenades.currentBullets+"/"+p2Grenades.maxBullets;
+break;
 }
+break;
 case 3:
 switch(WeaponID){
 case 1:
@@ -153,7 +200,7 @@ case 5:
 pzGrenades.bomb();
 WeaponText = WeaponName5+" "+pzGrenades.currentBullets+"/"+pzGrenades.maxBullets;
 break;
-}
+}break;
 }
 }
   }
