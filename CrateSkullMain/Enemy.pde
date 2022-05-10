@@ -5,7 +5,7 @@ class Enemy {
   PVector pos, vel = new PVector();
   boolean up, down, left, right;
   int dir;
-  int life = 100;
+  int life;
   float theta;
   float attackRate;
   PVector playerPos = new PVector();
@@ -27,9 +27,10 @@ class Enemy {
 
   ArrayList<PVector> enemiesPos;
 
-  Enemy(PVector p, float r) {
+  Enemy(PVector p, float r, int l) {
     pos = p;
     radius = r;
+    life = l;
 
     vel = new PVector();
     points = new ArrayList<PVector>();

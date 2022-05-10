@@ -6,8 +6,9 @@ class ShooterEnemy extends Enemy {
   float attackRange;
   PImage se;
 
-  ShooterEnemy(PVector p, float s, float aR) {
-    super(p, s);
+  ShooterEnemy(PVector p, float s, float aR, int l) {
+    super(p, s, l);
+    life = l;
     attackRange = aR;
     bullets = new ArrayList<Bullet>();
     se = loadImage("se.png");

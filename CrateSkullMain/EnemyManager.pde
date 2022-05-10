@@ -2,13 +2,14 @@ class EnemyManager {
   int maxEnemyCount = 60, maxShooterCount = 20;
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
-  //int Escalation;
+  int enemyHealth;
+  int escalation;
   ArrayList<PVector> SpawnPoints = new ArrayList<PVector>();
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
   int roundNumber = 0;
-  int startEnemyCount = 20, startShooterCount = 0;
+  int startEnemyCount = 20, startShooterCount = 1;
   //int startEnemyCount = 0, startShooterCount = 20;
   int roundEnemyCount, roundShooterCount;
 
@@ -17,11 +18,13 @@ class EnemyManager {
     SpawnPoints.add(new PVector(40*4, 40*4.5));
     SpawnPoints.add(new PVector(width-40*4, height-40*4.5));
     EnemySpawnRate = 1000;
-    ShooterEnemySpawnRate = 1000;
+    ShooterEnemySpawnRate = 5000;
     roundEnemyCount = startEnemyCount;
     roundShooterCount = startShooterCount;
     Enemies.clear();
     ShooterEnemies.clear();
+    enemyHealth = 100;
+    escalation = 0;
   }
 
   void enemyCollision(ArrayList<Enemy> e, ArrayList<ShooterEnemy> s, Player p) {
@@ -77,10 +80,15 @@ class EnemyManager {
   void nextRound() {
     if (Enemies.size() + ShooterEnemies.size() == 0) {
       roundNumber++;
+      escalation++;
       roundEnemyCount = startEnemyCount + roundNumber * 5;
 
-      if (roundNumber >= 5) {
-        roundShooterCount = startShooterCount + roundNumber - 4;
+      if (roundNumber >= 4) {
+        roundShooterCount = startShooterCount + roundNumber - 3;
+      }
+      if (escalation >= 4){
+        enemyHealth += 25;
+        escalation = 0;
       }
     }
   }
@@ -88,14 +96,14 @@ class EnemyManager {
   void spawnEnemies() {
     if (roundEnemyCount <= maxEnemyCount && roundEnemyCount > 0) {
       if (millis() > nextEnemySpawn) {
-        Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30));
+        Enemies.add(new Enemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, enemyHealth));
         roundEnemyCount--;
         nextEnemySpawn = millis() + EnemySpawnRate;
       }
     }
     if (roundShooterCount <= maxShooterCount && roundShooterCount > 0) {
       if (millis() > nextShooterEnemySpawn) {
-        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100));
+        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100, 250));
         roundShooterCount--;
         nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
       }

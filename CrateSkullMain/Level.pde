@@ -50,6 +50,7 @@ class Level {
     rows = height/(cellSize*9);
     columns = width/(cellSize*8);
     points = new ArrayList<PVector>();
+    addPoints();
     openSet = new ArrayList<PVector>();
     cons = new ArrayList<Connection>();
     openSet.add(points.get(0));
