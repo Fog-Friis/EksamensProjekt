@@ -8,7 +8,7 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName = "", savetext = "Enter name here";
+String localName1 = "", savetext = "Enter name here";
 int localNR, localPoints;
 String[] text;
 
@@ -212,7 +212,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl1.seed = int(tbs1.Text);
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
@@ -245,7 +245,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
@@ -291,8 +291,6 @@ class GameStateManager {
     textSize(72);
     text("Game Over:"+localPoints, width/2, height/4);
     text("Game Over:"+points, width/2, height/4);
-    textSize(32);
-    text("Indtast navn:", width/2, height/2-20);
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }
