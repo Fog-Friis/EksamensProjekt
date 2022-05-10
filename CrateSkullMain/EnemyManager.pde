@@ -8,7 +8,7 @@ class EnemyManager {
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
-  int roundNumber = 3;
+  int roundNumber = 0;
   int startEnemyCount = 20, startShooterCount = 0, spawnedEnemies;
   //int startEnemyCount = 0, startShooterCount = 20;
   int roundEnemyCount, roundShooterCount, spawnedShooters;
