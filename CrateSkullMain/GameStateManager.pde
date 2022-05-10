@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;  //<>//
+boolean newRun;  //<>// //<>//
 
-ArrayList<Level> levels;  //<>//
+ArrayList<Level> levels;  //<>// //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager { //<>//
+class GameStateManager { //<>// //<>//
 
-  GameStateManager() {    //<>//
+  GameStateManager() {    //<>// //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -200,6 +200,20 @@ class GameStateManager { //<>//
     if (dm.clicked) gamestate = 2;
     if (cs.clicked) gamestate = 1;
     fill(255);
+    
+    stroke(0);
+    fill(200, 200, 200);
+    rect(width-450, 50, 400, 450);
+    fill(0);
+    textSize(42);
+    text("Leaderboard:", width-250, 100);
+    textSize(32);
+    text(highscoreName + ": " + highscore, width-250, 170);
+    text(highscoreName2 + ": " + highscore2, width-250, 240);
+    text(highscoreName3 + ": " + highscore3, width-250, 310);
+    text(highscoreName4 + ": " + highscore4, width-250, 380);
+    text(highscoreName5 + ": " + highscore5, width-250, 450);
+    
   }
 
   void controlsScreen() {
@@ -331,8 +345,8 @@ class GameStateManager { //<>//
   void resetDeathMatch() {
     p1.currentHealth = p1.maxHealth;
     p2.currentHealth = p2.maxHealth;
-    p1.pos = new PVector(width/2-100, height/2);
-    p2.pos = new PVector(width/2+100, height/2);
+    p1.pos = new PVector(4*40, 4.5*40);
+    p2.pos = new PVector(width-4*40, height-4.5*40);
     p1Grenades.hasExploded = true;
     p2Grenades.hasExploded = true;
     resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
