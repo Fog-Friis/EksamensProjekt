@@ -63,10 +63,10 @@ class GameStateManager { //<>//
   // -65536 enemy
   void setupManager() {
     pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
-    pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 300, 80, 0, ColpzTarget1, ColpzTarget2, 0, 3);//
+    pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 80, 0, ColpzTarget1, ColpzTarget2, 0, 3);//
     pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 50, 0, ColpzTarget1, ColpzTarget2, 0, 3);   
-    pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
+    pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500,100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
 
     p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 75, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 70, 0, Colp1Target1, Colp1Target2, 4, 1);
@@ -230,6 +230,14 @@ class GameStateManager { //<>//
     }
     p1Grenades.Display();
     p2Grenades.Display();
+        if (p1Grenades.time2< millis()&& p1Grenades.hasExploded ==false) {
+      p1Grenades.targettype = 3+p1Grenades.colorTargetBonus;
+      p1Grenades.hit();  
+    }
+        if (p2Grenades.time2< millis()&& p2Grenades.hasExploded ==false) {
+      p2Grenades.targettype = 3+p2Grenades.colorTargetBonus;
+      p2Grenades.hit();  
+    }
   }
 
   void deathMatchGameOver() {
@@ -272,6 +280,10 @@ class GameStateManager { //<>//
       EM.run();
     pz.bonus();
     pzGrenades.Display();
+    if (pzGrenades.time2< millis()&& pzGrenades.hasExploded ==false) {
+      pzGrenades.targettype = 3+pzGrenades.colorTargetBonus;
+      pzGrenades.hit();  
+    }
   }
 
   void survivalGameOver() {
@@ -289,6 +301,7 @@ class GameStateManager { //<>//
     points = 0;
     savetext = "Scored saved";
     }
+    textSize(32);
     text(savetext, width/2, height/4+240);
     textSize(72);
     text("Game Over:"+localPoints, width/2, height/4);
