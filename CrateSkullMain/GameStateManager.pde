@@ -8,7 +8,7 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName = "", savetext = "Enter name here";
+String localName1 = "", savetext = "Enter name here";
 int localNR, localPoints;
 String[] text;
 
@@ -44,14 +44,15 @@ Level lvl1, lvl2;
 
 class GameStateManager {
 
-  GameStateManager() { //<>//
+
+  GameStateManager() { 
     gamestate = 0; 
-    gamePaused = false; //<>//
+    gamePaused = false; 
     pausedScreen = false; 
     p1l_pzl = loadImage("pz-p1.png");
-    p2l = loadImage("p2.png"); //<>//
+    p2l = loadImage("p2.png"); 
     players = new ArrayList<Player>(); 
-    text = loadStrings("Controls.txt"); //<>//
+    text = loadStrings("Controls.txt"); 
     players = new ArrayList<Player>(); 
     textBoxes = new ArrayList<TextBox>();  
     buttons = new ArrayList<Button>(); 
@@ -160,6 +161,7 @@ class GameStateManager {
 
     case 4:
       deathMatchGameOver();
+      resetDeathMatch();
       break;
 
     case 5:
@@ -212,7 +214,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("DeathMatch", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl1.seed = int(tbs1.Text);
     if (dms.clicked) gamestate = 3;
     if (db.clicked) gamestate = 0;
@@ -253,7 +255,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("Zombie Survival", width/2, height/6);
     textSize(32);
-    text("Indsæt seed:", width/2, height/2-20);
+    text("Enter seed:", width/2, height/2-20);
     lvl2.seed = int(tbs2.Text);
     if (zss.clicked) gamestate = 6;
     if (zb.clicked) gamestate = 0;
@@ -288,9 +290,9 @@ class GameStateManager {
     fill(0);
     textSize(52);
     textAlign(CENTER);
-    if (newRun == true){
-    localPoints = points;
-    newRun = false;
+    if (newRun == true) {
+      localPoints = points;
+      newRun = false;
     }
     if (sb.clicked) {
     localName = tb2.Text;
@@ -306,20 +308,38 @@ class GameStateManager {
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }
-  
-  void resetDeathmatch(){
-    
+
+  void resetDeathMatch() {
+    p1.currentHealth = p1.maxHealth;
+    p2.currentHealth = p2.maxHealth;
+    p1.pos = new PVector(width/2-100, height/2);
+    p2.pos = new PVector(width/2+100, height/2);
+
+    resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
+    resetWeapons(p2Glock, p2UZI, p2Shotgun, p2Grenades, WPMp2);
+    for (WeaponCrate w : lvl1.weaponCrates) w.resetCrate();
   }
 
   void resetSurvival() {
     EM = new EnemyManager();
     pz.currentHealth = pz.maxHealth;
     pz.pos = new PVector(width/2+100, height/2);
-    pzGlock.currentBullets = pzGlock.maxBullets;
-    pzUZI.currentBullets = pzUZI.maxBullets;
-    pzShotgun.currentBullets = pzShotgun.maxBullets;
-    pzGrenades.currentBullets = pzGrenades.maxBullets;
-    updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
+
+    resetWeapons(pzGlock, pzUZI, pzShotgun, pzGrenades, WPMpz);
     for (WeaponCrate w : lvl2.weaponCrates) w.resetCrate();
+  }
+
+  void resetWeapons(Weapon g, Weapon u, Weapon s, Weapon gr, WeaponManager WPM) {
+    g.maxBullets = 20;
+    u.maxBullets = 40;
+    s.maxBullets = 15;
+    gr.maxBullets = 15;
+
+    g.currentBullets = g.maxBullets;
+    u.currentBullets = u.maxBullets;
+    s.currentBullets = s.maxBullets;
+    gr.currentBullets = gr.maxBullets;
+
+    updateWeaponText(WPM, g, u, s, g);
   }
 }
