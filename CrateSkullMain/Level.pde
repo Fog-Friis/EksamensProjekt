@@ -3,7 +3,6 @@ class Level {
   ArrayList<LevelTile> levelTiles;
 
   ArrayList<WeaponCrate> weaponCrates;
-  ArrayList<PVector> crateSpawnPoints;
   int crateSpawnRate, nextCrateTime;
   int currentCrates, maxCrates = 3;
 
@@ -42,7 +41,24 @@ class Level {
     openRight = new boolean[points.size()];
     randomSeed(seed);
 
-    crateSpawnPoints = new ArrayList<PVector>();
+    weaponCrates = new ArrayList<WeaponCrate>();
+    addCrates();
+  }
+
+  void reset() {
+    levelTiles = new ArrayList<LevelTile>();
+    rows = height/(cellSize*9);
+    columns = width/(cellSize*8);
+    points = new ArrayList<PVector>();
+    openSet = new ArrayList<PVector>();
+    cons = new ArrayList<Connection>();
+    openSet.add(points.get(0));
+    openTop = new boolean[points.size()];
+    openBottom = new boolean[points.size()];
+    openLeft = new boolean[points.size()];
+    openRight = new boolean[points.size()];
+    randomSeed(seed);
+    
     weaponCrates = new ArrayList<WeaponCrate>();
     addCrates();
   }
@@ -140,11 +156,11 @@ class Level {
   }
 
   void addCrates() {
+    randomSeed(seed);
     for (int i = 0; i < maxCrates; i++) {
       PVector spawnPoint = new PVector(points.get(int(random(0, points.size()))).x, points.get(int(random(0, points.size()))).y);
-      crateSpawnPoints.add(spawnPoint);
+      weaponCrates.add(new WeaponCrate(spawnPoint, 40, 60));
     }
-    for (PVector p : crateSpawnPoints) weaponCrates.add(new WeaponCrate(p, 40, 60));
   }
 
   void update() {
@@ -248,27 +264,27 @@ class LevelTile {
 
     color cUp, cDown, cLeft, cRight;
 
-    cUp = get(int(pos.x + 4*cellSize), int(pos.y + 4.5*cellSize - 20));
-    cDown = get(int(pos.x + 4*cellSize), int(pos.y + 4.5*cellSize + 20));
-    cLeft = get(int(pos.x + 4*cellSize - 20), int(pos.y + 4.5*cellSize));
-    cRight = get(int(pos.x + 4*cellSize + 20), int(pos.y + 4.5*cellSize));
+    cUp = get(int(pos.x + 4*cellSize), int(pos.y + 4.5*cellSize - 50));
+    cDown = get(int(pos.x + 4*cellSize), int(pos.y + 4.5*cellSize + 50));
+    cLeft = get(int(pos.x + 4*cellSize - 50), int(pos.y + 4.5*cellSize));
+    cRight = get(int(pos.x + 4*cellSize + 50), int(pos.y + 4.5*cellSize));
 
-    if (cUp == -16777216) {
+    if (cUp ==     -6618981) {
       openTop = true;
     } else {
       openTop = false;
     }
-    if (cDown == -16777216) {
+    if (cDown ==     -6618981) {
       openBottom = true;
     } else {
       openBottom = false;
     }
-    if (cLeft == -16777216) {
+    if (cLeft ==     -6618981) {
       openLeft = true;
     } else {
       openLeft = false;
     }
-    if (cRight == -16777216) {
+    if (cRight ==     -6618981) {
       openRight = true;
     } else {
       openRight = false;
@@ -452,6 +468,7 @@ class Connection {
     newPoint = nP;
   }
   void display() {
+    stroke(155,0,155);
     line(current.x, current.y, newPoint.x, newPoint.y);
   }
 }

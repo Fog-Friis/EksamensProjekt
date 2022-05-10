@@ -8,7 +8,7 @@ ArrayList<Player> players;
 Player p1, p2, pz;
 PImage p1l_pzl;
 PImage p2l;
-String localName1 = "", savetext = "Enter name here";
+String localName = "", savetext = "Enter name here";
 int localNR, localPoints;
 String[] text;
 
@@ -42,14 +42,14 @@ boolean newRun;
 ArrayList<Level> levels;
 Level lvl1, lvl2;
 
-class GameStateManager {
+class GameStateManager { //<>//
 
-
+ //<>//
   GameStateManager() { 
     gamestate = 0; 
-    gamePaused = false; 
+    gamePaused = false;  //<>//
     pausedScreen = false; 
-    p1l_pzl = loadImage("pz-p1.png");
+    p1l_pzl = loadImage("pz-p1.png"); //<>//
     p2l = loadImage("p2.png"); 
     players = new ArrayList<Player>(); 
     text = loadStrings("Controls.txt"); 
@@ -305,6 +305,9 @@ class GameStateManager {
     resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
     resetWeapons(p2Glock, p2UZI, p2Shotgun, p2Grenades, WPMp2);
     for (WeaponCrate w : lvl1.weaponCrates) w.resetCrate();
+    
+    lvl1.reset();
+    lvlGend1 = false;
   }
 
   void resetSurvival() {
@@ -314,6 +317,9 @@ class GameStateManager {
 
     resetWeapons(pzGlock, pzUZI, pzShotgun, pzGrenades, WPMpz);
     for (WeaponCrate w : lvl2.weaponCrates) w.resetCrate();
+    
+    lvl2.reset();
+    lvlGend2 = false;
   }
 
   void resetWeapons(Weapon g, Weapon u, Weapon s, Weapon gr, WeaponManager WPM) {
