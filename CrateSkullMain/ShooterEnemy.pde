@@ -4,11 +4,13 @@ class ShooterEnemy extends Enemy {
   float phi;
   int life;
   float attackRange;
+  PImage se;
 
   ShooterEnemy(PVector p, float s, float aR) {
     super(p, s);
     attackRange = aR;
     bullets = new ArrayList<Bullet>();
+    se = loadImage("se.png");
   }
 
   void shoot() {
@@ -53,8 +55,10 @@ class ShooterEnemy extends Enemy {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(155, 0, 155);
+    fill(255, 0, 0);
     circle(0, 0, 2*radius);
+    image(se, 10-radius, 11-radius);
+    
     translate(0, 0);
     popMatrix();
   }
@@ -108,6 +112,7 @@ class Bullet {
     pushMatrix();
     translate(pos.x, pos.y);
     fill(255, 255, 0);
+    noStroke();
     circle(0, 0, radius*2);
     translate(0, 0);
     popMatrix();
