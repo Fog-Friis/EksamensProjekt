@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;
+boolean newRun; //<>//
 
-ArrayList<Level> levels; //<>//
+ArrayList<Level> levels; //<>// //<>//
 Level lvl1, lvl2;  //<>//
  //<>//
- //<>//
+ //<>// //<>//
 class GameStateManager {
- //<>//
+ //<>// //<>//
   GameStateManager() {   //<>//
     gamestate = 0;  //<>//
     gamePaused = false;   //<>//
@@ -360,5 +360,6 @@ class GameStateManager {
     gr.currentBullets = gr.maxBullets;
 
     updateWeaponText(WPM, g, u, s, g);
+    WPM.WeaponID = 1;
   }
 }
