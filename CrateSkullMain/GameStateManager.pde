@@ -10,6 +10,8 @@ PImage p1l_pzl;
 PImage p2l;
 String localName = "", savetext = "Enter name here";
 int localNR, localPoints;
+String localName = "Thor";
+String[] text;
 
 int ColpzTarget1 = -5066036;
 int ColpzTarget2 = -65536;
@@ -50,6 +52,8 @@ class GameStateManager {
     p1l_pzl = loadImage("pz-p1.png");
     p2l = loadImage("p2.png");
     players = new ArrayList<Player>(); //<>// //<>//
+    text = loadStrings("Controls.txt");
+    players = new ArrayList<Player>(); //<>//
     textBoxes = new ArrayList<TextBox>();  
     buttons = new ArrayList<Button>(); //<>// //<>//
     spawns = new ArrayList<PVector>();
@@ -79,7 +83,7 @@ class GameStateManager {
 
     p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
-    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, 0, 0, 100, 3, 0, p2l);//Change shootkey and changekey
+    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, ',', '.', 100, 3, 0, p2l);//Change shootkey and changekey
     players.add(p2);
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 'q', 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
@@ -196,6 +200,9 @@ class GameStateManager {
     textSize(72);
     textAlign(CENTER);
     text("Controls", width/2, height/6);
+    textSize(29);
+    for(int i = 0; text.length > i; i++)
+      text(text[i], width/2, height/2+i*32-200);
     if (cb.clicked) gamestate = 0;
     fill(255);
   }
@@ -283,6 +290,9 @@ class GameStateManager {
     text(savetext, width/2, height/4+240);
     textSize(72);
     text("Game Over:"+localPoints, width/2, height/4);
+    text("Game Over:"+points, width/2, height/4);
+    textSize(32);
+    text("Indtast navn:", width/2, height/2-20);
     if (zggb.clicked) gamestate = 0;
     fill(255);
   }
