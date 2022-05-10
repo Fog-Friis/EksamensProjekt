@@ -107,7 +107,7 @@ class EnemyManager {
     }
     if (spawnedShooters <= maxShooterCount && roundShooterCount > 0) {
       if (millis() > nextShooterEnemySpawn) {
-        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100, 250));
+        ShooterEnemies.add(new ShooterEnemy(new PVector(SpawnPoints.get(int(random(0, SpawnPoints.size()))).x, SpawnPoints.get(int(random(0, SpawnPoints.size()))).y), 30, 100, 1000));
         roundShooterCount--;
         spawnedShooters++;
         nextShooterEnemySpawn = millis() + ShooterEnemySpawnRate;
