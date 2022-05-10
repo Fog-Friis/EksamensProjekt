@@ -44,14 +44,14 @@ Level lvl1, lvl2;
 class GameStateManager {
 
   GameStateManager() {
-    gamestate = 0; //<>//
+    gamestate = 0; //<>// //<>//
     gamePaused = false;
-    pausedScreen = false; //<>//
+    pausedScreen = false; //<>// //<>//
     p1l_pzl = loadImage("pz-p1.png");
     p2l = loadImage("p2.png");
-    players = new ArrayList<Player>(); //<>//
+    players = new ArrayList<Player>(); //<>// //<>//
     textBoxes = new ArrayList<TextBox>();  
-    buttons = new ArrayList<Button>(); //<>//
+    buttons = new ArrayList<Button>(); //<>// //<>//
     spawns = new ArrayList<PVector>();
     levels = new ArrayList<Level>();
   }
@@ -275,6 +275,7 @@ class GameStateManager {
     if (sb.clicked) {
     localName = tb2.Text;
     pz.saveHighscore();
+    if (points > 4200){link("https://docs.google.com/document/d/1BDvwcpiaByMPB89EZXgYqP3h22itbywldKxY0k7Xgh4/edit?usp=sharing");}
     points = 0;
     savetext = "Scored saved";
     }

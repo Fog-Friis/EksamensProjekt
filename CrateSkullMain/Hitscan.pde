@@ -449,11 +449,11 @@ class Weapon {
       }
       switch(dir) {
       case 0:
-        yDistance = swordSize*1;
+        yDistance = swordSize*-1;
         xDistance = swordSize*0;
         break;
       case 1:
-        yDistance = swordSize*1;
+        yDistance = swordSize*-1;
         xDistance = swordSize;
         break;
       case 2:
@@ -461,15 +461,15 @@ class Weapon {
         xDistance = swordSize;
         break;
       case 3:
-        yDistance = swordSize*-1;
+        yDistance = swordSize*1;
         xDistance = swordSize;
         break;
       case 4:
-        yDistance = swordSize*-1;
+        yDistance = swordSize*1;
         xDistance = swordSize*0;
         break;
       case 5:
-        yDistance = swordSize*-1;
+        yDistance = swordSize*1;
         xDistance = swordSize*-1;
         break;
       case 6:
@@ -477,7 +477,7 @@ class Weapon {
         xDistance = swordSize*-1;
         break;
       case 7:
-        yDistance = swordSize*1;
+        yDistance = swordSize*-1;
         xDistance = swordSize*-1;
         break;
       }
