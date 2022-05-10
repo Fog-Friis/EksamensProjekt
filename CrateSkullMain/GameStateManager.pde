@@ -46,12 +46,6 @@ boolean newRun;
 
 ArrayList<Level> levels; 
 Level lvl1, lvl2;  
-class GameStateManager {
-  GameStateManager() {   
-    gamestate = 0;  
-    gamePaused = false;
-
-Level lvl1, lvl2;  
 
 class GameStateManager {
 
@@ -266,8 +260,6 @@ class GameStateManager {
     text(scorep1+" v "+scorep2 , width/2, height/4);
     if (dmpa.clicked) gamestate = 3; 
     if (dggb.clicked) gamestate = 0;
-    p2Grenades.hasExploded = true;
-    p1Grenades.hasExploded = true;
     fill(255);
   }  
 
@@ -283,6 +275,7 @@ class GameStateManager {
     if (zb.clicked) gamestate = 0;
     points = 0;
     newRun = true;
+    pzGrenades.hasExploded = true;
     savetext = "Enter name here";
     pz.healTime = 7500;
     fill(255);
@@ -336,6 +329,8 @@ class GameStateManager {
   void resetDeathMatch() {
     p1.currentHealth = p1.maxHealth;
     p2.currentHealth = p2.maxHealth;
+    p1Grenades.hasExploded = true;
+    p2Grenades.hasExploded = true;
     p1.pos = new PVector(width/2-100, height/2);
     p2.pos = new PVector(width/2+100, height/2);
 
