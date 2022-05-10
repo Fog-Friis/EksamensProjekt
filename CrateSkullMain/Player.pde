@@ -157,9 +157,10 @@ class Player {
        text(WPMp1.WeaponText, 0, -80);
         break;
       case 2:
-        text(WPMp2.WeaponText, 0, -80);
+      text(WPMp2.WeaponText, 0, -80);
+       break;
         case 3:
-       text(WPMpz.WeaponText, 0, -80);
+     text(WPMpz.WeaponText, 0, -80);
        break;
       }
       

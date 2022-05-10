@@ -38,7 +38,7 @@ EnemyManager EM;
 ArrayList<TextBox> textBoxes;
 TextBox tb1, tb2, tbs1, tbs2;
 ArrayList<Button> buttons;
-Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb;
+Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
@@ -94,8 +94,8 @@ class GameStateManager {
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 16, 100, 6, 0, p1l_pzl);
     players.add(pz);
 
-    tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
-    textBoxes.add(tb1);
+//  tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
+//  textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
     tbs1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 2);
@@ -116,6 +116,8 @@ class GameStateManager {
     buttons.add(db);
     dggb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Back", 48, 4);
     buttons.add(dggb);
+    dmpa = new Button(new PVector(width/2-175, height*0.9-200), new PVector(350, 120), 5, color(150), color(160), color(140), "Play Again", 48, 4);
+    buttons.add(dmpa);
     zb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Back", 48, 5);
     buttons.add(zb);
     zggb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Back", 48, 7);
@@ -256,7 +258,8 @@ class GameStateManager {
     fill(0);
     textSize(72);
     textAlign(CENTER);
-    text("Game Over", width/2, height/4);
+    text(scorep1+" v "+scorep2 , width/2, height/4);
+    if (dmpa.clicked) gamestate = 3; 
     if (dggb.clicked) gamestate = 0;
     fill(255);
   }  
