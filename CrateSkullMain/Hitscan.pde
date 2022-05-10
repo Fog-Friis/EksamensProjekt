@@ -27,7 +27,7 @@ class Weapon {
   int explosionRange = 250;
   float bombDelay = 700;
   int colorTarget1, colorTarget2, colorTargetBonus;
-  boolean hasExploded;
+  boolean hasExploded = true;
   Weapon(PVector pos, int dir, int posx, int posy, int maxBullets, int currentBullets, color c, float fireRate, int damage, float time, int colorTarget1, int colorTarget2, int colorTargetBonus, int playerNR ) {
     this.pos = pos;
     this.dir = dir;
