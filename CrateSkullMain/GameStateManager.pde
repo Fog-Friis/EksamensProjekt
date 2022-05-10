@@ -42,20 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun; 
+boolean newRun;  //<>//
 
-ArrayList<Level> levels; 
-Level lvl1, lvl2;  
-class GameStateManager {
-  GameStateManager() {   
-    gamestate = 0;  
-    gamePaused = false;
-
+ArrayList<Level> levels;  //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager {
+class GameStateManager { //<>//
 
-  GameStateManager() {   
+  GameStateManager() {    //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -77,7 +71,7 @@ class GameStateManager {
 
     pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), pzShotgunFireRate, pzShotgunDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);   
-    pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500,pzGrenadesDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
+    pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, pzGrenadesDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
 
     p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp1Target1, Colp1Target2, 4, 1);
@@ -99,8 +93,8 @@ class GameStateManager {
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
 
-//  tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
-//  textBoxes.add(tb1);
+    //  tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
+    //  textBoxes.add(tb1);
     tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
     textBoxes.add(tb2);
     tbs1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 2);
@@ -215,7 +209,7 @@ class GameStateManager {
     textAlign(CENTER);
     text("Controls", width/2, height/6);
     textSize(29);
-    for(int i = 0; text.length > i; i++)
+    for (int i = 0; text.length > i; i++)
       text(text[i], width/2, height/2+i*32-200);
     if (cb.clicked) gamestate = 0;
     fill(255);
@@ -247,15 +241,15 @@ class GameStateManager {
     }
     p1Grenades.Display();
     p2Grenades.Display();
-    if (!gamePaused){
-        if (p1Grenades.time2< millis()&& p1Grenades.hasExploded ==false) {
-      p1Grenades.targettype = 3+p1Grenades.colorTargetBonus;
-      p1Grenades.hit();  
-    }
-        if (p2Grenades.time2< millis()&& p2Grenades.hasExploded ==false) {
-      p2Grenades.targettype = 3+p2Grenades.colorTargetBonus;
-      p2Grenades.hit();  
-    }
+    if (!gamePaused) {
+      if (p1Grenades.time2< millis()&& p1Grenades.hasExploded ==false) {
+        p1Grenades.targettype = 3+p1Grenades.colorTargetBonus;
+        p1Grenades.hit();
+      }
+      if (p2Grenades.time2< millis()&& p2Grenades.hasExploded ==false) {
+        p2Grenades.targettype = 3+p2Grenades.colorTargetBonus;
+        p2Grenades.hit();
+      }
     }
   }
 
@@ -263,7 +257,7 @@ class GameStateManager {
     fill(0);
     textSize(72);
     textAlign(CENTER);
-    text(scorep1+" v "+scorep2 , width/2, height/4);
+    text(scorep1+" v "+scorep2, width/2, height/4);
     if (dmpa.clicked) gamestate = 3; 
     if (dggb.clicked) gamestate = 0;
     p2Grenades.hasExploded = true;
@@ -305,7 +299,7 @@ class GameStateManager {
     pzGrenades.Display();
     if (pzGrenades.time2< millis()&& pzGrenades.hasExploded ==false) {
       pzGrenades.targettype = 3+pzGrenades.colorTargetBonus;
-      pzGrenades.hit();  
+      pzGrenades.hit();
     }
   }
 
@@ -319,11 +313,13 @@ class GameStateManager {
       pzGrenades.hasExploded = true;
     }
     if (sb.clicked) {
-    localName = tb2.Text;
-    pz.saveHighscore();
-    if (points > 4200){link("https://docs.google.com/document/d/1BDvwcpiaByMPB89EZXgYqP3h22itbywldKxY0k7Xgh4/edit?usp=sharing");}
-    points = 0;
-    savetext = "Scored saved";
+      localName = tb2.Text;
+      pz.saveHighscore();
+      if (points > 4200) {
+        link("https://docs.google.com/document/d/1BDvwcpiaByMPB89EZXgYqP3h22itbywldKxY0k7Xgh4/edit?usp=sharing");
+      }
+      points = 0;
+      savetext = "Scored saved";
     }
     textSize(32);
     text(savetext, width/2, height/4+240);
@@ -342,7 +338,7 @@ class GameStateManager {
     resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
     resetWeapons(p2Glock, p2UZI, p2Shotgun, p2Grenades, WPMp2);
     for (WeaponCrate w : lvl1.weaponCrates) w.resetCrate();
-    
+
     lvl1.reset();
     lvlGend1 = false;
   }
@@ -354,7 +350,7 @@ class GameStateManager {
 
     resetWeapons(pzGlock, pzUZI, pzShotgun, pzGrenades, WPMpz);
     for (WeaponCrate w : lvl2.weaponCrates) w.resetCrate();
-    
+
     lvl2.reset();
     lvlGend2 = false;
   }

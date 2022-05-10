@@ -174,7 +174,7 @@ class WeaponCrate {
     glockUpgrade3 = false;
     uziUpgrade3 = false;
     shotgunUpgrade3 = false;
-    
+
     pzGlock.damage = pzGlockDamage;
     pzUZI.damage = pzUZIDamage; 
     pzShotgun.damage = pzShotgunDamage; 
