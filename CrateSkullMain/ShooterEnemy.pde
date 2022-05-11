@@ -43,7 +43,7 @@ class ShooterEnemy extends Enemy {
       Bullet b = bullets.get(i);
       b.run();
       if (b.hitPlayer()){
-        pz.takeDamage(20);
+        pz.takeDamage(25);
       }
       if (b.isDead()) {
         bullets.remove(i);

@@ -300,7 +300,7 @@ class Enemy {
     if (armpos >=15) armpos += hitdir*1;    
     if (armpos >= 20) {
       hitdir = -hitdir ;
-      pz.takeDamage(15);
+      pz.takeDamage(20);
     }
   }
 
