@@ -303,9 +303,6 @@ class Player {
 
   void saveHighscore() {
     localNR = 0;
-    println(highscore+""+highscore2+""+""+highscore3+""+""+highscore4+""+""+highscore5);
-    println(highscoreName+""+highscoreName2+""+""+highscoreName3+""+""+highscoreName4+""+""+highscoreName5);
-    println(localName+" "+points);
     if (points > highscore) {
       localNR += 1;
     }

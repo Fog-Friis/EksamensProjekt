@@ -129,7 +129,6 @@ class Level {
       }
 
       ArrayList<PVector> neighbors = neighbors(current);
-      //println(neighbors.size());
       newPoint = neighbors.get(int(random(0, neighbors.size())));
       if (!openSet.contains(newPoint)) {
         openSet.add(newPoint);
@@ -291,21 +290,21 @@ class LevelTile {
       openRight = false;
     }
 
-    if (openTop  && openBottom  && openRight  && openLeft)  type = 0; //println(0);
-    if (openTop  && openBottom  && openRight  && !openLeft) type = 1; //println(1);
-    if (!openTop && openBottom  && openRight  && openLeft)  type = 2; //println(2);
-    if (openTop  && openBottom  && !openRight && openLeft)  type = 3; //println(3);
-    if (openTop  && !openBottom && openRight  && openLeft)  type = 4; //println(4);
-    if (openTop  && !openBottom && !openRight && openLeft)  type = 8; //println(5);
-    if (!openTop && openBottom  && !openRight && openLeft)  type = 7; //println(6);
-    if (!openTop && openBottom  && openRight  && !openLeft) type = 6; //println(7);
-    if (openTop  && !openBottom && openRight  && !openLeft) type = 5; //println(8);
-    if (openTop  && !openBottom && !openRight && !openLeft) type = 9; //println(9);
-    if (!openTop && !openBottom && openRight  && !openLeft) type = 10; //println(10);
-    if (!openTop && openBottom  && !openRight && !openLeft) type = 11; //println(11);
-    if (!openTop && !openBottom && !openRight && openLeft)  type = 12; //println(12);
-    if (openTop  && openBottom  && !openRight && !openLeft) type = 13; //println(13);
-    if (!openTop && !openBottom && openRight  && openLeft)  type = 14; //println(14);
+    if (openTop  && openBottom  && openRight  && openLeft)  type = 0;
+    if (openTop  && openBottom  && openRight  && !openLeft) type = 1; 
+    if (!openTop && openBottom  && openRight  && openLeft)  type = 2; 
+    if (openTop  && openBottom  && !openRight && openLeft)  type = 3;
+    if (openTop  && !openBottom && openRight  && openLeft)  type = 4; 
+    if (openTop  && !openBottom && !openRight && openLeft)  type = 8; 
+    if (!openTop && openBottom  && !openRight && openLeft)  type = 7; 
+    if (!openTop && openBottom  && openRight  && !openLeft) type = 6; 
+    if (openTop  && !openBottom && openRight  && !openLeft) type = 5; 
+    if (openTop  && !openBottom && !openRight && !openLeft) type = 9;
+    if (!openTop && !openBottom && openRight  && !openLeft) type = 10; 
+    if (!openTop && openBottom  && !openRight && !openLeft) type = 11; 
+    if (!openTop && !openBottom && !openRight && openLeft)  type = 12; 
+    if (openTop  && openBottom  && !openRight && !openLeft) type = 13; 
+    if (!openTop && !openBottom && openRight  && openLeft)  type = 14; 
     return type;
   }
 
