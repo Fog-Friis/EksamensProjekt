@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;  //<>// //<>//
+boolean newRun;  //<>// //<>// //<>//
 
-ArrayList<Level> levels;  //<>// //<>//
+ArrayList<Level> levels;  //<>// //<>// //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager { //<>// //<>//
+class GameStateManager { //<>// //<>// //<>//
 
-  GameStateManager() {    //<>// //<>//
+  GameStateManager() {    //<>// //<>// //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -291,7 +291,7 @@ class GameStateManager { //<>// //<>//
     points = 0;
     newRun = true;
     savetext = "Enter name here";
-    pz.healTime = 7500;
+    pz.healTime = 7500*2;
     fill(255);
   }
 
@@ -326,11 +326,11 @@ class GameStateManager { //<>// //<>//
       pzGrenades.hasExploded = true;
     }
     if (sb.clicked) {
-      localName = tb2.Text;
-      pz.saveHighscore();
-      if (points > 4200) {
+      localName = tb2.Text;   
+      if (points > highscore) {
         link("https://docs.google.com/document/d/1BDvwcpiaByMPB89EZXgYqP3h22itbywldKxY0k7Xgh4/edit?usp=sharing");
       }
+      pz.saveHighscore();
       points = 0;
       savetext = "Scored saved";
     }
