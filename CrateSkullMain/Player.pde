@@ -266,9 +266,15 @@ class Player {
     popMatrix();
   }
 
-  void run() {
+  void Update() {
     if (visible == gamestate) {
       update();
+      //display();
+    }
+  }
+  
+  void Display(){
+    if (visible == gamestate){
       display();
     }
   }

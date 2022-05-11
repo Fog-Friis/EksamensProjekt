@@ -285,6 +285,7 @@ class Enemy {
     pushMatrix();
     translate(pos.x, pos.y);
     fill(178, 178, 204);
+    stroke(0);
     rotate(theta);
     rect(armpos-10, 10, radius+10, radius/2);
     rect(armpos-10, -25, radius+10, radius/2);
@@ -306,6 +307,7 @@ class Enemy {
 
   void display() {
     pushMatrix();
+    stroke(0);
     translate(pos.x, pos.y);
     fill(178, 178, 204);
     rotate(theta);

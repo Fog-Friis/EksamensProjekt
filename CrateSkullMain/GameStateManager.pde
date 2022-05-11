@@ -146,7 +146,7 @@ class GameStateManager { //<>// //<>// //<>// //<>//
     for (Level l : levels) l.run();
     for (TextBox t : textBoxes) t.display();
     if (!gamePaused)
-      for (Player p : players) p.run();
+      for (Player p : players) p.Update();
 
     switch(gamestate) {
     case 0:
@@ -189,6 +189,7 @@ class GameStateManager { //<>// //<>// //<>// //<>//
       break;
     }
     for (Button b : buttons) b.run();
+    for (Player p : players) p.Display();
   }
 
   void menuScreen() {
