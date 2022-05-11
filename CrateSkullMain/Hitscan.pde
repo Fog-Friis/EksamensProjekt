@@ -310,7 +310,7 @@ class Weapon {
       updatePixels();
       if (Random1 != 4 && Random2 != 4) {  
         for (int i =minDistance; i < (maxDistanceShutgun); i+= minDistance) {
-          pos.x = pos.x+(xDistance*1);        
+          pos.x = pos.x+(xDistance*3);        
           pos.y = pos.y+(yDistance*3);
           int posx = (int) pos.x;
           int posy = (int) pos.y;
@@ -373,7 +373,7 @@ class Weapon {
 
       if (Random1 != 6 && Random2 != 6) {  
         for (int i =minDistance; i < (maxDistanceShutgun); i+= minDistance) {
-          pos.x = pos.x+(xDistance*3);        
+          pos.x = pos.x+(xDistance*5);        
           pos.y = pos.y+(yDistance*2);
           int posx = (int) pos.x;
           int posy = (int) pos.y;
@@ -405,8 +405,8 @@ class Weapon {
 
       if (Random1 != 7 && Random2 != 7) {    
         for (int i =minDistance; i < (maxDistanceShutgun); i+= minDistance) {
-          pos.x = pos.x+(xDistance*2);        
-          pos.y = pos.y+(yDistance*3);
+          pos.x = pos.x+(xDistance*4);        
+          pos.y = pos.y+(yDistance*5);
           int posx = (int) pos.x;
           int posy = (int) pos.y;
           c = get(posx, posy);
