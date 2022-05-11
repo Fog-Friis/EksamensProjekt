@@ -13,6 +13,12 @@ class WeaponCrate {
   float showTime;
   float textPos = height-100;
 
+  String unlockedText = "";
+  float unlockedShowTime = 60, unlockedTextPos = height-100;
+  boolean unlockedUZI, unlockedShotgun, unlockedGrenades;
+  boolean unlocked;
+
+
   String upgradeText = "";
   boolean glockUpgrade1, uziUpgrade1, shotgunUpgrade1, grenadeUpgrade1;
   boolean glockUpgrade2, uziUpgrade2, shotgunUpgrade2, grenadeUpgrade2;
@@ -85,15 +91,20 @@ class WeaponCrate {
         break;
 
       case 2:
-
         if (p == pz) {
-          if (pzUZI.currentBullets == 0) {
-            givenLoot = "Picked Up UZI!";
+          if (!unlockedUZI) {
+            givenLoot = "Picked Up Glock Ammo!";
+            pzGlock.currentBullets = pzGlock.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           } else {
-            givenLoot = "Picked Up UZI Ammo!";
+            if (pzUZI.currentBullets == 0) {
+              givenLoot = "Picked Up UZI!";
+            } else {
+              givenLoot = "Picked Up UZI Ammo!";
+            }
+            pzUZI.currentBullets = pzUZI.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           }
-          pzUZI.currentBullets = pzUZI.maxBullets;
-          updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
           if (p1UZI.currentBullets == 0) {
@@ -117,13 +128,19 @@ class WeaponCrate {
 
       case 3:
         if (p == pz) {
-          if (pzShotgun.currentBullets == 0) {
-            givenLoot = "Picked Up Shotgun!";
+          if (!unlockedShotgun) {
+            givenLoot = "Picked Up Glock Ammo!";
+            pzGlock.currentBullets = pzGlock.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           } else {
-            givenLoot = "Picked Up Shotgun Ammo!";
+            if (pzShotgun.currentBullets == 0) {
+              givenLoot = "Picked Up Shotgun!";
+            } else {
+              givenLoot = "Picked Up Shotgun Ammo!";
+            }
+            pzShotgun.currentBullets = pzShotgun.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           }
-          pzShotgun.currentBullets = pzShotgun.maxBullets;
-          updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
           if (p1Shotgun.currentBullets == 0) {
@@ -147,13 +164,19 @@ class WeaponCrate {
 
       case 4:
         if (p == pz) {
-          if (pzGrenades.currentBullets == 0) {
-            givenLoot = "Picked Up Grenades!";
+          if (!unlockedGrenades) {
+            givenLoot = "Picked Up Glock Ammo!";
+            pzGlock.currentBullets = pzGlock.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           } else {
-            givenLoot = "Picked Up Grenade Ammo!";
+            if (pzGrenades.currentBullets == 0) {
+              givenLoot = "Picked Up Grenades!";
+            } else {
+              givenLoot = "Picked Up Grenade Ammo!";
+            }
+            pzGrenades.currentBullets = pzGrenades.maxBullets;
+            updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
           }
-          pzGrenades.currentBullets = pzGrenades.maxBullets;
-          updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
         }
         if (p == p1) {
           if (p1Grenades.currentBullets == 0) {
@@ -193,7 +216,7 @@ class WeaponCrate {
       textPos--;
     }
 
-    if (upgraded && showTime > 0) {
+    if (upgraded && upgradeShowTime > 0) {
       fill(0, 255, 0);
       textMode(CENTER);
       textSize(24);
@@ -206,6 +229,22 @@ class WeaponCrate {
       upgraded = false;
       upgradeShowTime = 60;
       upgradeTextPos = height - 100;
+    }
+
+    if (unlocked && unlockedShowTime > 0) {
+      fill(0, 255, 0);
+      textMode(CENTER);
+      textSize(24);
+      text(unlockedText, width/2, unlockedTextPos);
+      textMode(CORNER);
+      unlockedShowTime--;
+      unlockedTextPos--;
+    }
+
+    if (unlockedShowTime < 0) {
+      unlocked = false;
+      unlockedShowTime = 60;
+      unlockedTextPos = height - 100;
     }
   }
   void resetCrate() {
@@ -222,6 +261,9 @@ class WeaponCrate {
     glockUpgrade3 = false;
     uziUpgrade3 = false;
     shotgunUpgrade3 = false;
+    unlockedUZI = false;
+    unlockedShotgun = false;
+    unlockedGrenades = false;
 
     pzGlock.damage = pzGlockDamage;
     pzUZI.damage = pzUZIDamage; 
@@ -243,44 +285,44 @@ class WeaponCrate {
       nextSpawnTime = cooldown*1000+millis();
     }
 
-    if (points >= 500 && !glockUpgrade3) {
+    if (points >= 1000 && !glockUpgrade3) {
       upgradeText = "Glock Rapid Fire!";
       pzGlock.fireRate = 400;
       upgraded = true;
       glockUpgrade3 = true;
     }
 
-    if (points >= 1000 && !glockUpgrade1) {
+    if (points >= 2500 && !glockUpgrade1) {
       upgradeText = "Glock Double Ammo!";
       pzGlock.maxBullets = 40;
       pzGlock.currentBullets = pzGlock.maxBullets;
-      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
       upgraded = true;
       glockUpgrade1 = true;
     }
 
-    if (points >= 2000 && !uziUpgrade3) {
+    if (points >= 5000 && !uziUpgrade3) {
       upgradeText = "Uzi Rapid Fire!";
       pzUZI.fireRate = 100;
       upgraded = true;
       uziUpgrade3 = true;
     }
 
-    if (points >= 2500 && !uziUpgrade1) {
+    if (points >= 10000 && !uziUpgrade1) {
       upgradeText = "UZI Double Ammo!";
       pzUZI.maxBullets = 80;
       pzUZI.currentBullets = pzUZI.maxBullets;
-      updateWeaponText(WPMp2, p2Glock, p2UZI, p2Shotgun, p2Grenades);
+      updateWeaponText(WPMpz, pzGlock, pzUZI, pzShotgun, pzGrenades);
       upgraded = true;
       uziUpgrade1 = true;
     }
-    if (points >= 4000 && !shotgunUpgrade3) {
+    if (points >= 15000 && !shotgunUpgrade3) {
       upgradeText = "Shotgun Rapid Fire!";
       pzShotgun.fireRate = 250;
       upgraded = true;
       shotgunUpgrade3 = true;
     }
-    if (points >= 5000 && !shotgunUpgrade1) {
+    if (points >= 20000 && !shotgunUpgrade1) {
       upgradeText = "Shotgun Double Ammo!";
       pzShotgun.maxBullets = 30;
       pzShotgun.currentBullets = pzShotgun.maxBullets;
@@ -288,7 +330,7 @@ class WeaponCrate {
       upgraded = true;
       shotgunUpgrade1 = true;
     }
-    if (points >= 10000 && !grenadeUpgrade1) {
+    if (points >= 25000 && !grenadeUpgrade1) {
       upgradeText = "Grenades Double Ammo!";
       pzGrenades.maxBullets = 20;
       pzGrenades.currentBullets = pzGrenades.maxBullets;
@@ -298,12 +340,31 @@ class WeaponCrate {
     }
 
     combo = bonusMultiplier;
+    if (combo >= 10 && !unlockedUZI) {
+      unlocked = true;
+      unlockedUZI = true;
+      pzUZI.currentBullets = pzUZI.maxBullets;
+      unlockedText = "Picked Up UZI!";
+    }
+    if (combo >= 20 && !unlockedShotgun) {
+      unlocked = true;
+      unlockedShotgun = true;
+      pzShotgun.currentBullets = pzShotgun.maxBullets;
+      unlockedText = "Picked Up Shotgun!";
+    }
+    if (combo >= 30 && !unlockedGrenades) {
+      unlocked = true;
+      unlockedGrenades = true;
+      pzGrenades.currentBullets = pzGrenades.maxBullets;
+      unlockedText = "Picked Up Grenades!";
+    }
+
     if (combo >= 50 && !glockUpgrade2) {
-      pzGlock.damage = 200;
+      pzGlock.damage = 160;
     }
 
     if (combo >= 100 && !uziUpgrade2) {
-      pzUZI.damage = 160;
+      pzUZI.damage = 90;
     }
 
     if (combo >= 150 && !shotgunUpgrade2) {

@@ -3,14 +3,12 @@ class EnemyManager {
   int EnemySpawned, ShooterEnemySpawned;
   float EnemySpawnRate, ShooterEnemySpawnRate, nextEnemySpawn, nextShooterEnemySpawn;
   int enemyHealth;
-  int escalation;
   ArrayList<PVector> SpawnPoints = new ArrayList<PVector>();
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
   int roundNumber = 0;
   int startEnemyCount = 20, startShooterCount = 0, spawnedEnemies;
-  //int startEnemyCount = 0, startShooterCount = 20;
   int roundEnemyCount, roundShooterCount, spawnedShooters;
 
 
@@ -24,7 +22,6 @@ class EnemyManager {
     Enemies.clear();
     ShooterEnemies.clear();
     enemyHealth = 100;
-    escalation = 0;
     spawnedEnemies = 0;
   }
 
@@ -81,17 +78,17 @@ class EnemyManager {
   void nextRound() {
     if (Enemies.size() + ShooterEnemies.size() == 0) {
       roundNumber++;
-      escalation++;
       roundEnemyCount = startEnemyCount + roundNumber * 5;
       spawnedEnemies = 0;
       spawnedShooters = 0;
+      enemyHealth += 10;
+
+      if (EnemySpawnRate > 500) {
+        EnemySpawnRate -= 25;
+      }
 
       if (roundNumber >= 4) {
         roundShooterCount = startShooterCount + roundNumber - 3;
-      }
-      if (escalation >= 4) {
-        enemyHealth += 25;
-        escalation = 0;
       }
     }
   }
