@@ -340,6 +340,10 @@ class Player {
       json.setString("Name4", highscoreName4);
       json.setInt("Score5", points);
       json.setString("Name5", localName);
+      
+      highscore5 = points;
+      
+      highscoreName5 = localName;
       break;
     case 2:
       json.setInt("Score", highscore);
@@ -352,6 +356,12 @@ class Player {
       json.setString("Name4", localName );
       json.setInt("Score5", highscore4);
       json.setString("Name5", highscoreName4);
+      
+                  highscore5 = highscore4;
+      highscore4 = points;
+
+      highscoreName5 = highscoreName4;
+      highscoreName4 = localName;
       break;
     case 3:
       json.setInt("Score", highscore);
@@ -364,6 +374,14 @@ class Player {
       json.setString("Name4", highscoreName3);
       json.setInt("Score5", highscore4);
       json.setString("Name5", highscoreName4);
+      
+            highscore5 = highscore4;
+      highscore4 = highscore3;
+      highscore3 = points;
+
+      highscoreName5 = highscoreName4;
+      highscoreName4 = highscoreName3;
+      highscoreName3 = localName;
       break;
     case 4:
       json.setInt("Score", highscore);
@@ -376,6 +394,16 @@ class Player {
       json.setString("Name4", highscoreName3);
       json.setInt("Score5", highscore4);
       json.setString("Name5", highscoreName4);
+      highscore5 = highscore4;
+      highscore4 = highscore3;
+      highscore3 = highscore2;
+      highscore2 = points;
+      
+      highscoreName5 = highscoreName4;
+      highscoreName4 = highscoreName3;
+      highscoreName3 = highscoreName2;
+      highscoreName2 = localName;
+      
       break;
     case 5:
       json.setInt("Score", points);
@@ -388,6 +416,18 @@ class Player {
       json.setString("Name4", highscoreName3);
       json.setInt("Score5", highscore4);
       json.setString("Name5", highscoreName4);
+     
+      highscore5 = highscore4;
+      highscore4 = highscore3;
+      highscore3 = highscore2;
+      highscore2 = highscore;
+      highscore = points;
+      
+      highscoreName5 = highscoreName4;
+      highscoreName4 = highscoreName3;
+      highscoreName3 = highscoreName2;
+      highscoreName2 = highscoreName;
+      highscoreName = localName;
       break;
     }
     saveJSONObject  (json, "data/Highscore.json");

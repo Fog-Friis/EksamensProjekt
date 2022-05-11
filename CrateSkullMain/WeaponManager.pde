@@ -40,8 +40,8 @@ switch(PlayerNR){
   if  (p1Sword.currentBullets>0){
   WeaponText = WeaponName4;
   break;
-  }else{ WeaponID = WeaponID+1;} //<>//
-  case 5:  //<>//
+  }else{ WeaponID = WeaponID+1;} //<>// //<>//
+  case 5:  //<>// //<>//
   if  (p1Grenades.currentBullets>0){
   WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
   }else{ WeaponID = 1;}
