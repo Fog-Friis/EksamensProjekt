@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;  //<>//
+boolean newRun;  //<>// //<>//
 
-ArrayList<Level> levels;  //<>//
+ArrayList<Level> levels;  //<>// //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager { //<>//
+class GameStateManager { //<>// //<>//
 
-  GameStateManager() {    //<>//
+  GameStateManager() {    //<>// //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -69,14 +69,13 @@ class GameStateManager { //<>//
     pzGlock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), pzGlockFireRate, pzGlockDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzUZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), pzUZIFireRate, pzUZIDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);//
 
-    pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 100, 0, ColpzTarget1, ColpzTarget2, 0, 3);
+    pzSword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 500, 0, ColpzTarget1, ColpzTarget2, 0, 3);
     pzShotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), pzShotgunFireRate, pzShotgunDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);   
     pzGrenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, pzGrenadesDamage, 0, ColpzTarget1, ColpzTarget2, 0, 3);
 
     p1Glock = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 20, 20, color(1), 800, 15, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1UZI = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 40, 40, color(1), 100, 10, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Sword = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 1, 1, color(1), 500, 80, 0, Colp1Target1, Colp1Target2, 4, 1);
-    ;
     p1Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 5, 0, Colp1Target1, Colp1Target2, 4, 1);
     p1Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp1Target1, Colp1Target2, 4, 1);
 
@@ -86,9 +85,9 @@ class GameStateManager { //<>//
     p2Shotgun = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 15, 15, color(1), 500, 5, 0, Colp2Target1, Colp2Target2, 8, 2);
     p2Grenades = new Weapon (new PVector(width/2+100, height/2), 0, 0, 0, 10, 10, color(1), 500, 100, 0, Colp2Target1, Colp2Target2, 8, 2);
 
-    p1 = new Player(1, new PVector(width/2-100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 'e', 100, 3, 0, p1l_pzl);
+    p1 = new Player(1, new PVector(40*4, 40*4.5), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 'e', 100, 3, 0, p1l_pzl);
     players.add(p1);
-    p2 = new Player(2, new PVector(width/2+100, height/2), 25, color(0, 0, 255), 38, 40, 37, 39, ',', '.', 100, 3, 0, p2l);//Change shootkey and changekey
+    p2 = new Player(2, new PVector(width - 40*4, height - 40*4.5), 25, color(0, 0, 255), 38, 40, 37, 39, ',', '.', 100, 3, 0, p2l);//Change shootkey and changekey
     players.add(p2);
     pz = new Player(3, new PVector(width/2+100, height/2), 25, color(0, 255, 0), 'w', 's', 'a', 'd', 32, 'e', 100, 6, 0, p1l_pzl);
     players.add(pz);
@@ -201,6 +200,20 @@ class GameStateManager { //<>//
     if (dm.clicked) gamestate = 2;
     if (cs.clicked) gamestate = 1;
     fill(255);
+    
+    stroke(0);
+    fill(200, 200, 200);
+    rect(width-450, 50, 400, 450);
+    fill(0);
+    textSize(42);
+    text("Leaderboard:", width-250, 100);
+    textSize(32);
+    text(highscoreName + ": " + highscore, width-250, 170);
+    text(highscoreName2 + ": " + highscore2, width-250, 240);
+    text(highscoreName3 + ": " + highscore3, width-250, 310);
+    text(highscoreName4 + ": " + highscore4, width-250, 380);
+    text(highscoreName5 + ": " + highscore5, width-250, 450);
+    
   }
 
   void controlsScreen() {
@@ -332,8 +345,8 @@ class GameStateManager { //<>//
   void resetDeathMatch() {
     p1.currentHealth = p1.maxHealth;
     p2.currentHealth = p2.maxHealth;
-    p1.pos = new PVector(width/2-100, height/2);
-    p2.pos = new PVector(width/2+100, height/2);
+    p1.pos = new PVector(4*40, 4.5*40);
+    p2.pos = new PVector(width-4*40, height-4.5*40);
     p1Grenades.hasExploded = true;
     p2Grenades.hasExploded = true;
     resetWeapons(p1Glock, p1UZI, p1Shotgun, p1Grenades, WPMp1);
