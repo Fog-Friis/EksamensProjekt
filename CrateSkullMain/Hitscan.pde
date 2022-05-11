@@ -611,7 +611,7 @@ class Weapon {
           float d = pos.dist(pos2);
           if (d <= 50) {
             EM.ShooterEnemies.get(x).life -= damage;
-            if (Life <= 0) {
+            if (EM.ShooterEnemies.get(x).life <= 0) {
                
               EM.ShooterEnemies.remove(x); 
               x = x-1;
