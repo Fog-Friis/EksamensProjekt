@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;  //<>// //<>// //<>//
+boolean newRun;  //<>// //<>// //<>// //<>//
 
-ArrayList<Level> levels;  //<>// //<>// //<>//
+ArrayList<Level> levels;  //<>// //<>// //<>// //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager { //<>// //<>// //<>//
+class GameStateManager { //<>// //<>// //<>// //<>//
 
-  GameStateManager() {    //<>// //<>// //<>//
+  GameStateManager() {    //<>// //<>// //<>// //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -101,11 +101,11 @@ class GameStateManager { //<>// //<>// //<>//
     tbs2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 5);
     textBoxes.add(tbs2);
 
-    zs = new Button(new PVector(width/2-175, height*0.4-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Zombie Survival", 48, 0);
+    zs = new Button(new PVector(width/2-200, height*0.4-60), new PVector(400, 120), 5, color(150), color(160), color(140), "Zombie Survival", 48, 0);
     buttons.add(zs);
-    dm = new Button(new PVector(width/2-175, height*0.6-60), new PVector(350, 120), 5, color(150), color(160), color(140), "1v1 Deathmatch", 48, 0);
+    dm = new Button(new PVector(width/2-200, height*0.6-60), new PVector(400, 120), 5, color(150), color(160), color(140), "1v1 Deathmatch", 48, 0);
     buttons.add(dm);
-    cs = new Button(new PVector(width/2-175, height*0.8-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Controls", 48, 0);
+    cs = new Button(new PVector(width/2-200, height*0.8-60), new PVector(400, 120), 5, color(150), color(160), color(140), "Controls", 48, 0);
     buttons.add(cs);
 
     cb = new Button(new PVector(width/2-175, height*0.9-60), new PVector(350, 120), 5, color(150), color(160), color(140), "Back", 48, 1);
