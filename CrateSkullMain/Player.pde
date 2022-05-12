@@ -190,7 +190,6 @@ class Player {
         rect(-28, -48, 55, 7);
       }
       break;
-    }
     case 2:
       text(WPMp2.WeaponText, 0, -80);
             if (WPMp2.WeaponID == 4 && p2Sword.time < (millis())){
@@ -202,7 +201,6 @@ class Player {
         rect(-28, -48, 55, 7);
       }
       break;
-    }
     case 3:
       text(WPMpz.WeaponText, 0, -80);
       if (WPMpz.WeaponID == 4 && pzSword.time < (millis())){
