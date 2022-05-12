@@ -159,7 +159,7 @@ class Player {
     image(p, 0, -armpos-50);
     popMatrix();
     if (armpos <= 0) cooldown ++;
-    if (cooldown > 30) {
+    if (cooldown > 54) {
       cooldown = 0;
       armpos = 0.5;
       hitdir = abs(hitdir);
@@ -280,8 +280,8 @@ class Player {
   }
   void bonus() {
     if (bonustime < millis()) {
-      if (bonusMultiplier > 1.1) {
-        bonusMultiplier -= 1;
+      if (bonusMultiplier > 3.1) {
+        bonusMultiplier -= 2;
         bonustime = millis()+bonuslosetime/2;
       }
     }

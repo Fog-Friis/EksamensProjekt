@@ -433,36 +433,36 @@ class Weapon {
       }
       switch(dir) {
       case 0:
-        yDistance = swordSize*-1;
-        xDistance = swordSize*0;
+        yDistance = (swordSize/2)*-1;
+        xDistance = (swordSize/2)*0;
         break;
       case 1:
-        yDistance = swordSize*-1;
-        xDistance = swordSize;
+        yDistance = (swordSize/2)*-1;
+        xDistance = (swordSize/2);
         break;
       case 2:
-        yDistance = swordSize*0;
-        xDistance = swordSize;
+        yDistance = (swordSize/2)*0;
+        xDistance = (swordSize/2);
         break;
       case 3:
-        yDistance = swordSize*1;
-        xDistance = swordSize;
+        yDistance = (swordSize/2)*1;
+        xDistance = (swordSize/2);
         break;
       case 4:
-        yDistance = swordSize*1;
-        xDistance = swordSize*0;
+        yDistance = (swordSize/2)*1;
+        xDistance = (swordSize/2)*0;
         break;
       case 5:
-        yDistance = swordSize*1;
-        xDistance = swordSize*-1;
+        yDistance = (swordSize/2)*1;
+        xDistance = (swordSize/2)*-1;
         break;
       case 6:
-        yDistance = swordSize*0;
-        xDistance = swordSize*-1;
+        yDistance = (swordSize/2)*0;
+        xDistance = (swordSize/2)*-1;
         break;
       case 7:
-        yDistance = swordSize*-1;
-        xDistance = swordSize*-1;
+        yDistance = (swordSize/2)*-1;
+        xDistance = (swordSize/2)*-1;
         break;
       }
       pos.x = pos.x+xDistance;
@@ -608,11 +608,11 @@ class Weapon {
         for (int x = 0; x < enemycount; x++) {
           pos2 =  EM.Enemies.get(x).pos;
           float d = pos.dist(pos2);
-          if (d <= swordSize) {
+          
+          if (d <= swordSize*1.5) {
             EM.Enemies.remove(x);
             pz.points();
             x -= x;
-            break;
           }
           enemycount = enemycount-1;
         }
@@ -624,11 +624,11 @@ class Weapon {
         for (int x = 0; x < enemycount; x++) {
           pos2 =  EM.ShooterEnemies.get(x).pos;
           float d = pos.dist(pos2);
-          enemycount = enemycount-1;
+          x -= x;
           if (d <= swordSize) {
             EM.ShooterEnemies.remove(x);
             pz.points();
-            x -= x;
+            
          }
         }
       }
@@ -711,7 +711,7 @@ class Weapon {
     case 6:
       pos2 =  p2.pos;
       float z = pos.dist(pos2);  //d dublicate local variable error
-      if (z <= swordSize) {
+      if (z <= swordSize*1.5) {
         p2.currentHealth -= damage;
       }
       if (p2.currentHealth <= 0) {
@@ -758,7 +758,7 @@ class Weapon {
     case 10:
       pos2 =  p1.pos;
       float n = pos.dist(pos2);
-      if (n <= swordSize) {
+      if (n <= swordSize*1.5) {
         p1.currentHealth -= damage;
       }
       if (p1.currentHealth <= 0) {
