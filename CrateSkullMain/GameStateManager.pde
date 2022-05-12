@@ -1,7 +1,7 @@
 int gamestate;
 int killCount=0;
 int bonusMultiplier = 1;
-float bonuslosetime= 2000;
+float bonuslosetime= 4000;
 int points = 0; 
 float bonustime;
 ArrayList<Player> players;
@@ -292,7 +292,6 @@ class GameStateManager { //<>// //<>// //<>// //<>//
     points = 0;
     newRun = true;
     savetext = "Enter name here";
-    pz.healTime = 7500*2;
     fill(255);
   }
 

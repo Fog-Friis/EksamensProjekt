@@ -280,8 +280,8 @@ class Player {
   }
   void bonus() {
     if (bonustime < millis()) {
-      if (bonusMultiplier > 1.1) {
-        bonusMultiplier -= 1;
+      if (bonusMultiplier > 3.1) {
+        bonusMultiplier -= 2;
         bonustime = millis()+bonuslosetime/2;
       }
     }
