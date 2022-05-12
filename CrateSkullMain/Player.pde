@@ -181,20 +181,51 @@ class Player {
     switch (playerNR) {
     case 1:
       text(WPMp1.WeaponText, 0, -80);
-      break;
-    case 2:
-      text(WPMp2.WeaponText, 0, -80);
-      break;
-    case 3:
-      text(WPMpz.WeaponText, 0, -80);
+            if (WPMp1.WeaponID == 4 && p1Sword.time < (millis())){
+          fill(255,102,0);
+        rect(-28, -48, 55, 7);
+      }
+       else if (WPMp1.WeaponID == 4 && p1Sword.time >= (millis())){
+          fill(155,140);
+        rect(-28, -48, 55, 7);
+      }
       break;
     }
+    case 2:
+      text(WPMp2.WeaponText, 0, -80);
+            if (WPMp2.WeaponID == 4 && p2Sword.time < (millis())){
+          fill(255,102,0);
+        rect(-28, -48, 55, 7);
+      }
+       else if (WPMp2.WeaponID == 4 && p2Sword.time >= (millis())){
+          fill(155,140);
+        rect(-28, -48, 55, 7);
+      }
+      break;
+    }
+    case 3:
+      text(WPMpz.WeaponText, 0, -80);
+      if (WPMpz.WeaponID == 4 && pzSword.time < (millis())){
+          fill(255,102,0);
+        rect(-28, -48, 55, 7);
+      }
+       else if (WPMpz.WeaponID == 4 && pzSword.time >= (millis())){
+          fill(155,140);
+        rect(-28, -48, 55, 7);
+      }
+      break;
+    }
+    fill(225,0,0);
     rect(-maxHealth/2, -70, maxHealth, 20);
     fill(col);
     rect(-maxHealth/2, -70, currentHealth, 20);
+
+    fill(col);
     rotate(theta);
+    
     //rect(-25, -25, 50, 50);
     circle(0, 0, 2*radius);
+    
     rotate(PI/2);
     image(look, 5-radius, 11-radius);
     switch (playerNR) {
