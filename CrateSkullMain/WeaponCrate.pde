@@ -340,13 +340,13 @@ class WeaponCrate {
     }
 
     combo = bonusMultiplier;
-    if (combo >= 10 && !unlockedUZI) {
+    if (combo >= 5 && !unlockedUZI) {
       unlocked = true;
       unlockedUZI = true;
       pzUZI.currentBullets = pzUZI.maxBullets;
       unlockedText = "Picked Up UZI!";
     }
-    if (combo >= 20 && !unlockedShotgun) {
+    if (combo >= 15 && !unlockedShotgun) {
       unlocked = true;
       unlockedShotgun = true;
       pzShotgun.currentBullets = pzShotgun.maxBullets;
