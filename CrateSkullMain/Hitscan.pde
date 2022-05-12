@@ -621,7 +621,7 @@ class Weapon {
       enemycount = EM.ShooterEnemies.size();
       if (enemycount == 0) {
       } else {
-        for (int x = 0; x <= enemycount; x+= 1) {
+        for (int x = 0; x < enemycount; x+= 1) {
           pos2 =  EM.ShooterEnemies.get(x).pos;
           float d = pos.dist(pos2);
           x -= x;

@@ -159,7 +159,7 @@ class Player {
     image(p, 0, -armpos-50);
     popMatrix();
     if (armpos <= 0) cooldown ++;
-    if (cooldown > 30) {
+    if (cooldown > 54) {
       cooldown = 0;
       armpos = 0.5;
       hitdir = abs(hitdir);
