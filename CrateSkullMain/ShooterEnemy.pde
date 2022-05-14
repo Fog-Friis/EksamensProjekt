@@ -73,7 +73,6 @@ class Bullet {
   PVector pos, vel;
   float angle;
   float radius;
-  float dir;
   color col;
   boolean hasHit = false;
 
@@ -111,7 +110,7 @@ class Bullet {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(255, 255, 0);
+    fill(col);
     noStroke();
     circle(0, 0, radius*2);
     translate(0, 0);

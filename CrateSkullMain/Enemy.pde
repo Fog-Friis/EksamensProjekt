@@ -3,29 +3,22 @@ PImage zb1, zb2, zb3;
 
 class Enemy {
   PVector pos, vel = new PVector();
-  boolean up, down, left, right;
-  int dir;
   int life;
   float theta;
   float attackRate;
-  PVector playerPos = new PVector();
   float radius;
 
   int[][] grid;
   int start, end;
 
-  ArrayList openSet;
-  ArrayList closedSet;
+  ArrayList openSet, closedSet;
   ArrayList vertices;
   ArrayList path;
-  ArrayList currentPath;
 
   ArrayList<PVector> points;
 
   float x1, x2, y1, y2;
   float nextFindTime = 1000, findRate = 1000;
-
-  ArrayList<PVector> enemiesPos;
 
   Enemy(PVector p, float r, int l) {
     pos = p;
@@ -39,20 +32,16 @@ class Enemy {
     closedSet = new ArrayList();
     vertices = new ArrayList();
     path = new ArrayList();
-    currentPath = new ArrayList();
 
     grid = new int[height/40][width/40];
     generateMap();
-
-    enemiesPos = new ArrayList<PVector>();
 
     zb1 = loadImage("zb1.png");
     zb2 = loadImage("zb2.png");
     zb3 = loadImage("zb3.png");
   }
+  
   void generateMap() {
-
-    int q;
     Vertex v;
     for ( int ix = 0; ix < width/40.0; ix+=1 ) {
       for ( int iy = 0; iy < height/40.0; iy+=1) {
@@ -230,7 +219,7 @@ class Enemy {
     } else {
       return false;
     }
-  }
+  }  
 
   void takeDamage(float damage) {
     life -= damage;

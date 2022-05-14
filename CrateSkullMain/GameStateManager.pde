@@ -94,11 +94,11 @@ class GameStateManager { //<>// //<>// //<>// //<>//
 
     //  tb1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 4);
     //  textBoxes.add(tb1);
-    tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 7);
+    tb2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), 7);
     textBoxes.add(tb2);
-    tbs1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 2);
+    tbs1 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), 2);
     textBoxes.add(tbs1);
-    tbs2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), false, 5);
+    tbs2 = new TextBox(new PVector(width/2-200, height/2), new PVector(400, 70), 5);
     textBoxes.add(tbs2);
 
     zs = new Button(new PVector(width/2-200, height*0.4-60), new PVector(400, 120), 5, color(150), color(160), color(140), "Zombie Survival", 48, 0);
