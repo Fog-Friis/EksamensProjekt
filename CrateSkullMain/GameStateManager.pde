@@ -42,14 +42,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;  //<>// //<>// //<>// //<>//
+boolean newRun; //<>//
 
-ArrayList<Level> levels;  //<>// //<>// //<>// //<>//
+ArrayList<Level> levels; //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager { //<>// //<>// //<>// //<>//
+class GameStateManager { //<>//
 
-  GameStateManager() {    //<>// //<>// //<>// //<>//
+  GameStateManager() { //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  

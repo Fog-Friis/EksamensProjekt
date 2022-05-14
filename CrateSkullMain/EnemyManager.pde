@@ -8,8 +8,9 @@ class EnemyManager {
   ArrayList<ShooterEnemy> ShooterEnemies = new ArrayList<ShooterEnemy>();
 
   int roundNumber = 0;
-  int startEnemyCount = 20, startShooterCount = 0, spawnedEnemies;
-  int roundEnemyCount, roundShooterCount, spawnedShooters;
+  int startEnemyCount = 20, startShooterCount = 0;
+  int spawnedEnemies, spawnedShooters;
+  int roundEnemyCount, roundShooterCount;
 
 
   EnemyManager() {
@@ -46,10 +47,10 @@ class EnemyManager {
       }
     }
     for (int i = 0; i < e.size(); i++) {
-      collisionBetween(e.get(i).pos, e.get(i).radius, pz.pos, pz.radius);
+      collisionBetween(e.get(i).pos, e.get(i).radius, p.pos, p.radius);
     }    
     for (int i = 0; i < s.size(); i++) {
-      collisionBetween(s.get(i).pos, s.get(i).radius, pz.pos, pz.radius);
+      collisionBetween(s.get(i).pos, s.get(i).radius, p.pos, p.radius);
     }
     for (Enemy E : e) {
       if (E.pos.y <= 0) E.pos.y = E.pos.y + 200;
