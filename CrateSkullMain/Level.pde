@@ -10,8 +10,6 @@ class Level {
   ArrayList<Connection> cons;
   PVector newPoint, current;
 
-  boolean[] openTop, openBottom, openLeft, openRight;
-
   //antal rækker og kolonner med leveltiles
   int rows, columns;
   //størrelsen af væggene
@@ -35,10 +33,6 @@ class Level {
     openSet = new ArrayList<PVector>();
     cons = new ArrayList<Connection>();
     openSet.add(points.get(0));
-    openTop = new boolean[points.size()];
-    openBottom = new boolean[points.size()];
-    openLeft = new boolean[points.size()];
-    openRight = new boolean[points.size()];
     randomSeed(seed);
 
     weaponCrates = new ArrayList<WeaponCrate>();
@@ -54,10 +48,6 @@ class Level {
     openSet = new ArrayList<PVector>();
     cons = new ArrayList<Connection>();
     openSet.add(points.get(0));
-    openTop = new boolean[points.size()];
-    openBottom = new boolean[points.size()];
-    openLeft = new boolean[points.size()];
-    openRight = new boolean[points.size()];
     randomSeed(seed);
     
     weaponCrates = new ArrayList<WeaponCrate>();
@@ -114,13 +104,6 @@ class Level {
   void drawGraph() {
     randomSeed(seed);
 
-    for (int i = 0; i < points.size(); i++) {
-      openRight[i] = false;
-      openLeft[i] = false;
-      openBottom[i] = false;
-      openTop[i] = false;
-    }
-
     while (openSet.size() < points.size()) {
       current = openSet.get(openSet.size()-1);
 
@@ -135,15 +118,6 @@ class Level {
       }
 
       cons.add(new Connection(current, newPoint));
-    }
-
-    for (PVector p : openSet) {
-      if (p == openSet.get(openSet.size()-1)) {
-        fill(255, 0, 0);
-      } else {
-        fill(255);
-      }
-      circle(p.x, p.y, 10);
     }
     for (Connection c : cons) {
       c.display();

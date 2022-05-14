@@ -1,6 +1,7 @@
 class WallTile {
   PVector pos;
   int size;
+  ArrayList<PVector> playerPos;
 
   WallTile(int i, int j, int s) {
     pos = new PVector(i, j);
