@@ -215,15 +215,13 @@ class Level {
 class LevelTile {
   PVector pos;
   ArrayList<WallTile> wallTiles;
-  ArrayList<LevelTile> neighbors;
 
   //størrelsen af hver celle
   int cellSize;
   //bredde og højde af tile
   int tileRows, tileColumns;
 
-  int rows;
-  int columns;
+  int rows, columns;
 
   //angiver typen af tile, hvor: 
   //0 ingen vægge
@@ -239,9 +237,6 @@ class LevelTile {
 
   boolean openTop, openBottom, openLeft, openRight;
 
-  //angiver om tilen skal spawne fjender og/eller have en våbenpakke
-  boolean spawnTile, hasWeaponCrate;
-
   //konstruktør
   LevelTile (int i, int j, int cs) {
     pos = new PVector(i, j);
@@ -250,10 +245,9 @@ class LevelTile {
     tileColumns = 9;
     rows = height/(cellSize*9);
     columns = width/(cellSize*8);
-    spawnTile = true;
-    hasWeaponCrate = false;
+    //spawnTile = true;
+    //hasWeaponCrate = false;
     wallTiles = new ArrayList<WallTile>();
-    neighbors = new ArrayList<LevelTile>();
     type = setType();
     addWallTiles();
   }
@@ -438,14 +432,6 @@ class LevelTile {
           }
         }
       }
-    }
-  }
-
-  PVector getSpawnPoint() {
-    if (spawnTile) {
-      return new PVector(pos.x+4*cellSize, pos.y+4.5*cellSize);
-    } else {
-      return null;
     }
   }
 

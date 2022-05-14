@@ -1,15 +1,10 @@
 class WallTile {
   PVector pos;
   int size;
-  ArrayList<PVector> playerPos;
-  boolean loaded;
 
   WallTile(int i, int j, int s) {
     pos = new PVector(i, j);
     size = s;
-    playerPos = new ArrayList<PVector>();
-
-    for (Player pl : players) playerPos.add(pl.getPos());
   }
 
   boolean isUp(PVector p) {

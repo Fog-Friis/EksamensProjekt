@@ -320,8 +320,8 @@ class Vertex {
   float x, y;
   float g, h;
   int p;
-  ArrayList neighbors; //array of node objects, not indecies
-  ArrayList cost; //cost multiplier for each corresponding
+  ArrayList neighbors; //array of vertex objects
+  ArrayList cost; //cost multiplier for each corresponding neighbor
   Vertex(float x, float y) {
     this.x = x;
     this.y = y;
