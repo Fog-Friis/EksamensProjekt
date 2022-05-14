@@ -22,7 +22,7 @@ class Weapon {
   int playerNR;
   int Life;
   int swordSize = 60;
-  int bombRange = 100, drawBombRange =0;
+  int bombRange = 100, drawBombRange =0; 
   color c;
   int explosionRange = 200;
   float bombDelay = 700;
@@ -565,8 +565,7 @@ class Weapon {
             if (EM.Enemies.get(x).life <= 0) {
               EM.Enemies.remove(x);
               pz.points();
-              x = x-1;
-
+              x = x-1;  //Når man fjerner et element fra en arraylist bliver alle elementer indexnr med en højere værdi end den der blev fjernet minuset med 1
             } else {
             }
             enemycount = enemycount-1;
@@ -608,7 +607,7 @@ class Weapon {
         for (int x = 0; x < enemycount; x++) {
           pos2 =  EM.Enemies.get(x).pos;
           float d = pos.dist(pos2);
-          
+
           if (d <= swordSize*1.5) {
             EM.Enemies.remove(x);
             pz.points();
@@ -628,8 +627,7 @@ class Weapon {
           if (d <= swordSize) {
             EM.ShooterEnemies.remove(x);
             pz.points();
-            
-         }
+          }
         }
       }
       break;
@@ -646,7 +644,7 @@ class Weapon {
         if (d <= explosionRange) {
           int d2= (int) d;
           Life  =  EM.Enemies.get(x).life;
-          Life = Life - ((explosionRange/d2)*damage); //Adjust damage
+          Life = Life - ((explosionRange/d2)*damage); //Skaden bliver dermed mindre desto længerede væk man er granaten (Hvis fjenderne binder sig i explosion radiusen.
           if (Life <= 0) {
             pz.points();
             EM.Enemies.get(x).life=Life;
