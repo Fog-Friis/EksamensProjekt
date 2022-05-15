@@ -1,0 +1,12 @@
+Zombie survival:
+Movement is controlled by  the 'wasd' buttons. 
+Switching weapons is done by pressing the 'e' button.
+Using the equipped weapons is done by  pressing the space button.
+
+1v1 deathmatch:
+Player one has the same controls as the player in the Zombie survival gamemode.
+Player two's movement is controlled by the arrow keys.
+Player two can switch weapons by pressing the ',' button.
+Player two can use the equipped weapon by pressing '.' button.
+
+In any of the two gamemodes the game can be paused by pressing 'p'.

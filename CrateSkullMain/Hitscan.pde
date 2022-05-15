@@ -108,16 +108,8 @@ class Weapon {
       for (int i = minDistance; i <  maxDistance; i+= minDistance) {
         pos.y += yDistance;
         pos.x += xDistance;
-        // pos.add(pos2);
-
-
         int posx = (int) pos.x;
         int posy = (int) pos.y;
-
-
-
-        //  c = pixels[posy*width+posx];
-
         c = get(posx, posy);
         if ((c == colorTarget1 ) //Enemy
           || c == (colorTarget2) || //Shooter Enemy
