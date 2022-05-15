@@ -30,7 +30,7 @@ class EnemyManager {
     for (int i = 0; i < e.size(); i++) {
       for (int j = 0; j < e.size(); j++) {
         if (i != j) {
-          collisionBetween(e.get(i).pos, e.get(i).radius, e.get(j).pos, e.get(i).radius);
+          collisionBetween(e.get(i).pos, e.get(i).radius, e.get(j).pos, e.get(j).radius);
         }
       }
     }

@@ -101,9 +101,6 @@ class Bullet {
   }
 
   void update() {
-    if (vel.x == 0 || vel.y == 0 || pos.x < width || pos.x > 0) {
-      hasHit = false;
-    }
     pos.add(vel);
   }
 
