@@ -370,7 +370,6 @@ class Enemy {
         findNewPath();
         addPoints();
         points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
-        //nextFindTime = millis() + findRate;
       } else {
         if (millis() > nextFindTime) {
           findNewPath();
@@ -406,29 +405,6 @@ class Enemy {
 
   public void takeDamage(float damage) {
     life -= damage;
-  }
-
-  Vertex t1;
-  public void drawGrid() {
-    for ( int i = 0; i < vertices.size(); i++ ) {
-      t1 = (Vertex)vertices.get(i);
-      if (i==start) {
-        fill(0, 255, 0);
-        //rect(t1.x, t1.y, 40, 40);
-      } else if (i==end) {
-        fill(255, 0, 0);
-        //rect(t1.x, t1.y, 40, 40);
-      } else {
-        if (path.contains(t1)) {
-          fill(255);
-          //rect(t1.x, t1.y, 40, 40);
-        } else {
-          fill(200, 200, 200);
-        }
-      }
-      noStroke();
-      rect(t1.x, t1.y, 40, 40);
-    }
   }
 
   public void update() {
@@ -703,14 +679,14 @@ Button zs, zss, zb, zggb, dm, dms, db, dggb, cs, cb, sb, dmpa;
 ArrayList<PVector> spawns;
 boolean gamePaused;
 boolean pausedScreen;
-boolean newRun;
+boolean newRun; //<>//
 
-ArrayList<Level> levels;
+ArrayList<Level> levels; //<>//
 Level lvl1, lvl2;  
 
-class GameStateManager {
+class GameStateManager { //<>//
 
-  GameStateManager() {
+  GameStateManager() { //<>//
     gamestate = 0;  
     gamePaused = false;   
     pausedScreen = false;  
@@ -3504,7 +3480,7 @@ public void updateWeaponText(WeaponManager W, Weapon Glock, Weapon UZI, Weapon S
     break;
   }
 }
-class WeaponManager { //<>//
+class WeaponManager { //<>// //<>//
   String WeaponName1 ="Glock", WeaponName2 = "UZI", WeaponName3= "Shotgun", WeaponName4= "Sword", WeaponName5= "Grenades";
   int WeaponID=1;
   int PlayerNR;
@@ -3555,8 +3531,8 @@ class WeaponManager { //<>//
             break;
           } else { 
             WeaponID = WeaponID+1;
-          }
-        case 5: 
+          } //<>//
+        case 5:  //<>//
           if  (p1Grenades.currentBullets>0) {
             WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
           } else { 

@@ -1,4 +1,4 @@
-class WeaponManager { //<>//
+class WeaponManager { //<>// //<>//
   String WeaponName1 ="Glock", WeaponName2 = "UZI", WeaponName3= "Shotgun", WeaponName4= "Sword", WeaponName5= "Grenades";
   int WeaponID=1;
   int PlayerNR;
@@ -49,8 +49,8 @@ class WeaponManager { //<>//
             break;
           } else { 
             WeaponID = WeaponID+1;
-          }
-        case 5: 
+          } //<>//
+        case 5:  //<>//
           if  (p1Grenades.currentBullets>0) {
             WeaponText = WeaponName5+" "+p1Grenades.currentBullets+"/"+p1Grenades.maxBullets;
           } else { 

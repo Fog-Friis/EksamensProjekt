@@ -187,7 +187,6 @@ class Enemy {
         findNewPath();
         addPoints();
         points.add(new PVector(floor(x2/40)*40+8, floor(y2/40)*40+8));
-        //nextFindTime = millis() + findRate;
       } else {
         if (millis() > nextFindTime) {
           findNewPath();
@@ -223,29 +222,6 @@ class Enemy {
 
   void takeDamage(float damage) {
     life -= damage;
-  }
-
-  Vertex t1;
-  void drawGrid() {
-    for ( int i = 0; i < vertices.size(); i++ ) {
-      t1 = (Vertex)vertices.get(i);
-      if (i==start) {
-        fill(0, 255, 0);
-        //rect(t1.x, t1.y, 40, 40);
-      } else if (i==end) {
-        fill(255, 0, 0);
-        //rect(t1.x, t1.y, 40, 40);
-      } else {
-        if (path.contains(t1)) {
-          fill(255);
-          //rect(t1.x, t1.y, 40, 40);
-        } else {
-          fill(200, 200, 200);
-        }
-      }
-      noStroke();
-      rect(t1.x, t1.y, 40, 40);
-    }
   }
 
   void update() {
